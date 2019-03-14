@@ -7,17 +7,17 @@
   
   <title>hello everyone | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#####  准备工作  Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 1uname -r  问题，卸载旧版本的包 区别？  1yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64  卸载旧版本     12345678910yum">
+  <meta name="description" content="* 准备工作Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 1uname -r * 问题，卸载旧版本的包 区别？1yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64 *  卸载旧版本12345678910yum remove doc">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hello everyone">
 <meta property="og:url" content="http://yoursite.com/2019/03/14/hello-everyone/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="#####  准备工作  Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 1uname -r  问题，卸载旧版本的包 区别？  1yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64  卸载旧版本     12345678910yum">
+<meta property="og:description" content="* 准备工作Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 1uname -r * 问题，卸载旧版本的包 区别？1yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64 *  卸载旧版本12345678910yum remove doc">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-14T04:01:10.891Z">
+<meta property="og:updated_time" content="2019-03-14T05:49:00.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hello everyone">
-<meta name="twitter:description" content="#####  准备工作  Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 1uname -r  问题，卸载旧版本的包 区别？  1yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64  卸载旧版本     12345678910yum">
+<meta name="twitter:description" content="* 准备工作Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker 1uname -r * 问题，卸载旧版本的包 区别？1yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64 *  卸载旧版本12345678910yum remove doc">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -86,53 +86,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#####</p>
-<ul>
-<li>准备工作</li>
-</ul>
-<p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker</p>
+        <h5 id="准备工作"><a href="#准备工作" class="headerlink" title="* 准备工作"></a>* 准备工作</h5><p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
-<ul>
-<li>问题，卸载旧版本的包 区别？</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64</span><br></pre></td></tr></table></figure>
-<ul>
-<li>卸载旧版本   </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                      docker-client \</span><br><span class="line">                      docker-client-latest \</span><br><span class="line">                      docker-common \</span><br><span class="line">                      docker-latest \</span><br><span class="line">                      docker-latest-logrotate \</span><br><span class="line">                      docker-logrotate \</span><br><span class="line">                      docker-selinux \</span><br><span class="line">                      docker-engine-selinux \</span><br><span class="line">                      docker-engine</span><br></pre></td></tr></table></figure>
-<ul>
-<li>使用 yum 安装                     </li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils \</span><br><span class="line">               device-mapper-persistent-data \</span><br><span class="line">               lvm2</span><br></pre></td></tr></table></figure>
-<ul>
-<li>鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加 yum 软件源：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">        --add-repo \</span><br><span class="line">        https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-<ul>
-<li>官方源</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \  https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>由于k8s的支持问题，我们选择，安装17.03.2.ce版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">yum makecache fast</span><br><span class="line"></span><br><span class="line"> yum install -y --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos docker-ce-selinux-17.03.2.ce-1.el7.centos</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动 Docker CE       </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker &amp;&amp; systemctl start docker</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<ul>
-<li>测试 Docker 是否安装正确</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
-<p>Ubuntu 16.04+、Debian 8+、CentOS 7 加速</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi  /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">      &quot;registry-mirrors&quot;: [</span><br><span class="line">        &quot;https://registry.docker-cn.com&quot;</span><br><span class="line">      ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="问题，卸载旧版本的包-区别？"><a href="#问题，卸载旧版本的包-区别？" class="headerlink" title="* 问题，卸载旧版本的包 区别？"></a>* 问题，卸载旧版本的包 区别？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64</span><br></pre></td></tr></table></figure>
+<h5 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="*  卸载旧版本"></a>*  卸载旧版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                      docker-client \</span><br><span class="line">                      docker-client-latest \</span><br><span class="line">                      docker-common \</span><br><span class="line">                      docker-latest \</span><br><span class="line">                      docker-latest-logrotate \</span><br><span class="line">                      docker-logrotate \</span><br><span class="line">                      docker-selinux \</span><br><span class="line">                      docker-engine-selinux \</span><br><span class="line">                      docker-engine</span><br></pre></td></tr></table></figure>
+<h5 id="使用-yum-安装"><a href="#使用-yum-安装" class="headerlink" title="* 使用 yum 安装"></a>* 使用 yum 安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils \</span><br><span class="line">               device-mapper-persistent-data \</span><br><span class="line">               lvm2</span><br></pre></td></tr></table></figure>
+<h5 id="鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加-yum-软件源："><a href="#鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加-yum-软件源：" class="headerlink" title="* 鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加 yum 软件源："></a>* 鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加 yum 软件源：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">        --add-repo \</span><br><span class="line">        https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<h5 id="官方源"><a href="#官方源" class="headerlink" title="*  官方源"></a>*  官方源</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \  https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
+<h5 id="由于k8s的支持问题，我们选择，安装17-03-2-ce版本"><a href="#由于k8s的支持问题，我们选择，安装17-03-2-ce版本" class="headerlink" title="* 由于k8s的支持问题，我们选择，安装17.03.2.ce版本"></a>* 由于k8s的支持问题，我们选择，安装17.03.2.ce版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">yum makecache fast</span><br><span class="line"></span><br><span class="line">yum install -y --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos docker-ce-selinux-17.03.2.ce-1.el7.centos</span><br></pre></td></tr></table></figure>
+<h5 id="启动-Docker-CE"><a href="#启动-Docker-CE" class="headerlink" title="* 启动 Docker CE"></a>* 启动 Docker CE</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker &amp;&amp; systemctl start docker</span><br></pre></td></tr></table></figure>
+<h5 id="测试-Docker-是否安装正确"><a href="#测试-Docker-是否安装正确" class="headerlink" title="* 测试 Docker 是否安装正确"></a>* 测试 Docker 是否安装正确</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
+<h5 id="Ubuntu-16-04-、Debian-8-、CentOS-7-加速"><a href="#Ubuntu-16-04-、Debian-8-、CentOS-7-加速" class="headerlink" title="Ubuntu 16.04+、Debian 8+、CentOS 7 加速"></a>Ubuntu 16.04+、Debian 8+、CentOS 7 加速</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi  /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">      &quot;registry-mirrors&quot;: [</span><br><span class="line">        &quot;https://registry.docker-cn.com&quot;</span><br><span class="line">      ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>  注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。之后重新启动服务。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload &amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure></p>
-<p> CentOS7查看和关闭防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br><span class="line"></span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"></span><br><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
+<h5 id="CentOS7查看和关闭防火墙"><a href="#CentOS7查看和关闭防火墙" class="headerlink" title="CentOS7查看和关闭防火墙"></a>CentOS7查看和关闭防火墙</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br><span class="line"></span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"></span><br><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/03/14/hello-everyone/" data-id="cjt83wdcy0000bovshki3u8dk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/03/14/hello-everyone/" data-id="cjt87re3l0000bsvsfb2fje8s" class="article-share-link">Share</a>
       
       
     </footer>

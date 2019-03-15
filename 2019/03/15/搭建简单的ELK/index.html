@@ -6,15 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Fvelement</title>
+  <title>搭建简单的ELK | Fvelement</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Fvelement">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="建立目录mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs} mkdir -p /opt/elk/{elasticsearch,logstash} 在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：[root@tccp ~]# cd /opt/server/elk/ [root@tccp elk]# tree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建简单的ELK">
+<meta property="og:url" content="http://yoursite.com/2019/03/15/搭建简单的ELK/index.html">
 <meta property="og:site_name" content="Fvelement">
+<meta property="og:description" content="建立目录mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs} mkdir -p /opt/elk/{elasticsearch,logstash} 在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：[root@tccp ~]# cd /opt/server/elk/ [root@tccp elk]# tree">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-15T03:13:55.036Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fvelement">
+<meta name="twitter:title" content="搭建简单的ELK">
+<meta name="twitter:description" content="建立目录mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs} mkdir -p /opt/elk/{elasticsearch,logstash} 在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：[root@tccp ~]# cd /opt/server/elk/ [root@tccp elk]# tree">
   
     <link rel="alternative" href="/atom.xml" title="Fvelement" type="application/atom+xml">
   
@@ -144,211 +148,172 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-搭建简单的ELK" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      搭建简单的ELK
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/15/搭建简单的ELK/" class="archive-article-date">
+
+        
+        <a href="/2019/03/15/搭建简单的ELK/" class="archive-article-date">
   	<time datetime="2019-03-15T03:11:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-15</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/15/搭建简单的ELK/">搭建简单的ELK</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="建立目录"><a href="#建立目录" class="headerlink" title="建立目录"></a>建立目录</h3><pre><code>mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs}
+mkdir -p /opt/elk/{elasticsearch,logstash}
+</code></pre><h3 id="在-opt-server-elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下："><a href="#在-opt-server-elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：" class="headerlink" title="在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下："></a>在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：</h3><pre><code>[root@tccp ~]# cd /opt/server/elk/
+[root@tccp elk]# tree ./
+./
+├── docker-compose.yml
+├── elasticsearch
+│   └── elasticsearch.yml
+├── kibana
+└── logstash
+    └── conf.d
+        ├── logstash.conf
+</code></pre><h3 id="elasticsearch-yml文件内容如下："><a href="#elasticsearch-yml文件内容如下：" class="headerlink" title="elasticsearch.yml文件内容如下："></a>elasticsearch.yml文件内容如下：</h3><pre><code>cluster.name: &quot;docker-cluster&quot;
+network.host: 0.0.0.0discovery.zen.minimum_master_nodes: 1
+discovery.type: single-node
+</code></pre><h3 id="logstash-conf文件内容如下："><a href="#logstash-conf文件内容如下：" class="headerlink" title="logstash.conf文件内容如下："></a>logstash.conf文件内容如下：</h3><p>`<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">input &#123;</span><br><span class="line"></span><br><span class="line">       file &#123;</span><br><span class="line"></span><br><span class="line">               start_position =&gt; &quot;beginning&quot;</span><br><span class="line">               path =&gt; [&quot;/var/log/nginx/access.log&quot;]</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"># 以上file段配置是针对logstash作为agent端收集日志的场景使用，从本地文件输入#下面的注释内容可以忽略，是采用redis作为缓存服务架构方式，这里用不到#        redis &#123;#        host =&gt; &quot;192.168.2.142&quot;#         port =&gt; &quot;6379&quot;#         key =&gt; &quot;filebeat&quot;    #这里的key要与filebeat.yml中定义的key相同#         data_type =&gt; &quot;list&quot;#         threads =&gt; &quot;5&quot;#         db =&gt; &quot;0&quot;#    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">filter &#123;</span><br><span class="line"></span><br><span class="line">        date &#123;</span><br><span class="line">        match =&gt; [ &quot;timestamp&quot;,&quot;dd/MMM/YYYY:H:m:s Z&quot; ]</span><br><span class="line">        remove_field =&gt; &quot;timestamp&quot;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">                elasticsearch &#123;       #输出到elasticsearch服务器，先输出到本地终端查看，没有问题后输出到elasticsearch</span><br><span class="line">                    hosts =&gt; &quot;elasticsearch:9200&quot;  #这里使用elasticsearch容器名称的方式连接到ES</span><br><span class="line">                    index =&gt; &quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</span><br><span class="line">                    document_type =&gt; &quot;nginx_logs&quot;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">#               stdout &#123;            #输出到屏幕测试#                    codec =&gt; rubydebug#                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure></p>
+<p>`</p>
+<h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line"> elasticsearch:</span><br><span class="line">    image: elasticsearch</span><br><span class="line">    container_name: elasticsearch</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;9200:9200&quot;</span><br><span class="line">      - &quot;9300:9300&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro</span><br><span class="line">    environment:</span><br><span class="line">       ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line"> logstash:</span><br><span class="line">    image: logstash</span><br><span class="line">    container_name: logstash</span><br><span class="line">    command: logstash -f /etc/logstash/conf.d/logstash.conf</span><br><span class="line">    volumes:</span><br><span class="line">      - ./logstash/conf.d:/etc/logstash/conf.d</span><br><span class="line">      - ./nginx/logs:/var/log/nginx</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;5000:5000&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line"> kibana:</span><br><span class="line">    image: kibana</span><br><span class="line">    restart: &quot;always&quot;</span><br><span class="line">    container_name: kibana</span><br><span class="line">    environment:</span><br><span class="line">      - ELASTICSEARCH_URL=http://elasticsearch:9200</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;5601:5601&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line"> nginx:</span><br><span class="line">     image: nginx</span><br><span class="line">     restart: &quot;always&quot;</span><br><span class="line">     container_name: nginx</span><br><span class="line">     ports:</span><br><span class="line">       - &quot;80:80&quot;</span><br><span class="line">     volumes:</span><br><span class="line">        - ./nginx/html:/usr/share/nginx/html</span><br><span class="line">        - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf</span><br><span class="line">        - ./nginx/conf.d:/etc/nginx/conf.d</span><br><span class="line">        - ./nginx/logs:/var/log/nginx</span><br><span class="line">networks:</span><br><span class="line"> elk:</span><br><span class="line">  driver: bridge</span><br></pre></td></tr></table></figure>
+      
 
-        <div class="article-info info-on-right">
-          
-          
-
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/03/15/搭建简单的ELK/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/从零开始搭建一套日志收集分析系统/" class="archive-article-date">
-  	<time datetime="2019-03-14T08:53:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/14/从零开始搭建一套日志收集分析系统/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">从零开始搭建一套日志收集分析系统</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/从零开始搭建一套日志收集分析系统/">从零开始搭建一套日志收集分析系统</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/docker-compose安装/" class="archive-article-date">
-  	<time datetime="2019-03-14T08:47:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/docker-compose安装/">docker compose安装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/安装kafka/" class="archive-article-date">
-  	<time datetime="2019-03-14T07:37:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/安装kafka/">kafka安装</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/hexo-添加本地图片/" class="archive-article-date">
-  	<time datetime="2019-03-14T06:02:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/hello-everyone/" class="archive-article-date">
-  	<time datetime="2019-03-14T03:40:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/hello-everyone/">docker 安装</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/03/14/hello-world/" class="archive-article-date">
-  	<time datetime="2019-03-14T03:25:03.422Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/14/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -371,8 +336,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

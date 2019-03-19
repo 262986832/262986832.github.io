@@ -146,6 +146,74 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-安装logstash" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/19/安装logstash/">安装logstash</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/19/安装logstash/" class="archive-article-date">
+  	<time datetime="2019-03-19T02:23:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><a href="https://www.elastic.co/downloads/logstash" target="_blank" rel="noopener">下载地址</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">wget https://artifacts.elastic.co/downloads/logstash/logstash-6.5.1.tar.gz</span><br><span class="line">tar -zxvf logstash-6.5.1.tar.gz</span><br><span class="line">bin/logstash -e &apos;input&#123;stdin&#123;&#125;&#125;output&#123;stdout&#123;codec=&gt;rubydebug&#125;&#125;&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="像下面这样，说明启动成功了"><a href="#像下面这样，说明启动成功了" class="headerlink" title="像下面这样，说明启动成功了"></a>像下面这样，说明启动成功了</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Pipeline started successfully &#123;:pipeline_id=&gt;&quot;main&quot;, :thread=&gt;&quot;#&lt;Thread:0x678a194a run&gt;&quot;&#125;</span><br><span class="line">The stdin plugin is now waiting for input:</span><br><span class="line">Pipelines running &#123;:count=&gt;1, :running_pipelines=&gt;[:main], :non_running_pipelines=&gt;[]&#125;</span><br><span class="line">Successfully started Logstash API endpoint &#123;:port=&gt;9600&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="启动成功后在控制台输入-hello-world"><a href="#启动成功后在控制台输入-hello-world" class="headerlink" title="启动成功后在控制台输入 hello, world!"></a>启动成功后在控制台输入 hello, world!</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hello, wrold!</span><br><span class="line">&#123;</span><br><span class="line">    &quot;@timestamp&quot; =&gt; 2018-11-24T15:45:10.941Z,</span><br><span class="line">          &quot;host&quot; =&gt; &quot;localhost.localdomain&quot;,</span><br><span class="line">       &quot;message&quot; =&gt; &quot;hello, wrold!&quot;,</span><br><span class="line">      &quot;@version&quot; =&gt; &quot;1&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>小技巧<br>使用 -t 测试配置文件是否有错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./bin/logstash -t -f ./conf.d/test.conf </span><br><span class="line">#如果没有错误应该是这样的</span><br><span class="line">Sending Logstash logs to /usr/local/logstash/logs which is now configured via log4j2.properties</span><br><span class="line">[2018-11-26T09:54:53,868][WARN ][logstash.config.source.multilocal] Ignoring the &apos;pipelines.yml&apos; file because modules or command line options are specified</span><br><span class="line">Configuration OK</span><br><span class="line">[2018-11-26T09:54:58,014][INFO ][logstash.runner          ] Using config.test_and_exit mode. Config Validation Result: OK. Exiting Logstash</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/03/19/安装logstash/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-搭建简单的ELK" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -408,6 +476,8 @@ discovery.type: single-node
 <h4 id="查看刚创建的主题："><a href="#查看刚创建的主题：" class="headerlink" title="查看刚创建的主题："></a>查看刚创建的主题：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/opt/kafka/bin/kafka-topics.sh --list --zookeeper 172.18.0.4:2181</span><br></pre></td></tr></table></figure>
 <h4 id="发送消息："><a href="#发送消息：" class="headerlink" title="发送消息："></a>发送消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-producer.sh --broker-list 172.18.0.3:9092 --topic my-test</span><br></pre></td></tr></table></figure>
 <h4 id="发送消息：-1"><a href="#发送消息：-1" class="headerlink" title="发送消息："></a>发送消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.18.0.3:9092 --topic my-test --from-beginning</span><br></pre></td></tr></table></figure>
+<h4 id="列出消费者组："><a href="#列出消费者组：" class="headerlink" title="列出消费者组："></a>列出消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</span><br></pre></td></tr></table></figure>
+<h4 id="查看消费者组："><a href="#查看消费者组：" class="headerlink" title="查看消费者组："></a>查看消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --describe --group test_group</span><br></pre></td></tr></table></figure>
       
 
       

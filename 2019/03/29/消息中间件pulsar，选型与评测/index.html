@@ -15,18 +15,18 @@
 
 
 
-<meta name="description" content="业务场景的支持能力在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：  消息消费——如何发送和消费消息；   消息确认（ack）——如何确认消息；   消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；消息消费模型在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。队列（Queue）模型队列模型主要是采用无序或者共享的方">
+<meta name="description" content="我们在选择中间件的过程，主要从两个方面考虑：  中间件能否满足我的业务系统的场景，并且随着业务系统的发展，最好能一直满足场景的需要。 性能指标、稳定性、运维能力附属配套是否完善消息中间件的选型过程我们也从这两个角度，进行分析业务场景的支持能力在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面： 消息消费——如何发送和消费消息；   消息确认（ack）——如何确认">
 <meta property="og:type" content="article">
-<meta property="og:title" content="消息中间件pulsar选型过程记录">
+<meta property="og:title" content="消息中间件pulsar选型记录">
 <meta property="og:url" content="http://yoursite.com/2019/03/29/消息中间件pulsar，选型与评测/index.html">
 <meta property="og:site_name" content="Fvelement">
-<meta property="og:description" content="业务场景的支持能力在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：  消息消费——如何发送和消费消息；   消息确认（ack）——如何确认消息；   消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；消息消费模型在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。队列（Queue）模型队列模型主要是采用无序或者共享的方">
+<meta property="og:description" content="我们在选择中间件的过程，主要从两个方面考虑：  中间件能否满足我的业务系统的场景，并且随着业务系统的发展，最好能一直满足场景的需要。 性能指标、稳定性、运维能力附属配套是否完善消息中间件的选型过程我们也从这两个角度，进行分析业务场景的支持能力在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面： 消息消费——如何发送和消费消息；   消息确认（ack）——如何确认">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/03/29/消息中间件pulsar，选型与评测/5beae5e79a80e.png">
-<meta property="og:updated_time" content="2019-03-29T03:10:39.179Z">
+<meta property="og:updated_time" content="2019-03-29T03:20:22.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="消息中间件pulsar选型过程记录">
-<meta name="twitter:description" content="业务场景的支持能力在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：  消息消费——如何发送和消费消息；   消息确认（ack）——如何确认消息；   消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；消息消费模型在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。队列（Queue）模型队列模型主要是采用无序或者共享的方">
+<meta name="twitter:title" content="消息中间件pulsar选型记录">
+<meta name="twitter:description" content="我们在选择中间件的过程，主要从两个方面考虑：  中间件能否满足我的业务系统的场景，并且随着业务系统的发展，最好能一直满足场景的需要。 性能指标、稳定性、运维能力附属配套是否完善消息中间件的选型过程我们也从这两个角度，进行分析业务场景的支持能力在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面： 消息消费——如何发送和消费消息；   消息确认（ack）——如何确认">
 <meta name="twitter:image" content="http://yoursite.com/2019/03/29/消息中间件pulsar，选型与评测/5beae5e79a80e.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -59,7 +59,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>消息中间件pulsar选型过程记录 | Fvelement</title>
+<title>消息中间件pulsar选型记录 | Fvelement</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -273,7 +273,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      消息中间件pulsar选型过程记录
+      消息中间件pulsar选型记录
     </h1>
   
 
@@ -290,8 +290,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="业务场景的支持能力"><a href="#业务场景的支持能力" class="headerlink" title="业务场景的支持能力"></a>业务场景的支持能力</h2><p>在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：</p>
+        <p>我们在选择中间件的过程，主要从两个方面考虑：</p>
 <ul>
+<li>中间件能否满足我的业务系统的场景，并且随着业务系统的发展，最好能一直满足场景的需要。</li>
+<li>性能指标、稳定性、运维能力附属配套是否完善<br>消息中间件的选型过程我们也从这两个角度，进行分析<h2 id="业务场景的支持能力"><a href="#业务场景的支持能力" class="headerlink" title="业务场景的支持能力"></a>业务场景的支持能力</h2>在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：</li>
 <li>消息消费——如何发送和消费消息；</li>
 </ul>
 <ul>
@@ -366,7 +368,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"消息中间件pulsar选型过程记录　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"消息中间件pulsar选型记录　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -398,7 +400,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar选型过程记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/centos7同步时间/">centos7同步时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/安装logstash/">安装logstash</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/搭建简单的ELK/">搭建简单的ELK</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/从零开始搭建一套日志收集分析系统/">从零开始搭建一套日志收集分析系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/docker-compose安装/">docker compose安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/安装kafka/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-everyone/">docker 安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar选型记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/centos7同步时间/">centos7同步时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/安装logstash/">安装logstash</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/搭建简单的ELK/">搭建简单的ELK</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/从零开始搭建一套日志收集分析系统/">从零开始搭建一套日志收集分析系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/docker-compose安装/">docker compose安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/安装kafka/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-everyone/">docker 安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-world/">Hello World</a></li></ul>
 
 
 

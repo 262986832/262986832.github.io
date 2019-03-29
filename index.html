@@ -255,6 +255,65 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-消息中间件pulsar，选型与评测" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/29/消息中间件pulsar，选型与评测/" class="article-date">
+      <time datetime="2019-03-29T02:34:57.000Z" itemprop="datePublished">2019-03-29</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar，选型与评测</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="消息中间件pulsar，选型与评测"><a href="#消息中间件pulsar，选型与评测" class="headerlink" title="消息中间件pulsar，选型与评测"></a>消息中间件pulsar，选型与评测</h1><h2 id="消息中间件选型"><a href="#消息中间件选型" class="headerlink" title="消息中间件选型"></a>消息中间件选型</h2><p>在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：<br>-消息消费——如何发送和消费消息；<br>+消息确认（ack）——如何确认消息；<br>-消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；</p>
+<h3 id="消息消费模型"><a href="#消息消费模型" class="headerlink" title="消息消费模型"></a>消息消费模型</h3><p>在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。</p>
+<h4 id="队列（Queue）模型"><a href="#队列（Queue）模型" class="headerlink" title="队列（Queue）模型"></a>队列（Queue）模型</h4><p>队列模型主要是采用无序或者共享的方式来消费消息。通过队列模型，用户可以创建多个消费者从单个管道中接收消息；当一条消息从队列发送出来后，多个消费者中的只有一个（任何一个都有可能）接收和消费这条消息。消息系统的具体实现决定了最终哪个消费者实际接收到消息。<br>队列模型通常与无状态应用程序一起结合使用。无状态应用程序不关心排序，但它们确实需要能够确认（ack）或删除单条消息，以及尽可能地扩展消费并行性的能力。典型的基于队列模型的消息系统包括 RabbitMQ 和 RocketMQ。</p>
+<h4 id="流式（Stream）模型"><a href="#流式（Stream）模型" class="headerlink" title="流式（Stream）模型"></a>流式（Stream）模型</h4><p>相比之下，流模型要求消息的消费严格排序或独占消息消费。对于一个管道，使用流式模型，始终只会有一个消费者使用和消费消息。消费者按照消息写入管道的确切顺序接收从管道发送的消息。<br>流模型通常与有状态应用程序相关联。有状态的应用程序更加关注消息的顺序及其状态。消息的消费顺序决定了有状态应用程序的状态。消息的顺序将影响应用程序处理逻辑的正确性。<br>在面向微服务或事件驱动的体系结构中，队列模型和流模型都是必需的。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-centos7同步时间" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -629,7 +688,7 @@ discovery.type: single-node
 <h4 id="读写验证"><a href="#读写验证" class="headerlink" title="读写验证"></a>读写验证</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it kafka_kafka_1 /bin/bash</span><br><span class="line">/opt/kafka/bin/kafka-topics.sh --create --zookeeper 172.18.0.4:2181 --replication-factor 1 --partitions 1 --topic my-test</span><br></pre></td></tr></table></figure>
 <h4 id="列出主题："><a href="#列出主题：" class="headerlink" title="列出主题："></a>列出主题：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/opt/kafka/bin/kafka-topics.sh --list --zookeeper 172.18.0.4:2181</span><br></pre></td></tr></table></figure>
 <h4 id="发送消息："><a href="#发送消息：" class="headerlink" title="发送消息："></a>发送消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-producer.sh --broker-list 172.18.0.3:9092 --topic my-test</span><br></pre></td></tr></table></figure>
-<h4 id="发送消息：-1"><a href="#发送消息：-1" class="headerlink" title="发送消息："></a>发送消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.18.0.3:9092 --topic my-test --from-beginning</span><br></pre></td></tr></table></figure>
+<h4 id="接收消息："><a href="#接收消息：" class="headerlink" title="接收消息："></a>接收消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.18.0.3:9092 --topic my-test --from-beginning</span><br></pre></td></tr></table></figure>
 <h4 id="列出消费者组："><a href="#列出消费者组：" class="headerlink" title="列出消费者组："></a>列出消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</span><br></pre></td></tr></table></figure>
 <h4 id="查看消费者组："><a href="#查看消费者组：" class="headerlink" title="查看消费者组："></a>查看消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --describe --group test_group</span><br></pre></td></tr></table></figure>
       

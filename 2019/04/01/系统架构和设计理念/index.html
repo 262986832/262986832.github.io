@@ -15,17 +15,22 @@
 
 
 
-<meta name="description" content="建立目录mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs} mkdir -p /opt/elk/{elasticsearch,logstash} 在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：[root@tccp ~]# cd /opt/server/elk/ [root@tccp elk]# tree">
+<meta name="description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。 在 Pulsar 客户端中">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建简单的ELK">
-<meta property="og:url" content="http://yoursite.com/2019/03/15/搭建简单的ELK/index.html">
+<meta property="og:title" content="Pulsar系统架构和设计理念">
+<meta property="og:url" content="http://yoursite.com/2019/04/01/系统架构和设计理念/index.html">
 <meta property="og:site_name" content="Fvelement">
-<meta property="og:description" content="建立目录mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs} mkdir -p /opt/elk/{elasticsearch,logstash} 在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：[root@tccp ~]# cd /opt/server/elk/ [root@tccp elk]# tree">
+<meta property="og:description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。 在 Pulsar 客户端中">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-15T03:13:55.036Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae77279003.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae7730951f.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae772bb849.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae77366fe5.png">
+<meta property="og:updated_time" content="2019-04-01T03:02:52.250Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建简单的ELK">
-<meta name="twitter:description" content="建立目录mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs} mkdir -p /opt/elk/{elasticsearch,logstash} 在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：[root@tccp ~]# cd /opt/server/elk/ [root@tccp elk]# tree">
+<meta name="twitter:title" content="Pulsar系统架构和设计理念">
+<meta name="twitter:description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。 在 Pulsar 客户端中">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae77279003.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +62,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>搭建简单的ELK | Fvelement</title>
+<title>Pulsar系统架构和设计理念 | Fvelement</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -252,11 +257,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap"><article id="post-搭建简单的ELK" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-系统架构和设计理念" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/15/搭建简单的ELK/" class="article-date">
-      <time datetime="2019-03-15T03:11:28.000Z" itemprop="datePublished">2019-03-15</time>
+      <a href="/2019/04/01/系统架构和设计理念/" class="article-date">
+      <time datetime="2019-04-01T02:34:25.000Z" itemprop="datePublished">2019-04-01</time>
 </a>
 
 
@@ -271,7 +276,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      搭建简单的ELK
+      Pulsar系统架构和设计理念
     </h1>
   
 
@@ -288,24 +293,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="建立目录"><a href="#建立目录" class="headerlink" title="建立目录"></a>建立目录</h3><pre><code>mkdir -p /opt/elk/nginx/{conf,conf.d,html,logs}
-mkdir -p /opt/elk/{elasticsearch,logstash}
-</code></pre><h3 id="在-opt-server-elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下："><a href="#在-opt-server-elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：" class="headerlink" title="在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下："></a>在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：</h3><pre><code>[root@tccp ~]# cd /opt/server/elk/
-[root@tccp elk]# tree ./
-./
-├── docker-compose.yml
-├── elasticsearch
-│   └── elasticsearch.yml
-├── kibana
-└── logstash
-    └── conf.d
-        ├── logstash.conf
-</code></pre><h3 id="elasticsearch-yml文件内容如下："><a href="#elasticsearch-yml文件内容如下：" class="headerlink" title="elasticsearch.yml文件内容如下："></a>elasticsearch.yml文件内容如下：</h3><pre><code>cluster.name: &quot;docker-cluster&quot;
-network.host: 0.0.0.0discovery.zen.minimum_master_nodes: 1
-discovery.type: single-node
-</code></pre><h3 id="logstash-conf文件内容如下："><a href="#logstash-conf文件内容如下：" class="headerlink" title="logstash.conf文件内容如下："></a>logstash.conf文件内容如下：</h3><p>`<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">input &#123;</span><br><span class="line"></span><br><span class="line">       file &#123;</span><br><span class="line"></span><br><span class="line">               start_position =&gt; &quot;beginning&quot;</span><br><span class="line">               path =&gt; [&quot;/var/log/nginx/access.log&quot;]</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"># 以上file段配置是针对logstash作为agent端收集日志的场景使用，从本地文件输入#下面的注释内容可以忽略，是采用redis作为缓存服务架构方式，这里用不到#        redis &#123;#        host =&gt; &quot;192.168.2.142&quot;#         port =&gt; &quot;6379&quot;#         key =&gt; &quot;filebeat&quot;    #这里的key要与filebeat.yml中定义的key相同#         data_type =&gt; &quot;list&quot;#         threads =&gt; &quot;5&quot;#         db =&gt; &quot;0&quot;#    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">filter &#123;</span><br><span class="line"></span><br><span class="line">        date &#123;</span><br><span class="line">        match =&gt; [ &quot;timestamp&quot;,&quot;dd/MMM/YYYY:H:m:s Z&quot; ]</span><br><span class="line">        remove_field =&gt; &quot;timestamp&quot;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">output &#123;</span><br><span class="line">                elasticsearch &#123;       #输出到elasticsearch服务器，先输出到本地终端查看，没有问题后输出到elasticsearch</span><br><span class="line">                    hosts =&gt; &quot;elasticsearch:9200&quot;  #这里使用elasticsearch容器名称的方式连接到ES</span><br><span class="line">                    index =&gt; &quot;logstash-%&#123;+YYYY.MM.dd&#125;&quot;</span><br><span class="line">                    document_type =&gt; &quot;nginx_logs&quot;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">#               stdout &#123;            #输出到屏幕测试#                    codec =&gt; rubydebug#                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure></p>
-<p>`</p>
-<h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line"></span><br><span class="line"> elasticsearch:</span><br><span class="line">    image: elasticsearch</span><br><span class="line">    container_name: elasticsearch</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;9200:9200&quot;</span><br><span class="line">      - &quot;9300:9300&quot;</span><br><span class="line">    volumes:</span><br><span class="line">      - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro</span><br><span class="line">    environment:</span><br><span class="line">       ES_JAVA_OPTS: &quot;-Xmx256m -Xms256m&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line"> logstash:</span><br><span class="line">    image: logstash</span><br><span class="line">    container_name: logstash</span><br><span class="line">    command: logstash -f /etc/logstash/conf.d/logstash.conf</span><br><span class="line">    volumes:</span><br><span class="line">      - ./logstash/conf.d:/etc/logstash/conf.d</span><br><span class="line">      - ./nginx/logs:/var/log/nginx</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;5000:5000&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line"> kibana:</span><br><span class="line">    image: kibana</span><br><span class="line">    restart: &quot;always&quot;</span><br><span class="line">    container_name: kibana</span><br><span class="line">    environment:</span><br><span class="line">      - ELASTICSEARCH_URL=http://elasticsearch:9200</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;5601:5601&quot;</span><br><span class="line">    networks:</span><br><span class="line">      - elk</span><br><span class="line"></span><br><span class="line"> nginx:</span><br><span class="line">     image: nginx</span><br><span class="line">     restart: &quot;always&quot;</span><br><span class="line">     container_name: nginx</span><br><span class="line">     ports:</span><br><span class="line">       - &quot;80:80&quot;</span><br><span class="line">     volumes:</span><br><span class="line">        - ./nginx/html:/usr/share/nginx/html</span><br><span class="line">        - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf</span><br><span class="line">        - ./nginx/conf.d:/etc/nginx/conf.d</span><br><span class="line">        - ./nginx/logs:/var/log/nginx</span><br><span class="line">networks:</span><br><span class="line"> elk:</span><br><span class="line">  driver: bridge</span><br></pre></td></tr></table></figure>
+        <h2 id="Pulsar-的分层架构"><a href="#Pulsar-的分层架构" class="headerlink" title="Pulsar 的分层架构"></a>Pulsar 的分层架构</h2><p>Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。<br>Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；<br>以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。<br>下图显示了 Apache Pulsar 的典型部署。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77279003.png" width="800"></div><br>在 Pulsar 客户端中提供生产者和消费者（Producer &amp; Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。<br><br>Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。<br>客户端也没有直接的 BookKeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。<br><br>Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。<br>Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。<br>### Broker 层：无状态服务层<br>Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无状态的”，因为 Broker 实际上并不在本地存储任何消息数据。<br>有关 Pulsar 主题的消息，都被存储在分布式日志存储系统（Apache BookKeeper）中。我们将在下一节中更多地讨论 BookKeeper。<br><br>每个主题分区（Topic Partition）由 Pulsar 分配给某个 Broker，该 Broker 称为该主题分区的所有者。<br>Pulsar 生产者和消费者连接到主题分区的所有者 Broker，以向所有者代理发送消息并消费消息。<br><br>如果一个 Broker 失败，Pulsar 会自动将其拥有的主题分区移动到群集中剩余的某一个可用 Broker 中。<br>这里要说的一件事是：由于 Broker 是无状态的，当发生 Topic 的迁移时，Pulsar 只是将所有权从一个 Broker 转移到另一个 Broker，在这个过程中，不会有任何数据复制发生。<br><br>下图显示了一个拥有 4 个 Broker 的 Pulsar 集群，其中 4 个主题分区分布在 4 个 Broker 中。<br>每个 Broker 拥有并为一个主题分区提供消息服务。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7730951f.png" width="800"></div><br>### BookKeeper 层：持久化存储层<br><br>Apache BookKeeper 是 Apache Pulsar 的持久化存储层。<br>Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。<br><br>每个分布式日志又被分为 Segment 分段。<br>每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。<br>Segment 的创建时机包括以下几种：<br>基于配置的 Segment 大小；<br>基于配置的滚动时间；<br>或者当 Segment 的所有者被切换。<br>通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。<br>这意味着主题分区的大小不仅受一个节点容量的限制；<br>相反，它可以扩展到整个 BookKeeper 集群的总容量。<br><br>下面的图说明了一个分为 x 个 Segment 段的主题分区。<br>每个 Segment 段存储 3 个副本。<br>所有 Segment 都分布并存储在 4 个 Bookie 中。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae772bb849.png" width="800"></div><br>#### Segment 为中心的存储<br><br>存储服务的分层的架构 和 以 Segment 为中心的存储 是 Apache Pulsar（使用 Apache BookKeeper）的两个关键设计理念。<br>这两个基础为 Pulsar 提供了许多重要的好处：<br><br>- 无限制的主题分区存储<br>- 即时扩展，无需数据迁移<br>无缝 Broker 故障恢复<br>无缝集群扩展<br>无缝的存储（Bookie）故障恢复<br>- 独立的可扩展性<br><br>下面我们分别展开来看这几个好处。<br>### 无限制的主题分区存储<br><br>由于主题分区被分割成 Segment 并在 Apache BookKeeper 中以分布式方式存储，因此主题分区的容量不受任何单一节点容量的限制。<br>相反，主题分区可以扩展到整个 BookKeeper 集群的总容量，只需添加 Bookie 节点即可扩展集群容量。<br>这是 Apache Pulsar 支持存储无限大小的流数据，并能够以高效，分布式方式处理数据的关键。<br>使用 Apache BookKeeper 的分布式日志存储，对于统一消息服务和存储至关重要。<br>##### 即时扩展，无需数据迁移<br><br>由于消息服务和消息存储分为两层，因此将主题分区从一个 Broker 移动到另一个 Broker 几乎可以瞬时内完成，而无需任何数据重新平衡（将数据从一个节点重新复制到另一个节点）。<br>这一特性对于高可用的许多方面至关重要，例如集群扩展；对 Broker 和 Bookie 失败的快速应对。<br>###### 无缝 Broker 故障恢复<br><br>下图说明了 Pulsar 如何处理 Broker 失败的示例。<br>在例子中 Broker 2 因某种原因（例如停电）而断开。<br>Pulsar 检测到 Broker 2 已关闭，并立即将 Topic1-Part2 的所有权从 Broker 2 转移到 Broker 3。<br>在 Pulsar 中数据存储和数据服务分离，所以当代理 3 接管 Topic1-Part2 的所有权时，它不需要复制 Partiton 的数据。<br>如果有新数据到来，它立即附加并存储为 Topic1-Part2 中的 Segment x + 1。<br>Segment x + 1 被分发并存储在 Bookie1, 2 和 4 上。因为它不需要重新复制数据，所以所有权转移立即发生而不会牺牲主题分区的可用性。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77366fe5.png" width="800"></div>
       
     </div>
     
@@ -316,16 +305,10 @@ discovery.type: single-node
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/03/19/安装logstash/">
-                    安装logstash
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/03/14/从零开始搭建一套日志收集分析系统/">
-                    从零开始搭建一套日志收集分析系统
+                <a href="/2019/03/29/消息中间件pulsar，选型与评测/">
+                    消息中间件pulsar选型记录
                 </a>
             </div>
         
@@ -337,7 +320,7 @@ discovery.type: single-node
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#建立目录"><span class="toc-number">1.</span> <span class="toc-text">建立目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在-opt-server-elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下："><span class="toc-number">2.</span> <span class="toc-text">在/opt/server/elk目录下创建对应容器的目录和其配置文件，用作挂载，整个目录结构如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#elasticsearch-yml文件内容如下："><span class="toc-number">3.</span> <span class="toc-text">elasticsearch.yml文件内容如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#logstash-conf文件内容如下："><span class="toc-number">4.</span> <span class="toc-text">logstash.conf文件内容如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-compose-yml"><span class="toc-number">5.</span> <span class="toc-text">docker-compose.yml</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pulsar-的分层架构"><span class="toc-number">1.</span> <span class="toc-text">Pulsar 的分层架构</span></a></li></ol>
         
     </div>
     <style>
@@ -373,7 +356,7 @@ discovery.type: single-node
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"搭建简单的ELK　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Pulsar系统架构和设计理念　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -393,15 +376,13 @@ discovery.type: single-node
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/03/19/安装logstash/" title="上一篇: 安装logstash">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/03/14/从零开始搭建一套日志收集分析系统/" title="下一篇: 从零开始搭建一套日志收集分析系统">
+            <a href="/2019/03/29/消息中间件pulsar，选型与评测/" title="下一篇: 消息中间件pulsar选型记录">
                 <i class="fa fa-angle-right"></i>
             </a>
         

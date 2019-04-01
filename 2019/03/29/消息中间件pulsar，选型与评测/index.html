@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/03/29/消息中间件pulsar，选型与评测/5beae6853d2ae.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/29/消息中间件pulsar，选型与评测/5beae6b6e2ac0.png">
 <meta property="og:image" content="http://yoursite.com/2019/03/29/消息中间件pulsar，选型与评测/5beae6f4a9ee3.png">
-<meta property="og:updated_time" content="2019-04-01T02:02:21.601Z">
+<meta property="og:updated_time" content="2019-04-01T02:13:14.589Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息中间件pulsar选型记录">
 <meta name="twitter:description" content="我们在选择中间件的过程，主要从两个方面考虑：  中间件能否满足我的业务系统的场景，并且随着业务系统的发展，最好能一直满足场景的需要。 性能指标、稳定性、运维能力附属配套是否完善消息中间件的选型过程我们也从这两个角度考虑。业务场景的支持能力对于消息系统，消息模型是首先考虑的事情。消息模型应涵盖以下 3 个方面： 消息消费——如何发送和消费消息；   消息确认（ack）——如何确认消息；   消息保存">
@@ -317,7 +317,7 @@
 <p>在 Apache Kafka 中，恢复点通常称为 Offset，更新恢复点的过程称为消息确认或提交 Offset。<br>在 Apache Pulsar 中，每个<strong>订阅中</strong>都使用一个专门的数据结构–游标（Cursor）来跟踪订阅中的每条消息的确认（ACK）状态。<br>每当消费者在主题分区上确认消息时，游标都会更新。更新游标可确保消费者不会再次收到消息。</p>
 <p>Apache Pulsar 提供两种消息确认方法，单条确认（Individual Ack）和累积确认（Cumulative Ack）。<br>通过累积确认，消费者只需要确认它收到的最后一条消息。主题分区中的所有消息（包括）提供消息 ID 将被标记为已确认，并且不会再次传递给消费者。累积确认与 Apache Kafka 中的 Offset 更新类似。</p>
 <p>Apache Pulsar 可以支持消息的单条确认，也就是选择性确认。消费者可以单独确认一条消息。 被确认后的消息将不会被重新传递。</p>
-<p>下图说明了单条确认和累积确认的差异（灰色框中的消息被确认并且不会被重新传递）。在图的上半部分，它显示了累计确认的一个例子，M12 之前的消息被标记为 acked。在图的下半部分，它显示了单独进行 acking 的示例。仅确认消息 M7 和 M12 - 在消费者失败的情况下，除了 M7 和 M12 之外，其他所有消息将被重新传送。<br><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6b6e2ac0.png" alt><br><strong>独占订阅或故障切换订阅</strong>的消费者能够对消息进行单条确认和累积确认；<br>共享订阅的消费者只允许对消息进行单条确认。单条确认消息的能力为处理消费者故障提供了更好的体验。<br>对于某些应用来说，处理一条消息可能需要很长时间或者非常昂贵，防止重新传送已经确认的消息非常重要。</p>
+<p>下图说明了单条确认和累积确认的差异（灰色框中的消息被确认并且不会被重新传递）。在图的上半部分，它显示了累计确认的一个例子，M12 之前的消息被标记为 acked。在图的下半部分，它显示了单独进行 acking 的示例。仅确认消息 M7 和 M12 - 在消费者失败的情况下，除了 M7 和 M12 之外，其他所有消息将被重新传送。<br><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6b6e2ac0.png" alt="确认差异-w470"><br><strong>独占订阅或故障切换订阅</strong>的消费者能够对消息进行单条确认和累积确认；<br>共享订阅的消费者只允许对消息进行单条确认。单条确认消息的能力为处理消费者故障提供了更好的体验。<br>对于某些应用来说，处理一条消息可能需要很长时间或者非常昂贵，防止重新传送已经确认的消息非常重要。</p>
 <p>这个管理 Ack 的专门的数据结构–游标（Cursor），由 Broker 来管理，利用 BookKeeper 的 Ledger 提供存储，在后面的文章中我们会介绍更多的关于游标（Cursor）的细节。</p>
 <p>Apache Pulsar 提供了灵活的消息消费订阅类型和消息确认方法，通过简单的统一的 API，就可以支持各种消息和流的使用场景。</p>
 <h3 id="Pulsar-的消息保留（Retention）"><a href="#Pulsar-的消息保留（Retention）" class="headerlink" title="Pulsar 的消息保留（Retention）"></a>Pulsar 的消息保留（Retention）</h3><p>在消息被确认后，Pulsar 的 Broker 会更新对应的游标。当 Topic 里面中的一条消息，被<strong>所有的订阅都确认 ack </strong>后，才能删除这条消息。<br>Pulsar 还允许通过设置保留时间，将消息保留更长时间，即使所有订阅已经确认消费了它们。</p>

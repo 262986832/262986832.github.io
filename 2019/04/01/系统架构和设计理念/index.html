@@ -15,21 +15,24 @@
 
 
 
-<meta name="description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。 在 Pulsar 客户端中">
+<meta name="description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。   在 Pulsar 客户">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Pulsar系统架构和设计理念">
 <meta property="og:url" content="http://yoursite.com/2019/04/01/系统架构和设计理念/index.html">
 <meta property="og:site_name" content="Fvelement">
-<meta property="og:description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。 在 Pulsar 客户端中">
+<meta property="og:description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。   在 Pulsar 客户">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae77279003.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae7730951f.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae772bb849.png">
 <meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae77366fe5.png">
-<meta property="og:updated_time" content="2019-04-01T03:02:52.250Z">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae7747779e.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae773e0cd5.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae774be269.png">
+<meta property="og:updated_time" content="2019-04-01T06:08:00.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Pulsar系统架构和设计理念">
-<meta name="twitter:description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。 在 Pulsar 客户端中">
+<meta name="twitter:description" content="Pulsar 的分层架构Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。下图显示了 Apache Pulsar 的典型部署。   在 Pulsar 客户">
 <meta name="twitter:image" content="http://yoursite.com/2019/04/01/系统架构和设计理念/5beae77279003.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -294,7 +297,67 @@
       
           
         <h2 id="Pulsar-的分层架构"><a href="#Pulsar-的分层架构" class="headerlink" title="Pulsar 的分层架构"></a>Pulsar 的分层架构</h2><p>Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。<br>Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；<br>以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。<br>下图显示了 Apache Pulsar 的典型部署。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77279003.png" width="800"></div><br>在 Pulsar 客户端中提供生产者和消费者（Producer &amp; Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。<br><br>Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。<br>客户端也没有直接的 BookKeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。<br><br>Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。<br>Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。<br>### Broker 层：无状态服务层<br>Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无状态的”，因为 Broker 实际上并不在本地存储任何消息数据。<br>有关 Pulsar 主题的消息，都被存储在分布式日志存储系统（Apache BookKeeper）中。我们将在下一节中更多地讨论 BookKeeper。<br><br>每个主题分区（Topic Partition）由 Pulsar 分配给某个 Broker，该 Broker 称为该主题分区的所有者。<br>Pulsar 生产者和消费者连接到主题分区的所有者 Broker，以向所有者代理发送消息并消费消息。<br><br>如果一个 Broker 失败，Pulsar 会自动将其拥有的主题分区移动到群集中剩余的某一个可用 Broker 中。<br>这里要说的一件事是：由于 Broker 是无状态的，当发生 Topic 的迁移时，Pulsar 只是将所有权从一个 Broker 转移到另一个 Broker，在这个过程中，不会有任何数据复制发生。<br><br>下图显示了一个拥有 4 个 Broker 的 Pulsar 集群，其中 4 个主题分区分布在 4 个 Broker 中。<br>每个 Broker 拥有并为一个主题分区提供消息服务。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7730951f.png" width="800"></div><br>### BookKeeper 层：持久化存储层<br><br>Apache BookKeeper 是 Apache Pulsar 的持久化存储层。<br>Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。<br><br>每个分布式日志又被分为 Segment 分段。<br>每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。<br>Segment 的创建时机包括以下几种：<br>基于配置的 Segment 大小；<br>基于配置的滚动时间；<br>或者当 Segment 的所有者被切换。<br>通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。<br>这意味着主题分区的大小不仅受一个节点容量的限制；<br>相反，它可以扩展到整个 BookKeeper 集群的总容量。<br><br>下面的图说明了一个分为 x 个 Segment 段的主题分区。<br>每个 Segment 段存储 3 个副本。<br>所有 Segment 都分布并存储在 4 个 Bookie 中。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae772bb849.png" width="800"></div><br>#### Segment 为中心的存储<br><br>存储服务的分层的架构 和 以 Segment 为中心的存储 是 Apache Pulsar（使用 Apache BookKeeper）的两个关键设计理念。<br>这两个基础为 Pulsar 提供了许多重要的好处：<br><br>- 无限制的主题分区存储<br>- 即时扩展，无需数据迁移<br>无缝 Broker 故障恢复<br>无缝集群扩展<br>无缝的存储（Bookie）故障恢复<br>- 独立的可扩展性<br><br>下面我们分别展开来看这几个好处。<br>### 无限制的主题分区存储<br><br>由于主题分区被分割成 Segment 并在 Apache BookKeeper 中以分布式方式存储，因此主题分区的容量不受任何单一节点容量的限制。<br>相反，主题分区可以扩展到整个 BookKeeper 集群的总容量，只需添加 Bookie 节点即可扩展集群容量。<br>这是 Apache Pulsar 支持存储无限大小的流数据，并能够以高效，分布式方式处理数据的关键。<br>使用 Apache BookKeeper 的分布式日志存储，对于统一消息服务和存储至关重要。<br>##### 即时扩展，无需数据迁移<br><br>由于消息服务和消息存储分为两层，因此将主题分区从一个 Broker 移动到另一个 Broker 几乎可以瞬时内完成，而无需任何数据重新平衡（将数据从一个节点重新复制到另一个节点）。<br>这一特性对于高可用的许多方面至关重要，例如集群扩展；对 Broker 和 Bookie 失败的快速应对。<br>###### 无缝 Broker 故障恢复<br><br>下图说明了 Pulsar 如何处理 Broker 失败的示例。<br>在例子中 Broker 2 因某种原因（例如停电）而断开。<br>Pulsar 检测到 Broker 2 已关闭，并立即将 Topic1-Part2 的所有权从 Broker 2 转移到 Broker 3。<br>在 Pulsar 中数据存储和数据服务分离，所以当代理 3 接管 Topic1-Part2 的所有权时，它不需要复制 Partiton 的数据。<br>如果有新数据到来，它立即附加并存储为 Topic1-Part2 中的 Segment x + 1。<br>Segment x + 1 被分发并存储在 Bookie1, 2 和 4 上。因为它不需要重新复制数据，所以所有权转移立即发生而不会牺牲主题分区的可用性。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77366fe5.png" width="800"></div>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77279003.png" width="800"></div>
+
+<p>在 Pulsar 客户端中提供生产者和消费者（Producer &amp; Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。</p>
+<p>Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。<br>客户端也没有直接的 BookKeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。</p>
+<p>Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。<br>Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。</p>
+<h3 id="Broker-层：无状态服务层"><a href="#Broker-层：无状态服务层" class="headerlink" title="Broker 层：无状态服务层"></a>Broker 层：无状态服务层</h3><p>Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无状态的”，因为 Broker 实际上并不在本地存储任何消息数据。<br>有关 Pulsar 主题的消息，都被存储在分布式日志存储系统（Apache BookKeeper）中。我们将在下一节中更多地讨论 BookKeeper。</p>
+<p>每个主题分区（Topic Partition）由 Pulsar 分配给某个 Broker，该 Broker 称为该主题分区的所有者。<br>Pulsar 生产者和消费者连接到主题分区的所有者 Broker，以向所有者代理发送消息并消费消息。</p>
+<p>如果一个 Broker 失败，Pulsar 会自动将其拥有的主题分区移动到群集中剩余的某一个可用 Broker 中。<br>这里要说的一件事是：由于 Broker 是无状态的，当发生 Topic 的迁移时，Pulsar 只是将所有权从一个 Broker 转移到另一个 Broker，在这个过程中，不会有任何数据复制发生。</p>
+<p>下图显示了一个拥有 4 个 Broker 的 Pulsar 集群，其中 4 个主题分区分布在 4 个 Broker 中。<br>每个 Broker 拥有并为一个主题分区提供消息服务。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7730951f.png" width="800"></div>
+
+<h3 id="BookKeeper-层：持久化存储层"><a href="#BookKeeper-层：持久化存储层" class="headerlink" title="BookKeeper 层：持久化存储层"></a>BookKeeper 层：持久化存储层</h3><p>Apache BookKeeper 是 Apache Pulsar 的持久化存储层。<br>Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。</p>
+<p>每个分布式日志又被分为 Segment 分段。<br>每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。<br>Segment 的创建时机包括以下几种：<br>基于配置的 Segment 大小；<br>基于配置的滚动时间；<br>或者当 Segment 的所有者被切换。<br>通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。<br>这意味着主题分区的大小不仅受一个节点容量的限制；<br>相反，它可以扩展到整个 BookKeeper 集群的总容量。</p>
+<p>下面的图说明了一个分为 x 个 Segment 段的主题分区。<br>每个 Segment 段存储 3 个副本。<br>所有 Segment 都分布并存储在 4 个 Bookie 中。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae772bb849.png" width="800"></div>
+
+<h4 id="Segment-为中心的存储"><a href="#Segment-为中心的存储" class="headerlink" title="Segment 为中心的存储"></a>Segment 为中心的存储</h4><p>存储服务的分层的架构 和 以 Segment 为中心的存储 是 Apache Pulsar（使用 Apache BookKeeper）的两个关键设计理念。<br>这两个基础为 Pulsar 提供了许多重要的好处：</p>
+<ul>
+<li>无限制的主题分区存储</li>
+<li>即时扩展，无需数据迁移<ol>
+<li>无缝 Broker 故障恢复</li>
+<li>无缝集群扩展</li>
+<li>无缝的存储（Bookie）故障恢复</li>
+</ol>
+</li>
+<li>独立的可扩展性</li>
+</ul>
+<p>下面我们分别展开来看这几个好处。</p>
+<h5 id="无限制的主题分区存储"><a href="#无限制的主题分区存储" class="headerlink" title="无限制的主题分区存储"></a>无限制的主题分区存储</h5><p>由于主题分区被分割成 Segment 并在 Apache BookKeeper 中以分布式方式存储，因此主题分区的容量不受任何单一节点容量的限制。<br>相反，主题分区可以扩展到整个 BookKeeper 集群的总容量，只需添加 Bookie 节点即可扩展集群容量。<br>这是 Apache Pulsar 支持存储无限大小的流数据，并能够以高效，分布式方式处理数据的关键。<br>使用 Apache BookKeeper 的分布式日志存储，对于统一消息服务和存储至关重要。</p>
+<h5 id="即时扩展，无需数据迁移"><a href="#即时扩展，无需数据迁移" class="headerlink" title="即时扩展，无需数据迁移"></a>即时扩展，无需数据迁移</h5><p>由于消息服务和消息存储分为两层，因此将主题分区从一个 Broker 移动到另一个 Broker 几乎可以瞬时内完成，而无需任何数据重新平衡（将数据从一个节点重新复制到另一个节点）。<br>这一特性对于高可用的许多方面至关重要，例如集群扩展；对 Broker 和 Bookie 失败的快速应对。 </p>
+<h6 id="无缝-Broker-故障恢复"><a href="#无缝-Broker-故障恢复" class="headerlink" title="无缝 Broker 故障恢复"></a>无缝 Broker 故障恢复</h6><p>下图说明了 Pulsar 如何处理 Broker 失败的示例。<br>在例子中 Broker 2 因某种原因（例如停电）而断开。<br>Pulsar 检测到 Broker 2 已关闭，并立即将 Topic1-Part2 的所有权从 Broker 2 转移到 Broker 3。<br>在 Pulsar 中数据存储和数据服务分离，所以当代理 3 接管 Topic1-Part2 的所有权时，它不需要复制 Partiton 的数据。<br>如果有新数据到来，它立即附加并存储为 Topic1-Part2 中的 Segment x + 1。<br>Segment x + 1 被分发并存储在 Bookie1, 2 和 4 上。因为它不需要重新复制数据，所以所有权转移立即发生而不会牺牲主题分区的可用性。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77366fe5.png" width="800"></div>
+
+<h6 id="无缝集群容量扩展"><a href="#无缝集群容量扩展" class="headerlink" title="无缝集群容量扩展"></a>无缝集群容量扩展</h6><p>下图说明了 Pulsar 如何处理集群的容量扩展。<br>当 Broker 2 将消息写入 Topic1-Part2 的 Segment X 时，将 Bookie X 和 Bookie Y 添加到集群中。<br>Broker 2 立即发现新加入的 Bookies X 和 Y。然后 Broker 将尝试将 Segment X + 1 和 X + 2 的消息存储到新添加的 Bookie 中。<br>新增加的 Bookie 立刻被使用起来，流量立即增加，而不会重新复制任何数据。<br>除了机架感知和区域感知策略之外，Apache BookKeeper 还提供资源感知的放置策略，以确保流量在群集中的所有存储节点之间保持平衡。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7747779e.png" width="800"></div>
+
+<h6 id="无缝的存储（Bookie）故障恢复"><a href="#无缝的存储（Bookie）故障恢复" class="headerlink" title="无缝的存储（Bookie）故障恢复"></a>无缝的存储（Bookie）故障恢复</h6><p>下图说明了 Pulsar（通过 Apache BookKeeper）如何处理 bookie 的磁盘故障。<br>这里有一个磁盘故障导致存储在 bookie 2 上的 Segment 4 被破坏。<br>Apache BookKeeper 后台会检测到这个错误并进行复制修复。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae773e0cd5.png" width="800"></div>
+
+<p>Apache BookKeeper 中的副本修复是 Segment（甚至是 Entry）级别的多对多快速修复，这比重新复制整个主题分区要精细，只会复制必须的数据。<br>这意味着 Apache BookKeeper 可以从 bookie 3 和 bookie 4 读取 Segment 4 中的消息，并在 bookie 1 处修复 Segment 4。<br>所有的副本修复都在后台进行，对 Broker 和应用透明。<br>即使有 Bookie 节点出错的情况发生时，通过添加新的可用的 Bookie 来替换失败的 Bookie，所有 Broker 都可以继续接受写入，而不会牺牲主题分区的可用性。</p>
+<h5 id="独立的可扩展性"><a href="#独立的可扩展性" class="headerlink" title="独立的可扩展性"></a>独立的可扩展性</h5><p>由于消息服务层和持久存储层是分开的，因此 Apache Pulsar 可以独立地扩展存储层和服务层。这种独立的扩展，更具成本效益：</p>
+<ul>
+<li><p>当您需要支持更多的消费者或生产者时，您可以简单地添加更多的 Broker。<br>主题分区将立即在 Brokers 中做平衡迁移，一些主题分区的所有权立即转移到新的 Broker。</p>
+</li>
+<li><p>当您需要更多存储空间来将消息保存更长时间时，您只需添加更多 Bookie。<br>通过智能资源感知和数据放置，流量将自动切换到新的 Bookie 中。<br>Apache Pulsar 中不会涉及到不必要的数据搬迁，不会将旧数据从现有存储节点重新复制到新存储节点。</p>
+<h2 id="Pulsar-VS-Kafka"><a href="#Pulsar-VS-Kafka" class="headerlink" title="Pulsar VS. Kafka"></a>Pulsar VS. Kafka</h2><p>Apache Kafka 和 Apache Pulsar 都有类似的消息概念。<br>客户端通过主题与消息系统进行交互。 每个主题都可以分为多个分区。<br>然而，Apache Pulsar 和 Apache Kafka 之间的根本区别在于 Apache Kafka 是以分区为存储中心，而 Apache Pulsar 是以 Segment 为存储中心。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae774be269.png" width="800"></div>
+
+</li>
+</ul>
+<p>上图显示了以分区为中心和以 Segment 为中心的系统之间的差异。</p>
+<h3 id="Apache-Kafka"><a href="#Apache-Kafka" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h3><p>在 Apache Kafka 中，分区只能存储在单个节点上并复制到其他节点，其容量受最小节点容量的限制。<br>这意味着容量扩展需要对分区重新平衡，这反过来又需要重新复制整个分区，以平衡新添加的代理的数据和流量。</p>
+<p>重新传输数据非常昂贵且容易出错，并且会消耗网络带宽和 I/O。维护人员在执行此操作时必须非常小心，以避免破坏生产系统。</p>
+<p>Kafka 中分区数据的重新拷贝不仅发生在以分区为中心的系统中的群集扩展上。<br>许多其他事情也会触发数据重新拷贝，例如副本故障，磁盘故障或计算机的故障。在数据重新复制期间，分区通常不可用，直到数据重新复制完成。<br>例如，如果您将分区配置为存储为 3 个副本，这时，如果丢失了一个副本，则必须重新复制完整个分区后，分区才可以再次可用。</p>
+<p>Kafka 中分区数据的重新拷贝不仅发生在以分区为中心的系统中的群集扩展上。<br>许多其他事情也会触发数据重新拷贝，例如副本故障，磁盘故障或计算机的故障。在数据重新复制期间，分区通常不可用，直到数据重新复制完成。<br>例如，如果您将分区配置为存储为 3 个副本，这时，如果丢失了一个副本，则必须重新复制完整个分区后，分区才可以再次可用。</p>
+<p>在用户遇到故障之前，通常会忽略这种缺陷，因为许多情况下，在短时间内仅是对内存中缓存数据的读取。<br>当数据被保存到磁盘后，用户将越来越多地不可避免地遇到数据丢失，故障恢复的问题，特别是在需要将数据长时间保存的场合。</p>
+<h3 id="Apache-Pulsar"><a href="#Apache-Pulsar" class="headerlink" title="Apache Pulsar"></a>Apache Pulsar</h3><p>相反，在 Apache Pulsar 中，同样是以分区为逻辑单元，但是以 Segment 为物理存储单元。<br>分区随着时间的推移会进行分段，并在整个集群中均衡分布，旨在有效地迅速地扩展。</p>
+<p>Pulsar 是以 Segment 为中心的，因此在扩展容量时不需要数据重新平衡和拷贝，旧数据不会被重新复制，这要归功于在 Apache BookKeeper 中使用可扩展的以 Segment 为中心的分布式日志存储系统。</p>
+<p>通过利用分布式日志存储，Pulsar 可以最大化 Segment 放置选项，实现高写入和高读取可用性。<br>例如，使用 BookKeeper，副本设置等于 2，只要任何 2 个 Bookie 启动，就可以对主题分区进行写入。<br>对于读取可用性，只要主题分区的副本集中有 1 个处于活动状态，用户就可以读取它，而不会出现任何不一致。</p>
+<p>总之，Apache Pulsar 这种独特的基于分布式日志存储的以 Segment 为中心的发布 / 订阅消息系统可以提供许多优势，例如可靠的流式系统，包括无限制的日志存储，无需分区重新平衡的即时扩展，快速复制修复以及通过最大化数据放置实现高写入和读取可用性选项。</p>
+
       
     </div>
     
@@ -304,6 +367,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/04/10/pulsar-Debezium-CDC-测试/">
+                    pulsar Debezium CDC 测试
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -320,7 +389,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pulsar-的分层架构"><span class="toc-number">1.</span> <span class="toc-text">Pulsar 的分层架构</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Pulsar-的分层架构"><span class="toc-number">1.</span> <span class="toc-text">Pulsar 的分层架构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Broker-层：无状态服务层"><span class="toc-number">1.1.</span> <span class="toc-text">Broker 层：无状态服务层</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BookKeeper-层：持久化存储层"><span class="toc-number">1.2.</span> <span class="toc-text">BookKeeper 层：持久化存储层</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Segment-为中心的存储"><span class="toc-number">1.2.1.</span> <span class="toc-text">Segment 为中心的存储</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#无限制的主题分区存储"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">无限制的主题分区存储</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#即时扩展，无需数据迁移"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">即时扩展，无需数据迁移</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#无缝-Broker-故障恢复"><span class="toc-number">1.2.1.2.1.</span> <span class="toc-text">无缝 Broker 故障恢复</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#无缝集群容量扩展"><span class="toc-number">1.2.1.2.2.</span> <span class="toc-text">无缝集群容量扩展</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#无缝的存储（Bookie）故障恢复"><span class="toc-number">1.2.1.2.3.</span> <span class="toc-text">无缝的存储（Bookie）故障恢复</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#独立的可扩展性"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">独立的可扩展性</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pulsar-VS-Kafka"><span class="toc-number">2.</span> <span class="toc-text">Pulsar VS. Kafka</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Kafka"><span class="toc-number">2.1.</span> <span class="toc-text">Apache Kafka</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Apache-Pulsar"><span class="toc-number">2.2.</span> <span class="toc-text">Apache Pulsar</span></a></li></ol></li></ol>
         
     </div>
     <style>
@@ -376,7 +445,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/04/10/pulsar-Debezium-CDC-测试/" title="上一篇: pulsar Debezium CDC 测试">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -388,7 +459,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/系统架构和设计理念/">Pulsar系统架构和设计理念</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar选型记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/centos7同步时间/">centos7同步时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/安装logstash/">安装logstash</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/搭建简单的ELK/">搭建简单的ELK</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/从零开始搭建一套日志收集分析系统/">从零开始搭建一套日志收集分析系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/docker-compose安装/">docker compose安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/安装kafka/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-everyone/">docker 安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/10/mysql-常用命令及脑图/">mysql 常用命令及脑图</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/10/pulsar-Debezium-CDC-测试/">pulsar Debezium CDC 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/系统架构和设计理念/">Pulsar系统架构和设计理念</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar选型记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/centos7同步时间/">centos7同步时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/安装logstash/">安装logstash</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/搭建简单的ELK/">搭建简单的ELK</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/从零开始搭建一套日志收集分析系统/">从零开始搭建一套日志收集分析系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/docker-compose安装/">docker compose安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/安装kafka/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-everyone/">docker 安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-world/">Hello World</a></li></ul>
 
 
 

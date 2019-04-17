@@ -255,6 +255,118 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-mysql-常用命令及脑图" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/04/10/mysql-常用命令及脑图/" class="article-date">
+      <time datetime="2019-04-10T03:08:47.000Z" itemprop="datePublished">2019-04-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/mysql-常用命令及脑图/">mysql 常用命令及脑图</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="UPDATE-command-denied-to-user-‘debezium‘-’localhost’-for-table-‘products’"><a href="#UPDATE-command-denied-to-user-‘debezium‘-’localhost’-for-table-‘products’" class="headerlink" title="UPDATE command denied to user ‘debezium‘@’localhost’ for table ‘products’"></a>UPDATE command denied to user ‘debezium‘@’localhost’ for table ‘products’</h3><p>‘’’<br>SELECT USER();<br>SHOW GRANTS FOR  ‘debezium@localhost’<br>GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE ON <code>inventory</code>.* TO ‘debezium@localhost’<br>‘’’</p>
+<h3 id="ERROR-1044-42000-Access-denied-for-user-‘debezium‘-’-’-to-database-‘inventory’"><a href="#ERROR-1044-42000-Access-denied-for-user-‘debezium‘-’-’-to-database-‘inventory’" class="headerlink" title="ERROR 1044 (42000): Access denied for user ‘debezium‘@’%’ to database ‘inventory’"></a>ERROR 1044 (42000): Access denied for user ‘debezium‘@’%’ to database ‘inventory’</h3><p>‘’’<br>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘debezium@localhost’ WITH GRANT OPTION;<br>‘’’</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-pulsar-Debezium-CDC-测试" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/04/10/pulsar-Debezium-CDC-测试/" class="article-date">
+      <time datetime="2019-04-10T02:39:19.000Z" itemprop="datePublished">2019-04-10</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/pulsar-Debezium-CDC-测试/">pulsar Debezium CDC 测试</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h2 id="结果验证"><a href="#结果验证" class="headerlink" title="结果验证"></a>结果验证</h2><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-系统架构和设计理念" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -285,7 +397,67 @@
       
           
         <h2 id="Pulsar-的分层架构"><a href="#Pulsar-的分层架构" class="headerlink" title="Pulsar 的分层架构"></a>Pulsar 的分层架构</h2><p>Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。<br>Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；<br>以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。<br>下图显示了 Apache Pulsar 的典型部署。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77279003.png" width="800"></div><br>在 Pulsar 客户端中提供生产者和消费者（Producer &amp; Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。<br><br>Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。<br>客户端也没有直接的 BookKeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。<br><br>Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。<br>Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。<br>### Broker 层：无状态服务层<br>Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无状态的”，因为 Broker 实际上并不在本地存储任何消息数据。<br>有关 Pulsar 主题的消息，都被存储在分布式日志存储系统（Apache BookKeeper）中。我们将在下一节中更多地讨论 BookKeeper。<br><br>每个主题分区（Topic Partition）由 Pulsar 分配给某个 Broker，该 Broker 称为该主题分区的所有者。<br>Pulsar 生产者和消费者连接到主题分区的所有者 Broker，以向所有者代理发送消息并消费消息。<br><br>如果一个 Broker 失败，Pulsar 会自动将其拥有的主题分区移动到群集中剩余的某一个可用 Broker 中。<br>这里要说的一件事是：由于 Broker 是无状态的，当发生 Topic 的迁移时，Pulsar 只是将所有权从一个 Broker 转移到另一个 Broker，在这个过程中，不会有任何数据复制发生。<br><br>下图显示了一个拥有 4 个 Broker 的 Pulsar 集群，其中 4 个主题分区分布在 4 个 Broker 中。<br>每个 Broker 拥有并为一个主题分区提供消息服务。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7730951f.png" width="800"></div><br>### BookKeeper 层：持久化存储层<br><br>Apache BookKeeper 是 Apache Pulsar 的持久化存储层。<br>Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。<br><br>每个分布式日志又被分为 Segment 分段。<br>每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。<br>Segment 的创建时机包括以下几种：<br>基于配置的 Segment 大小；<br>基于配置的滚动时间；<br>或者当 Segment 的所有者被切换。<br>通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。<br>这意味着主题分区的大小不仅受一个节点容量的限制；<br>相反，它可以扩展到整个 BookKeeper 集群的总容量。<br><br>下面的图说明了一个分为 x 个 Segment 段的主题分区。<br>每个 Segment 段存储 3 个副本。<br>所有 Segment 都分布并存储在 4 个 Bookie 中。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae772bb849.png" width="800"></div><br>#### Segment 为中心的存储<br><br>存储服务的分层的架构 和 以 Segment 为中心的存储 是 Apache Pulsar（使用 Apache BookKeeper）的两个关键设计理念。<br>这两个基础为 Pulsar 提供了许多重要的好处：<br><br>- 无限制的主题分区存储<br>- 即时扩展，无需数据迁移<br>无缝 Broker 故障恢复<br>无缝集群扩展<br>无缝的存储（Bookie）故障恢复<br>- 独立的可扩展性<br><br>下面我们分别展开来看这几个好处。<br>### 无限制的主题分区存储<br><br>由于主题分区被分割成 Segment 并在 Apache BookKeeper 中以分布式方式存储，因此主题分区的容量不受任何单一节点容量的限制。<br>相反，主题分区可以扩展到整个 BookKeeper 集群的总容量，只需添加 Bookie 节点即可扩展集群容量。<br>这是 Apache Pulsar 支持存储无限大小的流数据，并能够以高效，分布式方式处理数据的关键。<br>使用 Apache BookKeeper 的分布式日志存储，对于统一消息服务和存储至关重要。<br>##### 即时扩展，无需数据迁移<br><br>由于消息服务和消息存储分为两层，因此将主题分区从一个 Broker 移动到另一个 Broker 几乎可以瞬时内完成，而无需任何数据重新平衡（将数据从一个节点重新复制到另一个节点）。<br>这一特性对于高可用的许多方面至关重要，例如集群扩展；对 Broker 和 Bookie 失败的快速应对。<br>###### 无缝 Broker 故障恢复<br><br>下图说明了 Pulsar 如何处理 Broker 失败的示例。<br>在例子中 Broker 2 因某种原因（例如停电）而断开。<br>Pulsar 检测到 Broker 2 已关闭，并立即将 Topic1-Part2 的所有权从 Broker 2 转移到 Broker 3。<br>在 Pulsar 中数据存储和数据服务分离，所以当代理 3 接管 Topic1-Part2 的所有权时，它不需要复制 Partiton 的数据。<br>如果有新数据到来，它立即附加并存储为 Topic1-Part2 中的 Segment x + 1。<br>Segment x + 1 被分发并存储在 Bookie1, 2 和 4 上。因为它不需要重新复制数据，所以所有权转移立即发生而不会牺牲主题分区的可用性。<br><div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77366fe5.png" width="800"></div>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77279003.png" width="800"></div>
+
+<p>在 Pulsar 客户端中提供生产者和消费者（Producer &amp; Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。</p>
+<p>Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。<br>客户端也没有直接的 BookKeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。</p>
+<p>Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。<br>Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。</p>
+<h3 id="Broker-层：无状态服务层"><a href="#Broker-层：无状态服务层" class="headerlink" title="Broker 层：无状态服务层"></a>Broker 层：无状态服务层</h3><p>Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无状态的”，因为 Broker 实际上并不在本地存储任何消息数据。<br>有关 Pulsar 主题的消息，都被存储在分布式日志存储系统（Apache BookKeeper）中。我们将在下一节中更多地讨论 BookKeeper。</p>
+<p>每个主题分区（Topic Partition）由 Pulsar 分配给某个 Broker，该 Broker 称为该主题分区的所有者。<br>Pulsar 生产者和消费者连接到主题分区的所有者 Broker，以向所有者代理发送消息并消费消息。</p>
+<p>如果一个 Broker 失败，Pulsar 会自动将其拥有的主题分区移动到群集中剩余的某一个可用 Broker 中。<br>这里要说的一件事是：由于 Broker 是无状态的，当发生 Topic 的迁移时，Pulsar 只是将所有权从一个 Broker 转移到另一个 Broker，在这个过程中，不会有任何数据复制发生。</p>
+<p>下图显示了一个拥有 4 个 Broker 的 Pulsar 集群，其中 4 个主题分区分布在 4 个 Broker 中。<br>每个 Broker 拥有并为一个主题分区提供消息服务。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7730951f.png" width="800"></div>
+
+<h3 id="BookKeeper-层：持久化存储层"><a href="#BookKeeper-层：持久化存储层" class="headerlink" title="BookKeeper 层：持久化存储层"></a>BookKeeper 层：持久化存储层</h3><p>Apache BookKeeper 是 Apache Pulsar 的持久化存储层。<br>Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。</p>
+<p>每个分布式日志又被分为 Segment 分段。<br>每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。<br>Segment 的创建时机包括以下几种：<br>基于配置的 Segment 大小；<br>基于配置的滚动时间；<br>或者当 Segment 的所有者被切换。<br>通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。<br>这意味着主题分区的大小不仅受一个节点容量的限制；<br>相反，它可以扩展到整个 BookKeeper 集群的总容量。</p>
+<p>下面的图说明了一个分为 x 个 Segment 段的主题分区。<br>每个 Segment 段存储 3 个副本。<br>所有 Segment 都分布并存储在 4 个 Bookie 中。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae772bb849.png" width="800"></div>
+
+<h4 id="Segment-为中心的存储"><a href="#Segment-为中心的存储" class="headerlink" title="Segment 为中心的存储"></a>Segment 为中心的存储</h4><p>存储服务的分层的架构 和 以 Segment 为中心的存储 是 Apache Pulsar（使用 Apache BookKeeper）的两个关键设计理念。<br>这两个基础为 Pulsar 提供了许多重要的好处：</p>
+<ul>
+<li>无限制的主题分区存储</li>
+<li>即时扩展，无需数据迁移<ol>
+<li>无缝 Broker 故障恢复</li>
+<li>无缝集群扩展</li>
+<li>无缝的存储（Bookie）故障恢复</li>
+</ol>
+</li>
+<li>独立的可扩展性</li>
+</ul>
+<p>下面我们分别展开来看这几个好处。</p>
+<h5 id="无限制的主题分区存储"><a href="#无限制的主题分区存储" class="headerlink" title="无限制的主题分区存储"></a>无限制的主题分区存储</h5><p>由于主题分区被分割成 Segment 并在 Apache BookKeeper 中以分布式方式存储，因此主题分区的容量不受任何单一节点容量的限制。<br>相反，主题分区可以扩展到整个 BookKeeper 集群的总容量，只需添加 Bookie 节点即可扩展集群容量。<br>这是 Apache Pulsar 支持存储无限大小的流数据，并能够以高效，分布式方式处理数据的关键。<br>使用 Apache BookKeeper 的分布式日志存储，对于统一消息服务和存储至关重要。</p>
+<h5 id="即时扩展，无需数据迁移"><a href="#即时扩展，无需数据迁移" class="headerlink" title="即时扩展，无需数据迁移"></a>即时扩展，无需数据迁移</h5><p>由于消息服务和消息存储分为两层，因此将主题分区从一个 Broker 移动到另一个 Broker 几乎可以瞬时内完成，而无需任何数据重新平衡（将数据从一个节点重新复制到另一个节点）。<br>这一特性对于高可用的许多方面至关重要，例如集群扩展；对 Broker 和 Bookie 失败的快速应对。 </p>
+<h6 id="无缝-Broker-故障恢复"><a href="#无缝-Broker-故障恢复" class="headerlink" title="无缝 Broker 故障恢复"></a>无缝 Broker 故障恢复</h6><p>下图说明了 Pulsar 如何处理 Broker 失败的示例。<br>在例子中 Broker 2 因某种原因（例如停电）而断开。<br>Pulsar 检测到 Broker 2 已关闭，并立即将 Topic1-Part2 的所有权从 Broker 2 转移到 Broker 3。<br>在 Pulsar 中数据存储和数据服务分离，所以当代理 3 接管 Topic1-Part2 的所有权时，它不需要复制 Partiton 的数据。<br>如果有新数据到来，它立即附加并存储为 Topic1-Part2 中的 Segment x + 1。<br>Segment x + 1 被分发并存储在 Bookie1, 2 和 4 上。因为它不需要重新复制数据，所以所有权转移立即发生而不会牺牲主题分区的可用性。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77366fe5.png" width="800"></div>
+
+<h6 id="无缝集群容量扩展"><a href="#无缝集群容量扩展" class="headerlink" title="无缝集群容量扩展"></a>无缝集群容量扩展</h6><p>下图说明了 Pulsar 如何处理集群的容量扩展。<br>当 Broker 2 将消息写入 Topic1-Part2 的 Segment X 时，将 Bookie X 和 Bookie Y 添加到集群中。<br>Broker 2 立即发现新加入的 Bookies X 和 Y。然后 Broker 将尝试将 Segment X + 1 和 X + 2 的消息存储到新添加的 Bookie 中。<br>新增加的 Bookie 立刻被使用起来，流量立即增加，而不会重新复制任何数据。<br>除了机架感知和区域感知策略之外，Apache BookKeeper 还提供资源感知的放置策略，以确保流量在群集中的所有存储节点之间保持平衡。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7747779e.png" width="800"></div>
+
+<h6 id="无缝的存储（Bookie）故障恢复"><a href="#无缝的存储（Bookie）故障恢复" class="headerlink" title="无缝的存储（Bookie）故障恢复"></a>无缝的存储（Bookie）故障恢复</h6><p>下图说明了 Pulsar（通过 Apache BookKeeper）如何处理 bookie 的磁盘故障。<br>这里有一个磁盘故障导致存储在 bookie 2 上的 Segment 4 被破坏。<br>Apache BookKeeper 后台会检测到这个错误并进行复制修复。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae773e0cd5.png" width="800"></div>
+
+<p>Apache BookKeeper 中的副本修复是 Segment（甚至是 Entry）级别的多对多快速修复，这比重新复制整个主题分区要精细，只会复制必须的数据。<br>这意味着 Apache BookKeeper 可以从 bookie 3 和 bookie 4 读取 Segment 4 中的消息，并在 bookie 1 处修复 Segment 4。<br>所有的副本修复都在后台进行，对 Broker 和应用透明。<br>即使有 Bookie 节点出错的情况发生时，通过添加新的可用的 Bookie 来替换失败的 Bookie，所有 Broker 都可以继续接受写入，而不会牺牲主题分区的可用性。</p>
+<h5 id="独立的可扩展性"><a href="#独立的可扩展性" class="headerlink" title="独立的可扩展性"></a>独立的可扩展性</h5><p>由于消息服务层和持久存储层是分开的，因此 Apache Pulsar 可以独立地扩展存储层和服务层。这种独立的扩展，更具成本效益：</p>
+<ul>
+<li><p>当您需要支持更多的消费者或生产者时，您可以简单地添加更多的 Broker。<br>主题分区将立即在 Brokers 中做平衡迁移，一些主题分区的所有权立即转移到新的 Broker。</p>
+</li>
+<li><p>当您需要更多存储空间来将消息保存更长时间时，您只需添加更多 Bookie。<br>通过智能资源感知和数据放置，流量将自动切换到新的 Bookie 中。<br>Apache Pulsar 中不会涉及到不必要的数据搬迁，不会将旧数据从现有存储节点重新复制到新存储节点。</p>
+<h2 id="Pulsar-VS-Kafka"><a href="#Pulsar-VS-Kafka" class="headerlink" title="Pulsar VS. Kafka"></a>Pulsar VS. Kafka</h2><p>Apache Kafka 和 Apache Pulsar 都有类似的消息概念。<br>客户端通过主题与消息系统进行交互。 每个主题都可以分为多个分区。<br>然而，Apache Pulsar 和 Apache Kafka 之间的根本区别在于 Apache Kafka 是以分区为存储中心，而 Apache Pulsar 是以 Segment 为存储中心。</p>
+<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae774be269.png" width="800"></div>
+
+</li>
+</ul>
+<p>上图显示了以分区为中心和以 Segment 为中心的系统之间的差异。</p>
+<h3 id="Apache-Kafka"><a href="#Apache-Kafka" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h3><p>在 Apache Kafka 中，分区只能存储在单个节点上并复制到其他节点，其容量受最小节点容量的限制。<br>这意味着容量扩展需要对分区重新平衡，这反过来又需要重新复制整个分区，以平衡新添加的代理的数据和流量。</p>
+<p>重新传输数据非常昂贵且容易出错，并且会消耗网络带宽和 I/O。维护人员在执行此操作时必须非常小心，以避免破坏生产系统。</p>
+<p>Kafka 中分区数据的重新拷贝不仅发生在以分区为中心的系统中的群集扩展上。<br>许多其他事情也会触发数据重新拷贝，例如副本故障，磁盘故障或计算机的故障。在数据重新复制期间，分区通常不可用，直到数据重新复制完成。<br>例如，如果您将分区配置为存储为 3 个副本，这时，如果丢失了一个副本，则必须重新复制完整个分区后，分区才可以再次可用。</p>
+<p>Kafka 中分区数据的重新拷贝不仅发生在以分区为中心的系统中的群集扩展上。<br>许多其他事情也会触发数据重新拷贝，例如副本故障，磁盘故障或计算机的故障。在数据重新复制期间，分区通常不可用，直到数据重新复制完成。<br>例如，如果您将分区配置为存储为 3 个副本，这时，如果丢失了一个副本，则必须重新复制完整个分区后，分区才可以再次可用。</p>
+<p>在用户遇到故障之前，通常会忽略这种缺陷，因为许多情况下，在短时间内仅是对内存中缓存数据的读取。<br>当数据被保存到磁盘后，用户将越来越多地不可避免地遇到数据丢失，故障恢复的问题，特别是在需要将数据长时间保存的场合。</p>
+<h3 id="Apache-Pulsar"><a href="#Apache-Pulsar" class="headerlink" title="Apache Pulsar"></a>Apache Pulsar</h3><p>相反，在 Apache Pulsar 中，同样是以分区为逻辑单元，但是以 Segment 为物理存储单元。<br>分区随着时间的推移会进行分段，并在整个集群中均衡分布，旨在有效地迅速地扩展。</p>
+<p>Pulsar 是以 Segment 为中心的，因此在扩展容量时不需要数据重新平衡和拷贝，旧数据不会被重新复制，这要归功于在 Apache BookKeeper 中使用可扩展的以 Segment 为中心的分布式日志存储系统。</p>
+<p>通过利用分布式日志存储，Pulsar 可以最大化 Segment 放置选项，实现高写入和高读取可用性。<br>例如，使用 BookKeeper，副本设置等于 2，只要任何 2 个 Bookie 启动，就可以对主题分区进行写入。<br>对于读取可用性，只要主题分区的副本集中有 1 个处于活动状态，用户就可以读取它，而不会出现任何不一致。</p>
+<p>总之，Apache Pulsar 这种独特的基于分布式日志存储的以 Segment 为中心的发布 / 订阅消息系统可以提供许多优势，例如可靠的流式系统，包括无限制的日志存储，无需分区重新平衡的即时扩展，快速复制修复以及通过最大化数据放置实现高写入和读取可用性选项。</p>
+
       
     </div>
     
@@ -354,7 +526,7 @@
 <li>消费者被组合在一起消费消息，每个消费组是一个订阅（subscription）。</li>
 <li>每个 Topic 可以有不同的消费组（subscription）。</li>
 <li>每组消费者都是对主题的一个订阅。</li>
-<li>每组消费者可以拥有自己不同的消费方式： 独占（Exclusive），故障切换（Failover）或共享（Share）。<br>Pulsar 通过这种模型，将队列模型和流模型这两种模型结合在了一起，提供了统一的 API 接口。<br>这种模型，既不会影响消息系统的性能，也不会带来额外的开销，同时还为用户提供了更多灵活性，方便用户程序以最匹配模式来使用消息系统。<h5 id="独占订阅（Stream-流模型）"><a href="#独占订阅（Stream-流模型）" class="headerlink" title="独占订阅（Stream 流模型）"></a>独占订阅（Stream 流模型）</h5>独占订阅中，在任何时间，一个消费者组（订阅）中有且只有一个消费者来消费 Topic 中的消息。<br>下图是独占订阅的示例。<br>在这个示例中有一个有订阅 A 的活跃消费者 A-0，消息 m0 到 m4 按顺序传送并由 A-0 消费。<br>如果另一个消费者 A-1 想要附加到订阅 A，则是不被允许的。<br><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6f4a9ee3.png" width="800"></div><h5 id="故障切换（Stream-流模型）"><a href="#故障切换（Stream-流模型）" class="headerlink" title="故障切换（Stream 流模型）"></a>故障切换（Stream 流模型）</h5>故障切换订阅，多个消费者（Consumer）可以附加到同一订阅。<br>但是，一个订阅中的所有消费者，只会有一个消费者被选为该订阅的主消费者。 其他消费者将被指定为故障转移消费者。<br>当主消费者断开连接时，分区将被重新分配给其中一个故障转移消费者，而新分配的消费者将成为新的主消费者。<br>发生这种情况时，所有未确认（ack）的消息都将传递给新的主消费者。 这类似于 Apache Kafka 中的 Consumer partition rebalance。<br>下图是故障切换订阅的示例。<br>消费者 B-0 和 B-1 通过订阅 B 订阅消费消息。B-0 是主消费者并接收所有消息。<br>B-1 是故障转移消费者，如果消费者 B-0 出现故障，它将接管消费。</li>
+<li>每组消费者可以拥有自己不同的消费方式： 独占（Exclusive），故障切换（Failover）或共享（Share）。<br>Pulsar 通过这种模型，将队列模型和流模型这两种模型结合在了一起，提供了统一的 API 接口。<br>这种模型，既不会影响消息系统的性能，也不会带来额外的开销，同时还为用户提供了更多灵活性，方便用户程序以最匹配模式来使用消息系统。<h5 id="独占订阅（Stream-流模型）"><a href="#独占订阅（Stream-流模型）" class="headerlink" title="独占订阅（Stream 流模型）"></a>独占订阅（Stream 流模型）</h5>独占订阅中，在任何时间，一个消费者组（订阅）中有且只有一个消费者来消费 Topic 中的消息。<br>下图是独占订阅的示例。<br>在这个示例中有一个有订阅 A 的活跃消费者 A-0，消息 m0 到 m4 按顺序传送并由 A-0 消费。<br>如果另一个消费者 A-1 想要附加到订阅 A，则是不被允许的。<br><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae5e79a80e.png" width="800"></div><h5 id="故障切换（Stream-流模型）"><a href="#故障切换（Stream-流模型）" class="headerlink" title="故障切换（Stream 流模型）"></a>故障切换（Stream 流模型）</h5>故障切换订阅，多个消费者（Consumer）可以附加到同一订阅。<br>但是，一个订阅中的所有消费者，只会有一个消费者被选为该订阅的主消费者。 其他消费者将被指定为故障转移消费者。<br>当主消费者断开连接时，分区将被重新分配给其中一个故障转移消费者，而新分配的消费者将成为新的主消费者。<br>发生这种情况时，所有未确认（ack）的消息都将传递给新的主消费者。 这类似于 Apache Kafka 中的 Consumer partition rebalance。<br>下图是故障切换订阅的示例。<br>消费者 B-0 和 B-1 通过订阅 B 订阅消费消息。B-0 是主消费者并接收所有消息。<br>B-1 是故障转移消费者，如果消费者 B-0 出现故障，它将接管消费。</li>
 </ul>
 <p><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6144d6c4.png" width="800"></div></p>
 <h5 id="共享订阅（Queue-队列模型）"><a href="#共享订阅（Queue-队列模型）" class="headerlink" title="共享订阅（Queue 队列模型）"></a>共享订阅（Queue 队列模型）</h5><p>使用共享订阅，在同一个订阅背后，用户按照应用的需求挂载任意多的消费者。<br>订阅中的所有消息以循环分发形式发送给订阅背后的多个消费者，并且一个消息仅传递给一个消费者。<br>当消费者断开连接时，所有传递给它但是未被确认（ack）的消息将被重新分配和组织，以便发送给该订阅上剩余的剩余消费者。<br>下图是共享订阅的示例。 消费者 C-1，C-2 和 C-3 都在同一主题上消费消息。 每个消费者接收大约所有消息的 1/3。<br>如果想提高消费的速度，用户不需要不增加分区数量，只需要在同一个订阅中添加更多的消费者。</p>
@@ -382,8 +554,49 @@
 <p>Pulsar：使用专门的 Cursor 管理。累积确认和 Kafka 效果一样；提供单条或选择性确认。</p>
 <p>消息保留<br>Kafka：根据设置的保留期来删除消息。有可能消息没被消费，过期后被删除。 不支持 TTL。</p>
 <p>Pulsar：消息只有被所有订阅消费后才会删除，不会丢失数据。也允许设置保留期，保留被消费的数据。支持 TTL。</p>
-<p>对比总结<br>Apache Pulsar 将高性能的流（Apache Kafka 所追求的）和灵活的传统队列（RabbitMQ 所追求的）结合到一个统一的消息模型和 API 中。<br>Pulsar 使用统一的 API 为用户提供一个支持流和队列的系统，且具有同样的高性能。程序可以将此统一的 API 用于高性能队列和流式传输，而无需维护两套系统：RabbitMQ 进行队列处理，Kafka 进行流式处理。    </p>
-<h2 id="性能指标、稳定性、运维能力"><a href="#性能指标、稳定性、运维能力" class="headerlink" title="性能指标、稳定性、运维能力"></a>性能指标、稳定性、运维能力</h2>
+<p>对比总结<br>Apache Pulsar 将高性能的流（Apache Kafka 所追求的）和灵活的传统队列（RabbitMQ 所追求的）结合到一个统一的消息模型和 API 中。<br>Pulsar 使用统一的 API 为用户提供一个支持流和队列的系统，且具有同样的高性能。程序可以将此统一的 API 用于高性能队列和流式传输，而无需维护两套系统：RabbitMQ 进行队列处理，Kafka 进行流式处理。  </p>
+<h2 id="性能指标、稳定性、运维能力"><a href="#性能指标、稳定性、运维能力" class="headerlink" title="性能指标、稳定性、运维能力"></a>性能指标、稳定性、运维能力</h2><h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><h4 id="1-Producer只生产，发送速率逐步变大"><a href="#1-Producer只生产，发送速率逐步变大" class="headerlink" title="1.    Producer只生产，发送速率逐步变大"></a>1.    Producer只生产，发送速率逐步变大</h4><ul>
+<li>发送的1000B的消息包，在每秒发送大于100000笔的场景中，由于Broker需要同时持久化两份消息到Bookie中，在吞吐量到达千兆网卡的的上限之前吞吐量逐渐增大。</li>
+<li>在到达千兆网卡的上限之后，随着发送频率增大，时延延长，实际的发送吞吐量也不再增高。<h4 id="2-Producer只生产，分区逐步增多"><a href="#2-Producer只生产，分区逐步增多" class="headerlink" title="2.    Producer只生产，分区逐步增多"></a>2.    Producer只生产，分区逐步增多</h4></li>
+<li>分区能起到负载均衡提高吞吐量的作用。</li>
+<li>在3个Broker和3个分区的情况下，消息的分配比例关系约为2：1：1。为什么不是1：1：1，分配比例的算法需要进一步研究和测试。</li>
+<li>当分区的数目超过100后，发送速率迅速下降，还需进一步测试和研究。<h4 id="3-Producer只生产，主题逐步增多"><a href="#3-Producer只生产，主题逐步增多" class="headerlink" title="3.    Producer只生产，主题逐步增多"></a>3.    Producer只生产，主题逐步增多</h4></li>
+<li>随着topic数目增多，主题均匀的分配到每一个Broker</li>
+<li>主题的分配比例为3个Broker，3个主题的情况下，每个Broker分配到一个主题。</li>
+<li>客户端在主题数目大于10个的时候，直接内存溢出。<h4 id="4-Producer只生产，消息逐渐变大"><a href="#4-Producer只生产，消息逐渐变大" class="headerlink" title="4.    Producer只生产，消息逐渐变大"></a>4.    Producer只生产，消息逐渐变大</h4></li>
+<li>在没有到达硬件资源约束的情况下，系统对各种消息的大小，吞吐量均衡。<h4 id="5-Producer只生产，压缩方式对比"><a href="#5-Producer只生产，压缩方式对比" class="headerlink" title="5.    Producer只生产，压缩方式对比"></a>5.    Producer只生产，压缩方式对比</h4></li>
+<li>采用压缩方式后，可以有效的节省网络带宽。</li>
+<li>压缩率为（39/800000）/（920/100000）=5/1000</li>
+<li>增加客户端的cpu使用率。客户端使用率到达70%的时候，发送速率不在提升，一直保持在800000笔左右。</li>
+<li>LZ4 的压缩方式比ZLIB更节省cpu的运算资源，因此推荐使用LZ4。<h4 id="6-Producer只生产，Bookie-数量、写入数量、确认数量对比"><a href="#6-Producer只生产，Bookie-数量、写入数量、确认数量对比" class="headerlink" title="6.    Producer只生产，Bookie 数量、写入数量、确认数量对比"></a>6.    Producer只生产，Bookie 数量、写入数量、确认数量对比</h4></li>
+<li>EnsembleSize=1; WriteQuorum=1; AckQuorum=1 时延：3.79<br>第一种场景，没有达到网卡的带宽的约束，因此时延比较低。</li>
+<li>EnsembleSize=2; WriteQuorum=2; AckQuorum=1 时延：4.58<br>第二种场景，对比第一种场景，增加了一个写入，因此时延有所增加，但是在合理范围</li>
+<li>EnsembleSize=3; WriteQuorum=2; AckQuorum=1 时延：4.06<br>第三种场景，对比第二种场景，增加了一个的Bookie，时延有所降低。</li>
+<li>EnsembleSize=3; WriteQuorum=2; AckQuorum=2 时延：79<br>第四种场景，对比第三种场景，由于写入确认数目增加，导致时延延长，但是在合理范围。<h4 id="7-Producer只生产，同步刷盘与异步刷盘"><a href="#7-Producer只生产，同步刷盘与异步刷盘" class="headerlink" title="7.    Producer只生产，同步刷盘与异步刷盘"></a>7.    Producer只生产，同步刷盘与异步刷盘</h4></li>
+<li>在没有达到网络带宽上限的情况下，同步刷盘，与异步刷盘，时延差距不大。</li>
+<li>在到达网络带宽的情况下，同步刷屏优于异步刷盘。<h4 id="8-Producer只生产，发送批次时间窗口"><a href="#8-Producer只生产，发送批次时间窗口" class="headerlink" title="8.    Producer只生产，发送批次时间窗口"></a>8.    Producer只生产，发送批次时间窗口</h4></li>
+<li>发送批次时间窗口值扩大，导致发送的不均匀，增加了时延，建议采用默认值。<h4 id="9-Producer只生产，单生产者与多生产者"><a href="#9-Producer只生产，单生产者与多生产者" class="headerlink" title="9.    Producer只生产，单生产者与多生产者"></a>9.    Producer只生产，单生产者与多生产者</h4></li>
+<li>多个生产者，吞吐量变化平稳，时延平稳</li>
+<li>没有采用压缩算法的情况，单个客户端生产者数量增多，会导致客户端直接内存溢出。<h4 id="10-Producer（集成部署、分开部署）"><a href="#10-Producer（集成部署、分开部署）" class="headerlink" title="10.    Producer（集成部署、分开部署）"></a>10.    Producer（集成部署、分开部署）</h4></li>
+<li>集成部署和分开部署，在没有到达资源约束的情况下（网卡带宽约束），时延和吞吐量基本一直。</li>
+<li>在到达资源约束rate=100000的情况下，集成部署往Broker所在的Bookie写一份数据，而分开部署的Broker，需要同时往两个不同的Bookie的机器上，写相同的数据，导致Broker的出口网络带宽，到达上限，因此集成部署比分开部署时延低些。<h4 id="11-Producer生产和Consumer消费同时进行"><a href="#11-Producer生产和Consumer消费同时进行" class="headerlink" title="11.    Producer生产和Consumer消费同时进行"></a>11.    Producer生产和Consumer消费同时进行</h4></li>
+<li>生产与消费同时进行，生产者的时延会延长，但是生产的速率不变</li>
+<li>同时开启生产者和消费者的消费速度，比只开启消费者消费堆积消息速率低</li>
+<li>对于同一主题，生产者和消费者，同时分配到一个Broker上，因此该主机的网卡出现瓶颈，一部分带宽被消费者占用，一部分带宽被Bookie写给另外一个Bookie。因此计划补充设计带宽没有打满的场景<h4 id="13-Consumer消费堆积消息"><a href="#13-Consumer消费堆积消息" class="headerlink" title="13.    Consumer消费堆积消息"></a>13.    Consumer消费堆积消息</h4></li>
+<li>合并部署在消费堆积消息的时候，由于有一部分数据是在本地硬盘上，不用通过网络去其它的主机上取，所以，读取效率会比分开部署快5%左右。<h3 id="破坏性测试"><a href="#破坏性测试" class="headerlink" title="破坏性测试"></a>破坏性测试</h3></li>
+<li>杀死消息的Broker场景中，消息没有丢失、没有重复、没有顺序的问题。</li>
+<li>杀死两个Bookie中的一个Bookie的场景中，消息没有丢失、没有重复、没有顺序的问题。</li>
+<li>隔离Broker与Zookeeper同时没有开启消除重复配置的场景中，Broker发现无法与Zookeeper通信，会重新启动自己，并且会分配新的Broker，此种场景消息没有丢失、没有顺序问题，但是出现消息重复的现象。</li>
+<li>隔离Broker与Zookeeper同时开启消除重复配置的场景中，消息没有丢失、没有顺序问题，没有消息重复的问题。</li>
+<li>隔离Bookie与Zookeeper的场景，消息没有丢失、没有重复、没有顺序的问题。</li>
+<li>杀死3个Bookie中的其中2个Bookie，消息没有丢失、没有重复、没有顺序的问题。</li>
+<li>杀死2个Bookie中的所有的2Bookie，消息没有重复、没有顺序问题，但是出现消息丢失现象，重新启动杀死的2个Bookie中的其中的1个Bookie，消息可以重新读取。<h3 id="指标监控"><a href="#指标监控" class="headerlink" title="指标监控"></a>指标监控</h3></li>
+<li>Pulsar提供了丰富的监控指标输出指标。</li>
+<li>可以容易的与prometheus监控平台对接，采集其监控指标，通过grafana进行图形展现。过程简单有效，因此推荐此种方式进行监控。<h3 id="运维能力"><a href="#运维能力" class="headerlink" title="运维能力"></a>运维能力</h3></li>
+<li>功能测试目的是从运维和管理的角度进行功能测试，Pulsar的管理维度，分成全局集群、区域集群、租户、命名空间、主题、持久化和非持久化等维度进（见下图）。我们针对以上（除了全局集群）维度进行重点功能的测试。Pulsar提供了命令行命令方式、管理客户端方式、管理URL方式，三种方式进行功能管理，管理命令丰富，满足Pulsar集群的日常管理的需要。如果单集群的部署情况下，建议使用默认的命令行管理方式进行管理。<br><img src="/2019/03/29/消息中间件pulsar，选型与评测/jumb744fqq.jpeg" width="800"></li>
+</ul>
+<p><a href="http://localhost:4000/2019/04/01/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5/" title="pulsar系统架构和设计理念" target="_blank" rel="noopener">pulsar系统架构和设计理念</a></p>
+
       
     </div>
     
@@ -786,129 +999,6 @@ discovery.type: single-node
 <h4 id="接收消息："><a href="#接收消息：" class="headerlink" title="接收消息："></a>接收消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.18.0.3:9092 --topic my-test --from-beginning</span><br></pre></td></tr></table></figure>
 <h4 id="列出消费者组："><a href="#列出消费者组：" class="headerlink" title="列出消费者组："></a>列出消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</span><br></pre></td></tr></table></figure>
 <h4 id="查看消费者组："><a href="#查看消费者组：" class="headerlink" title="查看消费者组："></a>查看消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --describe --group test_group</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hexo-添加本地图片" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/14/hexo-添加本地图片/" class="article-date">
-      <time datetime="2019-03-14T06:02:13.000Z" itemprop="datePublished">2019-03-14</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p><img src="/2019/03/14/hexo-添加本地图片/20190314140451.png" alt></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-hello-everyone" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/14/hello-everyone/" class="article-date">
-      <time datetime="2019-03-14T03:40:48.000Z" itemprop="datePublished">2019-03-14</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/14/hello-everyone/">docker 安装</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h5 id="准备工作"><a href="#准备工作" class="headerlink" title="* 准备工作"></a>* 准备工作</h5><p>Docker 要求 CentOS 系统的内核版本高于 3.10 ，查看本页面的前提条件来验证你的CentOS 版本是否支持 Docker</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uname -r</span><br></pre></td></tr></table></figure>
-<h5 id="问题，卸载旧版本的包-区别？"><a href="#问题，卸载旧版本的包-区别？" class="headerlink" title="* 问题，卸载旧版本的包 区别？"></a>* 问题，卸载旧版本的包 区别？</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum erase docker-common-2:1.12.6-68.gitec8512b.el7.centos.x86_64</span><br></pre></td></tr></table></figure>
-<h5 id="卸载旧版本"><a href="#卸载旧版本" class="headerlink" title="*  卸载旧版本"></a>*  卸载旧版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum remove docker \</span><br><span class="line">                      docker-client \</span><br><span class="line">                      docker-client-latest \</span><br><span class="line">                      docker-common \</span><br><span class="line">                      docker-latest \</span><br><span class="line">                      docker-latest-logrotate \</span><br><span class="line">                      docker-logrotate \</span><br><span class="line">                      docker-selinux \</span><br><span class="line">                      docker-engine-selinux \</span><br><span class="line">                      docker-engine</span><br></pre></td></tr></table></figure>
-<h5 id="使用-yum-安装"><a href="#使用-yum-安装" class="headerlink" title="* 使用 yum 安装"></a>* 使用 yum 安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install -y yum-utils \</span><br><span class="line">               device-mapper-persistent-data \</span><br><span class="line">               lvm2</span><br></pre></td></tr></table></figure>
-<h5 id="鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加-yum-软件源："><a href="#鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加-yum-软件源：" class="headerlink" title="* 鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加 yum 软件源："></a>* 鉴于国内网络问题，强烈建议使用国内源，官方源请在注释中查看。执行下面的命令添加 yum 软件源：</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">        --add-repo \</span><br><span class="line">        https://mirrors.ustc.edu.cn/docker-ce/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-<h5 id="官方源"><a href="#官方源" class="headerlink" title="*  官方源"></a>*  官方源</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum-config-manager \</span><br><span class="line">    --add-repo \  https://download.docker.com/linux/centos/docker-ce.repo</span><br></pre></td></tr></table></figure>
-<h5 id="由于k8s的支持问题，我们选择，安装17-03-2-ce版本"><a href="#由于k8s的支持问题，我们选择，安装17-03-2-ce版本" class="headerlink" title="* 由于k8s的支持问题，我们选择，安装17.03.2.ce版本"></a>* 由于k8s的支持问题，我们选择，安装17.03.2.ce版本</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">yum list docker-ce --showduplicates | sort -r</span><br><span class="line"></span><br><span class="line">yum makecache fast</span><br><span class="line"></span><br><span class="line">yum install -y --setopt=obsoletes=0 docker-ce-17.03.2.ce-1.el7.centos docker-ce-selinux-17.03.2.ce-1.el7.centos</span><br></pre></td></tr></table></figure>
-<h5 id="启动-Docker-CE"><a href="#启动-Docker-CE" class="headerlink" title="* 启动 Docker CE"></a>* 启动 Docker CE</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable docker &amp;&amp; systemctl start docker</span><br></pre></td></tr></table></figure>
-<h5 id="测试-Docker-是否安装正确"><a href="#测试-Docker-是否安装正确" class="headerlink" title="* 测试 Docker 是否安装正确"></a>* 测试 Docker 是否安装正确</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run hello-world</span><br></pre></td></tr></table></figure>
-<h5 id="Ubuntu-16-04-、Debian-8-、CentOS-7-加速"><a href="#Ubuntu-16-04-、Debian-8-、CentOS-7-加速" class="headerlink" title="Ubuntu 16.04+、Debian 8+、CentOS 7 加速"></a>Ubuntu 16.04+、Debian 8+、CentOS 7 加速</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi  /etc/docker/daemon.json</span><br><span class="line">&#123;</span><br><span class="line">      &quot;registry-mirrors&quot;: [</span><br><span class="line">        &quot;https://registry.docker-cn.com&quot;</span><br><span class="line">      ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  注意，一定要保证该文件符合 json 规范，否则 Docker 将不能启动。之后重新启动服务。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload &amp;&amp; systemctl restart docker</span><br></pre></td></tr></table></figure></p>
-<h5 id="CentOS7查看和关闭防火墙"><a href="#CentOS7查看和关闭防火墙" class="headerlink" title="CentOS7查看和关闭防火墙"></a>CentOS7查看和关闭防火墙</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state</span><br><span class="line"></span><br><span class="line">systemctl stop firewalld.service</span><br><span class="line"></span><br><span class="line">systemctl disable firewalld.service</span><br></pre></td></tr></table></figure>
       
     </div>
     

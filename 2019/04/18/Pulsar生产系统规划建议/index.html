@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Fvelement">
 <meta property="og:description" content="集群规划 Apache Pulsar 中的地域复制，第 1 篇：概念和功能Apache Pulsar 中的地域复制，第 2 篇：模式和实践  租户规划 多租户  命名空间规划 Pulsar的命名空间是主题的逻辑分组，请参考  安全策略 Pulsar安全  积压策略 积压配额可帮助代理在达到特定阈值限制之前限制命名空间的带宽/存储。管理员可以在达到限制后设置此限制并执行以下操作之一。  阻塞生产者请">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T03:40:06.856Z">
+<meta property="og:updated_time" content="2019-04-18T03:46:38.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="生产系统规划与建设建议">
 <meta name="twitter:description" content="集群规划 Apache Pulsar 中的地域复制，第 1 篇：概念和功能Apache Pulsar 中的地域复制，第 2 篇：模式和实践  租户规划 多租户  命名空间规划 Pulsar的命名空间是主题的逻辑分组，请参考  安全策略 Pulsar安全  积压策略 积压配额可帮助代理在达到特定阈值限制之前限制命名空间的带宽/存储。管理员可以在达到限制后设置此限制并执行以下操作之一。  阻塞生产者请">
@@ -319,7 +319,8 @@
 <ul>
 <li>单机内存：堆6G+堆外6G</li>
 <li>单机cpu：&gt;2核</li>
-<li>单机硬盘：ssd&gt;100G+传统盘&gt;1T<br>2、副本规划</li>
+<li>单机硬盘：ssd&gt;100G+传统盘&gt;1T</li>
+<li>journalSyncData=true<br>压力测试请参考测试脚本<br>2、副本规划</li>
 <li>总副本：&gt;3个副本</li>
 <li>写：&gt;2个副本</li>
 <li>写确认：&gt;1个副本</li>

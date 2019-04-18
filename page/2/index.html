@@ -184,7 +184,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filebeat/">Filebeat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elk/">elk</a></li></ul>
+                        <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Filebeat/">Filebeat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/elk/">elk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/pulsar/">pulsar</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息中间件/">消息中间件</a></li></ul>
                     </div>
                 </section>
                 
@@ -254,6 +254,71 @@
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-安装kafka" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/14/安装kafka/" class="article-date">
+      <time datetime="2019-03-14T07:37:57.000Z" itemprop="datePublished">2019-03-14</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/14/安装kafka/">kafka安装</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <hr>
+<p>通过docker可以很方便的搭建kafka集群作为本地测试环境使用<br>使用docker-compose进行搭建，包含zookpper服务、kafka broker、kafka-manager。</p>
+<h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /opt/kafka</span><br><span class="line">mkdir -p /opt/kafka/kafka-logs</span><br><span class="line">mkdir -p /opt/kafka/zooData</span><br><span class="line">cd /opt/kafka</span><br><span class="line">vi docker-compose.yml</span><br></pre></td></tr></table></figure>
+<h4 id="docker-compose-yml文件内容："><a href="#docker-compose-yml文件内容：" class="headerlink" title="docker-compose.yml文件内容："></a>docker-compose.yml文件内容：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;2&apos;</span><br><span class="line">services:</span><br><span class="line">  zookeeper:</span><br><span class="line">    image: wurstmeister/zookeeper</span><br><span class="line">    volumes:</span><br><span class="line">      - ./zooData:/data</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;2181:2181&quot;</span><br><span class="line">       </span><br><span class="line">  kafka:</span><br><span class="line">    image: wurstmeister/kafka</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;9092:9092&quot;</span><br><span class="line">    environment:</span><br><span class="line">      KAFKA_ADVERTISED_HOST_NAME: 10.5.74.18</span><br><span class="line">      KAFKA_MESSAGE_MAX_BYTES: 2000000</span><br><span class="line">      KAFKA_CREATE_TOPICS: &quot;Topic1:1:3,Topic2:1:1:compact&quot;</span><br><span class="line">      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181</span><br><span class="line">    volumes:</span><br><span class="line">      - ./kafka-logs:/kafka</span><br><span class="line">      - /var/run/docker.sock:/var/run/docker.sock</span><br><span class="line"> </span><br><span class="line">  kafka-manager:</span><br><span class="line">    image: sheepkiller/kafka-manager</span><br><span class="line">    ports:</span><br><span class="line">      - 9020:9000</span><br><span class="line">    environment:</span><br><span class="line">      ZK_HOSTS: zookeeper:2181</span><br></pre></td></tr></table></figure>
+<h4 id="启动kakfa集群"><a href="#启动kakfa集群" class="headerlink" title="启动kakfa集群"></a>启动kakfa集群</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker-compose up -d</span><br><span class="line"></span><br><span class="line"># 增加更多Broker：</span><br><span class="line">docker-compose scale kafka=3</span><br><span class="line"> </span><br><span class="line"># 合并：</span><br><span class="line">docker-compose up --scale kafka=3</span><br></pre></td></tr></table></figure>
+<h4 id="读写验证"><a href="#读写验证" class="headerlink" title="读写验证"></a>读写验证</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it kafka_kafka_1 /bin/bash</span><br><span class="line">/opt/kafka/bin/kafka-topics.sh --create --zookeeper 172.18.0.4:2181 --replication-factor 1 --partitions 1 --topic my-test</span><br></pre></td></tr></table></figure>
+<h4 id="列出主题："><a href="#列出主题：" class="headerlink" title="列出主题："></a>列出主题：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">/opt/kafka/bin/kafka-topics.sh --list --zookeeper 172.18.0.4:2181</span><br></pre></td></tr></table></figure>
+<h4 id="发送消息："><a href="#发送消息：" class="headerlink" title="发送消息："></a>发送消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-producer.sh --broker-list 172.18.0.3:9092 --topic my-test</span><br></pre></td></tr></table></figure>
+<h4 id="接收消息："><a href="#接收消息：" class="headerlink" title="接收消息："></a>接收消息：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server 172.18.0.3:9092 --topic my-test --from-beginning</span><br></pre></td></tr></table></figure>
+<h4 id="列出消费者组："><a href="#列出消费者组：" class="headerlink" title="列出消费者组："></a>列出消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</span><br></pre></td></tr></table></figure>
+<h4 id="查看消费者组："><a href="#查看消费者组：" class="headerlink" title="查看消费者组："></a>查看消费者组：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/kafka/bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --describe --group test_group</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-hexo-添加本地图片" class="article article-type-post" itemscope itemprop="blogPost">
   

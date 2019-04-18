@@ -15,17 +15,17 @@
 
 
 
-<meta name="description" content="环境准备准备配置文件1234567891011121314151617181920212223242526272829303132tenant: &amp;quot;public&amp;quot;namespace: &amp;quot;default&amp;quot;name: &amp;quot;debezium-kafka-source&amp;quot;topicName: &amp;quot;kafka-connect-topic&amp;quo">
+<meta name="description" content="1. 创建broker端需要用到的secret-key文件：1bin/pulsar tokens create-secret-key --output my-secret.key 2. 使用key来给客户端创建一个token：12bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.k">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pulsar Debezium CDC 测试">
-<meta property="og:url" content="http://yoursite.com/2019/04/10/pulsar-Debezium-CDC-测试/index.html">
+<meta property="og:title" content="Pulsar对称算法生成token">
+<meta property="og:url" content="http://yoursite.com/2019/04/18/Pulsar对称算法生成token/index.html">
 <meta property="og:site_name" content="Fvelement">
-<meta property="og:description" content="环境准备准备配置文件1234567891011121314151617181920212223242526272829303132tenant: &amp;quot;public&amp;quot;namespace: &amp;quot;default&amp;quot;name: &amp;quot;debezium-kafka-source&amp;quot;topicName: &amp;quot;kafka-connect-topic&amp;quo">
+<meta property="og:description" content="1. 创建broker端需要用到的secret-key文件：1bin/pulsar tokens create-secret-key --output my-secret.key 2. 使用key来给客户端创建一个token：12bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.k">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-18T02:38:57.356Z">
+<meta property="og:updated_time" content="2019-04-18T01:44:29.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pulsar Debezium CDC 测试">
-<meta name="twitter:description" content="环境准备准备配置文件1234567891011121314151617181920212223242526272829303132tenant: &amp;quot;public&amp;quot;namespace: &amp;quot;default&amp;quot;name: &amp;quot;debezium-kafka-source&amp;quot;topicName: &amp;quot;kafka-connect-topic&amp;quo">
+<meta name="twitter:title" content="Pulsar对称算法生成token">
+<meta name="twitter:description" content="1. 创建broker端需要用到的secret-key文件：1bin/pulsar tokens create-secret-key --output my-secret.key 2. 使用key来给客户端创建一个token：12bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.k">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -57,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>pulsar Debezium CDC 测试 | Fvelement</title>
+<title>Pulsar对称算法生成token | Fvelement</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -252,11 +252,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap"><article id="post-pulsar-Debezium-CDC-测试" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Pulsar对称算法生成token" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/04/10/pulsar-Debezium-CDC-测试/" class="article-date">
-      <time datetime="2019-04-10T02:39:19.000Z" itemprop="datePublished">2019-04-10</time>
+      <a href="/2019/04/18/Pulsar对称算法生成token/" class="article-date">
+      <time datetime="2019-04-18T01:34:36.000Z" itemprop="datePublished">2019-04-18</time>
 </a>
 
 
@@ -271,7 +271,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      pulsar Debezium CDC 测试
+      Pulsar对称算法生成token
     </h1>
   
 
@@ -288,14 +288,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">tenant: &quot;public&quot;</span><br><span class="line">namespace: &quot;default&quot;</span><br><span class="line">name: &quot;debezium-kafka-source&quot;</span><br><span class="line">topicName: &quot;kafka-connect-topic&quot;</span><br><span class="line">archive: &quot;connectors/pulsar-io-kafka-connect-adaptor-2.3.0-SNAPSHOT.nar&quot;</span><br><span class="line"></span><br><span class="line">##autoAck: true</span><br><span class="line">parallelism: 1</span><br><span class="line"></span><br><span class="line">configs:</span><br><span class="line">  ## sourceTask</span><br><span class="line">  task.class: &quot;io.debezium.connector.mysql.MySqlConnectorTask&quot;</span><br><span class="line"></span><br><span class="line">  ## config for mysql, docker image: debezium/example-mysql:0.8</span><br><span class="line">  database.hostname: &quot;localhost&quot;</span><br><span class="line">  database.port: &quot;3306&quot;</span><br><span class="line">  database.user: &quot;debezium&quot;</span><br><span class="line">  database.password: &quot;dbz&quot;</span><br><span class="line">  database.server.id: &quot;184054&quot;</span><br><span class="line">  database.server.name: &quot;dbserver1&quot;</span><br><span class="line">  database.whitelist: &quot;inventory&quot;</span><br><span class="line"></span><br><span class="line">  database.history: &quot;org.apache.pulsar.io.debezium.PulsarDatabaseHistory&quot;</span><br><span class="line">  database.history.pulsar.topic: &quot;history-topic&quot;</span><br><span class="line">  database.history.pulsar.service.url: &quot;pulsar://127.0.0.1:6650&quot;</span><br><span class="line">  ## KEY_CONVERTER_CLASS_CONFIG, VALUE_CONVERTER_CLASS_CONFIG</span><br><span class="line">  key.converter: &quot;org.apache.kafka.connect.json.JsonConverter&quot;</span><br><span class="line">  value.converter: &quot;org.apache.kafka.connect.json.JsonConverter&quot;</span><br><span class="line">  ## PULSAR_SERVICE_URL_CONFIG</span><br><span class="line">  pulsar.service.url: &quot;pulsar://127.0.0.1:6650&quot;</span><br><span class="line">  ## OFFSET_STORAGE_TOPIC_CONFIG</span><br><span class="line">  offset.storage.topic: &quot;offset-topic&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --rm --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=debezium -e MYSQL_USER=mysqluser -e MYSQL_PASSWORD=mysqlpw debezium/example-mysql:0.8</span><br></pre></td></tr></table></figure>
-<h3 id="启动pulsar"><a href="#启动pulsar" class="headerlink" title="启动pulsar"></a>启动pulsar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar standalone</span><br></pre></td></tr></table></figure>
-<h3 id="启动连接器"><a href="#启动连接器" class="headerlink" title="启动连接器"></a>启动连接器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin source localrun  --sourceConfigFile debezium-mysql-source-config.yaml</span><br></pre></td></tr></table></figure>
-<h3 id="启动消费者，消费消息"><a href="#启动消费者，消费消息" class="headerlink" title="启动消费者，消费消息"></a>启动消费者，消费消息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-client consume -s &quot;sub-products&quot; public/default/dbserver1.inventory.products -n 0</span><br></pre></td></tr></table></figure>
-<h2 id="结果验证"><a href="#结果验证" class="headerlink" title="结果验证"></a>结果验证</h2><h3 id="操作mysql"><a href="#操作mysql" class="headerlink" title="操作mysql"></a>操作mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use inventory;</span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">mysql&gt; SELECT * FROM  products ;</span><br><span class="line">mysql&gt; UPDATE products SET name=&apos;1111111111&apos; WHERE id=101;</span><br><span class="line">mysql&gt; UPDATE products SET name=&apos;1111111111&apos; WHERE id=107;</span><br></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>发现有mysql的消息同步过来，证明数据同步成功</p>
-
+        <h3 id="1-创建broker端需要用到的secret-key文件："><a href="#1-创建broker端需要用到的secret-key文件：" class="headerlink" title="1. 创建broker端需要用到的secret-key文件："></a>1. 创建broker端需要用到的secret-key文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar tokens create-secret-key --output my-secret.key</span><br></pre></td></tr></table></figure>
+<h3 id="2-使用key来给客户端创建一个token："><a href="#2-使用key来给客户端创建一个token：" class="headerlink" title="2. 使用key来给客户端创建一个token："></a>2. 使用key来给客户端创建一个token：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.key --subject test-user</span><br><span class="line">eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIifQ.LMZb6Tz0ISwMlsOcFlbq54wrvFxjO_Rbzcb1JP31fy4</span><br></pre></td></tr></table></figure>
+<h3 id="管理用户"><a href="#管理用户" class="headerlink" title="管理用户"></a>管理用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.key --subject admin </span><br><span class="line">\  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.d01pOIPdo9MF_Pd6hsl2vqFZ5dOPYgnHi2kNDENASsg</span><br></pre></td></tr></table></figure>
+<p>需要把这个返回的token配置到client的配置文件中。</p>
+<h3 id="3-broker的配置使用secret-key文件："><a href="#3-broker的配置使用secret-key文件：" class="headerlink" title="3. broker的配置使用secret-key文件："></a>3. broker的配置使用secret-key文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Enable authentication</span><br><span class="line">authenticationEnabled=true</span><br><span class="line"> </span><br><span class="line"># Autentication provider name list, which is comma separated list of class names</span><br><span class="line">authenticationProviders=org.apache.pulsar.broker.authentication.AuthenticationProviderToken</span><br><span class="line"> </span><br><span class="line"> # Enforce authorization</span><br><span class="line">authorizationEnabled=true</span><br><span class="line"> </span><br><span class="line"># Authorization provider fully qualified class-name</span><br><span class="line"> authorizationProvider=org.apache.pulsar.broker.authorization.PulsarAuthorizationProvider</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">tokenSecretKey=file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.key</span><br><span class="line"> # Allow wildcard matching in authorization</span><br><span class="line"># (wildcard matching only applicable if wildcard-char:</span><br><span class="line"># * presents at first or last position eg: *.pulsar.service, pulsar.service.*)</span><br><span class="line">authorizationAllowWildcardsMatching=false</span><br><span class="line"> </span><br><span class="line"> # Role names that are treated as &quot;super-user&quot;, meaning they will be able to do all admin</span><br><span class="line"> # operations and publish/consume from all topics</span><br><span class="line">superUserRoles=test-user</span><br></pre></td></tr></table></figure>
+<h3 id="4-启动pulsar"><a href="#4-启动pulsar" class="headerlink" title="4. 启动pulsar"></a>4. 启动pulsar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/hdb/apache-pulsar-2.2.0/ </span><br><span class="line">bin/pulsar-daemon start bookie</span><br><span class="line">bin/pulsar-daemon start broker</span><br></pre></td></tr></table></figure>
+<h3 id="5-客户端配置token"><a href="#5-客户端配置token" class="headerlink" title="5. 客户端配置token"></a>5. 客户端配置token</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">authPlugin=org.apache.pulsar.client.impl.auth.AuthenticationToken</span><br><span class="line"></span><br><span class="line"> # Parameters passed to authentication plugin.</span><br><span class="line"> # A comma separated list of key:value pairs.</span><br><span class="line"> # Keys depend on the configured authPlugin.</span><br><span class="line"> # e.g. for TLS</span><br><span class="line"> # authParams=tlsCertFile:/path/to/client-cert.pem,tlsKeyFile:/path/to/client-key.pem</span><br><span class="line"> authParams=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIifQ.LMZb6Tz0ISwMlsOcFlbq54wrvFxjO_Rbzcb1JP31fy4</span><br></pre></td></tr></table></figure>
+<h3 id="6-启动client"><a href="#6-启动client" class="headerlink" title="6. 启动client"></a>6. 启动client</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin tenants create testSmsTenant \</span><br><span class="line">--admin-roles admin</span><br><span class="line"></span><br><span class="line">bin/pulsar-admin namespaces create -b 36  testSmsTenant/testSmsNamespace</span><br><span class="line">bin/pulsar-admin namespaces set-clusters testSmsTenant/testSmsNamespace -c  pulsar-cluster-2</span><br><span class="line"></span><br><span class="line">bin/pulsar-admin namespaces grant-permission testSmsTenant/testSmsNamespace \</span><br><span class="line">--role test-user \</span><br><span class="line">--actions produce,consume</span><br><span class="line">bin/pulsar-admin namespaces permissions   testSmsTenant/testSmsNamespace</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -307,15 +307,15 @@
     <nav id="article-nav">
         
             <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2019/04/10/mysql-常用命令及脑图/">
-                    mysql 常用命令及脑图
+                <a href="/2019/04/18/Pulsar非对称生成token/">
+                    Pulsar非对称生成token
                 </a>
             </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2019/04/01/系统架构和设计理念/">
-                    Pulsar系统架构和设计理念
+                <a href="/2019/04/18/Pulsar测试脚本/">
+                    Pulsar测试脚本
                 </a>
             </div>
         
@@ -327,7 +327,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备配置文件"><span class="toc-number">1.1.</span> <span class="toc-text">准备配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动mysql"><span class="toc-number">1.2.</span> <span class="toc-text">启动mysql</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动pulsar"><span class="toc-number">1.3.</span> <span class="toc-text">启动pulsar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动连接器"><span class="toc-number">1.4.</span> <span class="toc-text">启动连接器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动消费者，消费消息"><span class="toc-number">1.5.</span> <span class="toc-text">启动消费者，消费消息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果验证"><span class="toc-number">2.</span> <span class="toc-text">结果验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#操作mysql"><span class="toc-number">2.1.</span> <span class="toc-text">操作mysql</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结论"><span class="toc-number">3.</span> <span class="toc-text">结论</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-创建broker端需要用到的secret-key文件："><span class="toc-number">1.</span> <span class="toc-text">1. 创建broker端需要用到的secret-key文件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用key来给客户端创建一个token："><span class="toc-number">2.</span> <span class="toc-text">2. 使用key来给客户端创建一个token：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管理用户"><span class="toc-number">3.</span> <span class="toc-text">管理用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-broker的配置使用secret-key文件："><span class="toc-number">4.</span> <span class="toc-text">3. broker的配置使用secret-key文件：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-启动pulsar"><span class="toc-number">5.</span> <span class="toc-text">4. 启动pulsar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-客户端配置token"><span class="toc-number">6.</span> <span class="toc-text">5. 客户端配置token</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-启动client"><span class="toc-number">7.</span> <span class="toc-text">6. 启动client</span></a></li></ol>
         
     </div>
     <style>
@@ -363,7 +363,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"pulsar Debezium CDC 测试　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Pulsar对称算法生成token　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -383,7 +383,7 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2019/04/10/mysql-常用命令及脑图/" title="上一篇: mysql 常用命令及脑图">
+            <a href="/2019/04/18/Pulsar非对称生成token/" title="上一篇: Pulsar非对称生成token">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -391,7 +391,7 @@
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2019/04/01/系统架构和设计理念/" title="下一篇: Pulsar系统架构和设计理念">
+            <a href="/2019/04/18/Pulsar测试脚本/" title="下一篇: Pulsar测试脚本">
                 <i class="fa fa-angle-right"></i>
             </a>
         

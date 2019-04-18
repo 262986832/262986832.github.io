@@ -14,17 +14,18 @@
 <meta name="author" content="Fvelement">
 
 
-    
-    
 
-
-<meta property="og:type" content="website">
-<meta property="og:title" content="Fvelement">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="环境准备准备工作1、硬盘写入速度测试1time dd if=/dev/sdc1  of=/mnt/hdc/test.disk bs=1024k count=30000 虚机机械盘：写入吞吐量：226 MB/s虚机ssd盘：写入吞吐量： 213 MB/s 2、设置时间同步123456yum install ntp //安装ntp服务systemctl enable ntpd //开机启动服务syst">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pulsar测试脚本">
+<meta property="og:url" content="http://yoursite.com/2019/04/18/Pulsar测试脚本/index.html">
 <meta property="og:site_name" content="Fvelement">
+<meta property="og:description" content="环境准备准备工作1、硬盘写入速度测试1time dd if=/dev/sdc1  of=/mnt/hdc/test.disk bs=1024k count=30000 虚机机械盘：写入吞吐量：226 MB/s虚机ssd盘：写入吞吐量： 213 MB/s 2、设置时间同步123456yum install ntp //安装ntp服务systemctl enable ntpd //开机启动服务syst">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-04-18T02:03:41.428Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fvelement">
+<meta name="twitter:title" content="Pulsar测试脚本">
+<meta name="twitter:description" content="环境准备准备工作1、硬盘写入速度测试1time dd if=/dev/sdc1  of=/mnt/hdc/test.disk bs=1024k count=30000 虚机机械盘：写入吞吐量：226 MB/s虚机ssd盘：写入吞吐量： 213 MB/s 2、设置时间同步123456yum install ntp //安装ntp服务systemctl enable ntpd //开机启动服务syst">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -52,13 +53,11 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>Fvelement</title>
+<title>Pulsar测试脚本 | Fvelement</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -67,8 +66,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -253,132 +252,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-Pulsar非对称生成token" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/18/Pulsar非对称生成token/" class="article-date">
-      <time datetime="2019-04-18T01:34:52.000Z" itemprop="datePublished">2019-04-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/Pulsar非对称生成token/">Pulsar非对称生成token</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="1-创建broker端需要用到的public-private-key文件："><a href="#1-创建broker端需要用到的public-private-key文件：" class="headerlink" title="1. 创建broker端需要用到的public/private-key文件："></a>1. 创建broker端需要用到的public/private-key文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bin/pulsar tokens create-key-pair --output-private-key my-private.key --output-public-key my-public.key</span><br></pre></td></tr></table></figure>
-<h3 id="2-使用key文件来给客户端创建一个token："><a href="#2-使用key文件来给客户端创建一个token：" class="headerlink" title="2. 使用key文件来给客户端创建一个token："></a>2. 使用key文件来给客户端创建一个token：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（注意这里两个地方要用 private-key：create --private-key；my-private.key ）</span><br><span class="line">bin/pulsar tokens create --private-key file:///Users/jia/Downloads/apache-pulsar-2.3.0/my-  private.key --subject test-user  --expiry-time 1y</span><br><span class="line"></span><br><span class="line">eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJleHAiOjE1ODI2NDMxMjF9.O-Qgfzn9xB7KMBl8tgaifw-vFVg9OLqiHm9bGU-xS09soCsqjMP9xVlXStRybQrbsDAx_AFIezlafqIzPIfJWHEjZ46iTK7EaBo11Phd72ArQKa-JWR2TSO6xBFl0LSp2DkWYljIzkK8wAggsTC23uPKsGZ2hAwK9zehJytOER7WN6uYeN0B3dANSmX8WsbAw1nHyp-l1vcCeAA5wHcIXjd-yGB8fV6olJTHH743JDCXVVl3EJ2Lz6C_i0m6nkFCfse2VzEnXtVjdpzAyLnvmvp_B5_yG_q7rjHaec6txL78DB-Yl1WSnSVkEWsIQK-XwmDZBUNmnYQjcUO8EJU2xA</span><br></pre></td></tr></table></figure>
-<p>需要把这个返回的token配置到client的配置文件中。</p>
-<h3 id="3-broker的配置使用public-key文件："><a href="#3-broker的配置使用public-key文件：" class="headerlink" title="3. broker的配置使用public-key文件："></a>3. broker的配置使用public-key文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">（注意这里两个地方要设置Public-key: tokenPublicKey=;  my-public.key ）</span><br><span class="line"> # Enable authentication</span><br><span class="line"> authenticationEnabled=true</span><br><span class="line"></span><br><span class="line"> # Autentication provider name list, which is comma separated list of class names</span><br><span class="line"> authenticationProviders=org.apache.pulsar.broker.authentication.AuthenticationProviderToken</span><br><span class="line"></span><br><span class="line"> # Enforce authorization</span><br><span class="line"> authorizationEnabled=true</span><br><span class="line"></span><br><span class="line"> # Authorization provider fully qualified class-name</span><br><span class="line"> authorizationProvider=org.apache.pulsar.broker.authorization.PulsarAuthorizationProvider</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> tokenPublicKey=file:///Users/jia/Downloads/apache-pulsar-2.3.0/my-public.key</span><br><span class="line"> # Allow wildcard matching in authorization</span><br><span class="line"> # (wildcard matching only applicable if wildcard-char:</span><br><span class="line"> # * presents at first or last position eg: *.pulsar.service, pulsar.service.*)</span><br><span class="line"> authorizationAllowWildcardsMatching=false</span><br><span class="line"></span><br><span class="line"> # Role names that are treated as &quot;super-user&quot;, meaning they will be able to do all admin</span><br><span class="line"> # operations and publish/consume from all topics</span><br><span class="line"> superUserRoles=test-user</span><br></pre></td></tr></table></figure>
-<h3 id="4-启动pulsar"><a href="#4-启动pulsar" class="headerlink" title="4. 启动pulsar"></a>4. 启动pulsar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/hdb/apache-pulsar-2.2.0/ </span><br><span class="line">bin/pulsar-daemon start bookie</span><br><span class="line">bin/pulsar-daemon start broker</span><br></pre></td></tr></table></figure>
-<h3 id="5-客户端配置token"><a href="#5-客户端配置token" class="headerlink" title="5. 客户端配置token"></a>5. 客户端配置token</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">authPlugin=org.apache.pulsar.client.impl.auth.AuthenticationToken</span><br><span class="line"></span><br><span class="line"> # Parameters passed to authentication plugin.</span><br><span class="line"> # A comma separated list of key:value pairs.</span><br><span class="line"> # Keys depend on the configured authPlugin.</span><br><span class="line"> # e.g. for TLS</span><br><span class="line"> # authParams=tlsCertFile:/path/to/client-cert.pem,tlsKeyFile:/path/to/client-key.pem</span><br><span class="line"> authParams=token:eyJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIiLCJleHAiOjE1ODI2NDMxMjF9.O-Qgfzn9xB7KMBl8tgaifw-vFVg9OLqiHm9bGU-xS09soCsqjMP9xVlXStRybQrbsDAx_AFIezlafqIzPIfJWHEjZ46iTK7EaBo11Phd72ArQKa-JWR2TSO6xBFl0LSp2DkWYljIzkK8wAggsTC23uPKsGZ2hAwK9zehJytOER7WN6uYeN0B3dANSmX8WsbAw1nHyp-l1vcCeAA5wHcIXjd-yGB8fV6olJTHH743JDCXVVl3EJ2Lz6C_i0m6nkFCfse2VzEnXtVjdpzAyLnvmvp_B5_yG_q7rjHaec6txL78DB-Yl1WSnSVkEWsIQK-XwmDZBUNmnYQjcUO8EJU2xA</span><br></pre></td></tr></table></figure>
-<h3 id="6-启动client"><a href="#6-启动client" class="headerlink" title="6. 启动client"></a>6. 启动client</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">apache-pulsar-2.3.0:  bin/pulsar-admin namespaces grant-permission public/default \</span><br><span class="line">--role test-user \</span><br><span class="line">--actions produce,consume</span><br><span class="line">Namespace does not exist</span><br><span class="line">Reason: Namespace does not exist</span><br><span class="line">apache-pulsar-2.3.0:  bin/pulsar-admin namespaces create public/default   </span><br><span class="line">apache-pulsar-2.3.0:  bin/pulsar-admin namespaces grant-permission public/default \</span><br><span class="line">--role test-user \</span><br><span class="line">--actions produce,consume</span><br><span class="line"></span><br><span class="line">apache-pulsar-2.3.0: bin/pulsar-client consume -s “test1“ test1 -n 0 </span><br><span class="line">apache-pulsar-2.3.0: bin/pulsar-client produce test1  --messages &quot;hello&quot; -n 10</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Pulsar对称算法生成token" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/18/Pulsar对称算法生成token/" class="article-date">
-      <time datetime="2019-04-18T01:34:36.000Z" itemprop="datePublished">2019-04-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/Pulsar对称算法生成token/">Pulsar对称算法生成token</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="1-创建broker端需要用到的secret-key文件："><a href="#1-创建broker端需要用到的secret-key文件：" class="headerlink" title="1. 创建broker端需要用到的secret-key文件："></a>1. 创建broker端需要用到的secret-key文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar tokens create-secret-key --output my-secret.key</span><br></pre></td></tr></table></figure>
-<h3 id="2-使用key来给客户端创建一个token："><a href="#2-使用key来给客户端创建一个token：" class="headerlink" title="2. 使用key来给客户端创建一个token："></a>2. 使用key来给客户端创建一个token：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.key --subject test-user</span><br><span class="line">eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIifQ.LMZb6Tz0ISwMlsOcFlbq54wrvFxjO_Rbzcb1JP31fy4</span><br></pre></td></tr></table></figure>
-<h3 id="管理用户"><a href="#管理用户" class="headerlink" title="管理用户"></a>管理用户</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar tokens create --secret-key file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.key --subject admin </span><br><span class="line">\  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiJ9.d01pOIPdo9MF_Pd6hsl2vqFZ5dOPYgnHi2kNDENASsg</span><br></pre></td></tr></table></figure>
-<p>需要把这个返回的token配置到client的配置文件中。</p>
-<h3 id="3-broker的配置使用secret-key文件："><a href="#3-broker的配置使用secret-key文件：" class="headerlink" title="3. broker的配置使用secret-key文件："></a>3. broker的配置使用secret-key文件：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"># Enable authentication</span><br><span class="line">authenticationEnabled=true</span><br><span class="line"> </span><br><span class="line"># Autentication provider name list, which is comma separated list of class names</span><br><span class="line">authenticationProviders=org.apache.pulsar.broker.authentication.AuthenticationProviderToken</span><br><span class="line"> </span><br><span class="line"> # Enforce authorization</span><br><span class="line">authorizationEnabled=true</span><br><span class="line"> </span><br><span class="line"># Authorization provider fully qualified class-name</span><br><span class="line"> authorizationProvider=org.apache.pulsar.broker.authorization.PulsarAuthorizationProvider</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">tokenSecretKey=file:///mnt/hdb/apache-pulsar-2.3.0/my-secret.key</span><br><span class="line"> # Allow wildcard matching in authorization</span><br><span class="line"># (wildcard matching only applicable if wildcard-char:</span><br><span class="line"># * presents at first or last position eg: *.pulsar.service, pulsar.service.*)</span><br><span class="line">authorizationAllowWildcardsMatching=false</span><br><span class="line"> </span><br><span class="line"> # Role names that are treated as &quot;super-user&quot;, meaning they will be able to do all admin</span><br><span class="line"> # operations and publish/consume from all topics</span><br><span class="line">superUserRoles=test-user</span><br></pre></td></tr></table></figure>
-<h3 id="4-启动pulsar"><a href="#4-启动pulsar" class="headerlink" title="4. 启动pulsar"></a>4. 启动pulsar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd /mnt/hdb/apache-pulsar-2.2.0/ </span><br><span class="line">bin/pulsar-daemon start bookie</span><br><span class="line">bin/pulsar-daemon start broker</span><br></pre></td></tr></table></figure>
-<h3 id="5-客户端配置token"><a href="#5-客户端配置token" class="headerlink" title="5. 客户端配置token"></a>5. 客户端配置token</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">authPlugin=org.apache.pulsar.client.impl.auth.AuthenticationToken</span><br><span class="line"></span><br><span class="line"> # Parameters passed to authentication plugin.</span><br><span class="line"> # A comma separated list of key:value pairs.</span><br><span class="line"> # Keys depend on the configured authPlugin.</span><br><span class="line"> # e.g. for TLS</span><br><span class="line"> # authParams=tlsCertFile:/path/to/client-cert.pem,tlsKeyFile:/path/to/client-key.pem</span><br><span class="line"> authParams=eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0LXVzZXIifQ.LMZb6Tz0ISwMlsOcFlbq54wrvFxjO_Rbzcb1JP31fy4</span><br></pre></td></tr></table></figure>
-<h3 id="6-启动client"><a href="#6-启动client" class="headerlink" title="6. 启动client"></a>6. 启动client</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin tenants create testSmsTenant \</span><br><span class="line">--admin-roles admin</span><br><span class="line"></span><br><span class="line">bin/pulsar-admin namespaces create -b 36  testSmsTenant/testSmsNamespace</span><br><span class="line">bin/pulsar-admin namespaces set-clusters testSmsTenant/testSmsNamespace -c  pulsar-cluster-2</span><br><span class="line"></span><br><span class="line">bin/pulsar-admin namespaces grant-permission testSmsTenant/testSmsNamespace \</span><br><span class="line">--role test-user \</span><br><span class="line">--actions produce,consume</span><br><span class="line">bin/pulsar-admin namespaces permissions   testSmsTenant/testSmsNamespace</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Pulsar测试脚本" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Pulsar测试脚本" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2019/04/18/Pulsar测试脚本/" class="article-date">
@@ -396,12 +270,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/Pulsar测试脚本/">Pulsar测试脚本</a>
+    <h1 class="article-title" itemprop="name">
+      Pulsar测试脚本
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -532,625 +413,112 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Pulsar安装" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/18/Pulsar安装/" class="article-date">
-      <time datetime="2019-04-18T01:34:03.000Z" itemprop="datePublished">2019-04-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
+
+
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/Pulsar安装/">Pulsar安装</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="一、部署一个Pulsar集群包括以下步骤-由先到后-："><a href="#一、部署一个Pulsar集群包括以下步骤-由先到后-：" class="headerlink" title="一、部署一个Pulsar集群包括以下步骤(由先到后)："></a>一、部署一个Pulsar集群包括以下步骤(由先到后)：</h3><ul>
-<li>部署一个ZooKeeper集群 (可选的)</li>
-<li>初始化集群元数据</li>
-<li>部署一个BookKeeper集群</li>
-<li>部署至少一个Pulsar的broker<h3 id="二、准备工作"><a href="#二、准备工作" class="headerlink" title="二、准备工作"></a>二、准备工作</h3>至少6台linux机器或者虚拟机<br>3台一组的ZooKeeper集群<br>3台Pulsar的broker，还有一个 BookKeeper 的bookie<br><img src="/2019/04/18/Pulsar安装/jgt.png" alt><h3 id="三、安装Zookeeper集群"><a href="#三、安装Zookeeper集群" class="headerlink" title="三、安装Zookeeper集群"></a>三、安装Zookeeper集群</h3><h4 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install java-1.8.0-openjdk</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="下载并解压"><a href="#下载并解压" class="headerlink" title="下载并解压"></a>下载并解压</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.12.tar.gz —C /usr/local</span><br></pre></td></tr></table></figure>
-<h4 id="改名"><a href="#改名" class="headerlink" title="改名"></a>改名</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local</span><br><span class="line">mv zookeeper-3.4.12 zookeeper</span><br></pre></td></tr></table></figure>
-<p>上面的操作，三台虚拟机相同</p>
-<h4 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h4><p>将/conf目录下的zoo_sample.cfg文件拷贝一份， 命名为为zoo.cfg<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/zookeeper/conf</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure></p>
-<p>vi zoo.cfg<br>增加以下配置<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dataDir=/opt/zookeeper/data</span><br><span class="line">dataLog=/opt/zookeeper/dataLog</span><br><span class="line">server.1= 10.5.12.181:2888:3888</span><br><span class="line">server.2= 10.5.12.182:2888:3888</span><br><span class="line">server.3= 10.5.12.187:2888:3888</span><br></pre></td></tr></table></figure></p>
-<p>2888 端口号是 zookeeper 服务之间通信的端口。<br>3888 是 zookeeper 与其他应用程序通信的端口。<br>192.168.149.13* 是你的虚拟机ip地址<br>三台虚拟机采用同样的配置</p>
-<blockquote>
-<p>可以用scp命令将zoo.cfg拷贝到另外两台虚拟机中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -P 22 zoo.cfg root@10.5.12.181 /usr/local/zookeeper/conf</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir /opt/zookeeper/data </span><br><span class="line">mkdir /opt/zookeeper/dataLog</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>目录 /opt/zookeeper/data 、/opt/zookeeper/dataLog 分别对应上面的 dataDir 和 dataLog 配置</p>
-</blockquote>
-<h4 id="新建myid文件"><a href="#新建myid文件" class="headerlink" title="新建myid文件"></a>新建myid文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/zookeeper/data</span><br><span class="line">虚拟机1: echo 1 &gt;&gt; myid</span><br><span class="line">虚拟机2: echo 2 &gt;&gt; myid</span><br><span class="line">虚拟机3: echo 3 &gt;&gt; myid</span><br></pre></td></tr></table></figure>
-<p>server.1中的这个 1 需要和虚拟机1上的dataDir目录中的myid文件中的数值对应<br>server.2中的这个 2 需要和虚拟机2上的dataDir目录中的myid文件中的数值对应<br>server.3中的这个 3 需要和虚拟机3上的dataDir目录中的myid文件中的数值对应</p>
-<h4 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/zookeeper/bin</span><br><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
-<h4 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>如果报错、很可能是因为防火墙， 关闭防火墙就好了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld.service</span><br><span class="line">systemctl disable firewalld.service （开启不启动</span><br></pre></td></tr></table></figure></p>
-</blockquote>
-<h3 id="四、安装Pulsar"><a href="#四、安装Pulsar" class="headerlink" title="四、安装Pulsar"></a>四、安装Pulsar</h3><h4 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://archive.apache.org/dist/pulsar/pulsar-2.2.1/apache-pulsar-2.2.1-bin.tar.gz</span><br><span class="line"> tar xvzf apache-pulsar-2.2.1-bin.tar.gz</span><br><span class="line"> cd apache-pulsar-2.2.1</span><br></pre></td></tr></table></figure>
-<h4 id="2-修改Broker-的配置文件"><a href="#2-修改Broker-的配置文件" class="headerlink" title="2.修改Broker 的配置文件"></a>2.修改Broker 的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi conf/broker.conf</span><br><span class="line"># Zookeeper quorum connection string</span><br><span class="line">zookeeperServers=10.5.12.181:2181</span><br><span class="line"></span><br><span class="line"># Configuration Store connection string</span><br><span class="line">configurationStoreServers=10.5.12.181:2181</span><br></pre></td></tr></table></figure>
-<h4 id="3-修改Bookkeeper的配置文件"><a href="#3-修改Bookkeeper的配置文件" class="headerlink" title="3.修改Bookkeeper的配置文件"></a>3.修改Bookkeeper的配置文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vi conf/bookkeeper.conf</span><br><span class="line"># zkServers=zk1:2181,zk2:2181,zk3:2181</span><br><span class="line">zkServers=10.5.12.181:2181</span><br></pre></td></tr></table></figure>
-<h4 id="4-初始化元数据"><a href="#4-初始化元数据" class="headerlink" title="4.初始化元数据"></a>4.初始化元数据</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar initialize-cluster-metadata \</span><br><span class="line">--cluster pulsar-cluster-1 \</span><br><span class="line">--zookeeper  10.5.12.181:2181 \</span><br><span class="line">--configuration-store  10.5.12.181:2181 \</span><br><span class="line">--web-service-url  http://10.5.74.16:8080 \</span><br><span class="line">--web-service-url-tls  https://10.5.74.16:8443 \</span><br><span class="line">--broker-service-url pulsar://10.5.74.16:6650 \</span><br><span class="line">--broker-service-url-tls pulsar+ssl://10.5.74.16:6651</span><br></pre></td></tr></table></figure>
-<h4 id="5-启动Bookkeeper"><a href="#5-启动Bookkeeper" class="headerlink" title="5.启动Bookkeeper"></a>5.启动Bookkeeper</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-daemon start bookie</span><br></pre></td></tr></table></figure>
-<h4 id="6-启动Broker"><a href="#6-启动Broker" class="headerlink" title="6.启动Broker"></a>6.启动Broker</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-daemon start broker</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Pulsar生产系统规划建议" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/18/Pulsar生产系统规划建议/" class="article-date">
-      <time datetime="2019-04-18T01:33:46.000Z" itemprop="datePublished">2019-04-18</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/04/18/Pulsar对称算法生成token/">
+                    Pulsar对称算法生成token
+                </a>
+            </div>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/Pulsar生产系统规划建议/">Pulsar生产系统规划建议</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h4 id="堆积策略"><a href="#堆积策略" class="headerlink" title="堆积策略"></a>堆积策略</h4><h5 id="查看堆积策略"><a href="#查看堆积策略" class="headerlink" title="查看堆积策略"></a>查看堆积策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces get-backlog-quotas testTenant/testNamespace</span><br></pre></td></tr></table></figure>
-<h5 id="设置堆积策略"><a href="#设置堆积策略" class="headerlink" title="设置堆积策略"></a>设置堆积策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces set-backlog-quota testTenant/testNamespace \</span><br><span class="line">--limit 1G \</span><br><span class="line">--policy producer_request_hold</span><br></pre></td></tr></table></figure>
-<h5 id="清除堆积策略"><a href="#清除堆积策略" class="headerlink" title="清除堆积策略"></a>清除堆积策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces clear-backlog  testTenant/testNamespace</span><br></pre></td></tr></table></figure>
-<h4 id="消费过的数据保留空间大小"><a href="#消费过的数据保留空间大小" class="headerlink" title="消费过的数据保留空间大小"></a>消费过的数据保留空间大小</h4><h5 id="查询保留策略"><a href="#查询保留策略" class="headerlink" title="查询保留策略"></a>查询保留策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces get-retention testTenant/testNamespace</span><br></pre></td></tr></table></figure>
-<h5 id="设置保留策略"><a href="#设置保留策略" class="headerlink" title="设置保留策略"></a>设置保留策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces set-retention testTenant/testNamespace  --size 2G  --time 5m</span><br></pre></td></tr></table></figure>
-<h4 id="预测试脚本"><a href="#预测试脚本" class="headerlink" title="预测试脚本"></a>预测试脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-perf produce --num-messages 20000000 --rate 280000 --service-url pulsar://10.5.74.31:6650 --size 1000 --max-outstanding 100000 --num-topic 1 --max-connections 1 persistent://testTenant/testNamespace/smoketest-topic-1-partition</span><br></pre></td></tr></table></figure>
-<h4 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h4><p>密钥–》用户–》命名空间–》策略<br>密钥分为对称密钥、非对称密钥</p>
-<h4 id="吞吐量规划"><a href="#吞吐量规划" class="headerlink" title="吞吐量规划"></a>吞吐量规划</h4><p>单机测试最大吞吐量、冗余数据规划、集群整体吞吐量规划<br>跨机房吞吐量规划</p>
-<h4 id="主机配置规划"><a href="#主机配置规划" class="headerlink" title="主机配置规划"></a>主机配置规划</h4><p>单节点内存准备、硬盘规划、网络带宽规划</p>
-<h4 id="schema规划"><a href="#schema规划" class="headerlink" title="schema规划"></a>schema规划</h4><h4 id="灾备集群规划"><a href="#灾备集群规划" class="headerlink" title="灾备集群规划"></a>灾备集群规划</h4><h4 id="线性扩展"><a href="#线性扩展" class="headerlink" title="线性扩展"></a>线性扩展</h4><h4 id="多租户管理"><a href="#多租户管理" class="headerlink" title="多租户管理"></a>多租户管理</h4><h4 id="租户限流"><a href="#租户限流" class="headerlink" title="租户限流"></a>租户限流</h4><h4 id="管理桌面"><a href="#管理桌面" class="headerlink" title="管理桌面"></a>管理桌面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SERVICE_URL=http://10.5.74.31:8080/</span><br><span class="line">docker run -p 8080:80 \</span><br><span class="line">  -e SERVICE_URL=$SERVICE_URL \</span><br><span class="line">  apachepulsar/pulsar-dashboard</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-pulsar总结" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/17/pulsar总结/" class="article-date">
-      <time datetime="2019-04-17T09:57:54.000Z" itemprop="datePublished">2019-04-17</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/17/pulsar总结/">Pulsar消息中间件选型总结</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="Pulsar消息中间件选型细节"><a href="#Pulsar消息中间件选型细节" class="headerlink" title="Pulsar消息中间件选型细节"></a><a href="https://262986832.github.io/2019/03/29/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6pulsar%EF%BC%8C%E9%80%89%E5%9E%8B%E4%B8%8E%E8%AF%84%E6%B5%8B/" target="_blank" rel="noopener">Pulsar消息中间件选型细节</a></h3><h3 id="Pulsar系统架构和设计理念"><a href="#Pulsar系统架构和设计理念" class="headerlink" title="Pulsar系统架构和设计理念"></a><a href="https://262986832.github.io/2019/04/01/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5/" target="_blank" rel="noopener">Pulsar系统架构和设计理念</a></h3><h3 id="Pulsar生产系统规划建议"><a href="#Pulsar生产系统规划建议" class="headerlink" title="Pulsar生产系统规划建议"></a><a href>Pulsar生产系统规划建议</a></h3><h3 id="测试过程产生的其它文章"><a href="#测试过程产生的其它文章" class="headerlink" title="测试过程产生的其它文章"></a>测试过程产生的其它文章</h3><blockquote>
-<p><a href>Pulsar安装脚本</a><br><a href>Pulsar测试脚本</a><br>Pulsar安全认证</p>
-<ul>
-<li><a href>Pulsar对称算法生成token</a></li>
-<li><a href>Pulsar非对称生成token</a><br><a href>pulsar-Debezium-CDC-测试脚本</a></li>
-</ul>
-</blockquote>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pulsar/">pulsar</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/消息中间件/">消息中间件</a></li></ul>
-    </div>
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mysql-常用命令及脑图" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/10/mysql-常用命令及脑图/" class="article-date">
-      <time datetime="2019-04-10T03:08:47.000Z" itemprop="datePublished">2019-04-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/04/18/Pulsar安装/">
+                    Pulsar安装
+                </a>
+            </div>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/10/mysql-常用命令及脑图/">mysql 常用命令及脑图</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h3 id="UPDATE-command-denied-to-user-‘debezium‘-’localhost’-for-table-‘products’"><a href="#UPDATE-command-denied-to-user-‘debezium‘-’localhost’-for-table-‘products’" class="headerlink" title="UPDATE command denied to user ‘debezium‘@’localhost’ for table ‘products’"></a>UPDATE command denied to user ‘debezium‘@’localhost’ for table ‘products’</h3><p>‘’’<br>SELECT USER();<br>SHOW GRANTS FOR  ‘debezium@localhost’<br>GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE ON <code>inventory</code>.* TO ‘debezium@localhost’<br>‘’’</p>
-<h3 id="ERROR-1044-42000-Access-denied-for-user-‘debezium‘-’-’-to-database-‘inventory’"><a href="#ERROR-1044-42000-Access-denied-for-user-‘debezium‘-’-’-to-database-‘inventory’" class="headerlink" title="ERROR 1044 (42000): Access denied for user ‘debezium‘@’%’ to database ‘inventory’"></a>ERROR 1044 (42000): Access denied for user ‘debezium‘@’%’ to database ‘inventory’</h3><p>‘’’<br>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘debezium@localhost’ WITH GRANT OPTION;<br>‘’’</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-pulsar-Debezium-CDC-测试" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/10/pulsar-Debezium-CDC-测试/" class="article-date">
-      <time datetime="2019-04-10T02:39:19.000Z" itemprop="datePublished">2019-04-10</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/10/pulsar-Debezium-CDC-测试/">pulsar Debezium CDC 测试</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="准备配置文件"><a href="#准备配置文件" class="headerlink" title="准备配置文件"></a>准备配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">tenant: &quot;public&quot;</span><br><span class="line">namespace: &quot;default&quot;</span><br><span class="line">name: &quot;debezium-kafka-source&quot;</span><br><span class="line">topicName: &quot;kafka-connect-topic&quot;</span><br><span class="line">archive: &quot;connectors/pulsar-io-kafka-connect-adaptor-2.3.0-SNAPSHOT.nar&quot;</span><br><span class="line"></span><br><span class="line">##autoAck: true</span><br><span class="line">parallelism: 1</span><br><span class="line"></span><br><span class="line">configs:</span><br><span class="line">  ## sourceTask</span><br><span class="line">  task.class: &quot;io.debezium.connector.mysql.MySqlConnectorTask&quot;</span><br><span class="line"></span><br><span class="line">  ## config for mysql, docker image: debezium/example-mysql:0.8</span><br><span class="line">  database.hostname: &quot;localhost&quot;</span><br><span class="line">  database.port: &quot;3306&quot;</span><br><span class="line">  database.user: &quot;debezium&quot;</span><br><span class="line">  database.password: &quot;dbz&quot;</span><br><span class="line">  database.server.id: &quot;184054&quot;</span><br><span class="line">  database.server.name: &quot;dbserver1&quot;</span><br><span class="line">  database.whitelist: &quot;inventory&quot;</span><br><span class="line"></span><br><span class="line">  database.history: &quot;org.apache.pulsar.io.debezium.PulsarDatabaseHistory&quot;</span><br><span class="line">  database.history.pulsar.topic: &quot;history-topic&quot;</span><br><span class="line">  database.history.pulsar.service.url: &quot;pulsar://127.0.0.1:6650&quot;</span><br><span class="line">  ## KEY_CONVERTER_CLASS_CONFIG, VALUE_CONVERTER_CLASS_CONFIG</span><br><span class="line">  key.converter: &quot;org.apache.kafka.connect.json.JsonConverter&quot;</span><br><span class="line">  value.converter: &quot;org.apache.kafka.connect.json.JsonConverter&quot;</span><br><span class="line">  ## PULSAR_SERVICE_URL_CONFIG</span><br><span class="line">  pulsar.service.url: &quot;pulsar://127.0.0.1:6650&quot;</span><br><span class="line">  ## OFFSET_STORAGE_TOPIC_CONFIG</span><br><span class="line">  offset.storage.topic: &quot;offset-topic&quot;</span><br></pre></td></tr></table></figure>
-<h3 id="启动mysql"><a href="#启动mysql" class="headerlink" title="启动mysql"></a>启动mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --rm --name mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=debezium -e MYSQL_USER=mysqluser -e MYSQL_PASSWORD=mysqlpw debezium/example-mysql:0.8</span><br></pre></td></tr></table></figure>
-<h3 id="启动pulsar"><a href="#启动pulsar" class="headerlink" title="启动pulsar"></a>启动pulsar</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar standalone</span><br></pre></td></tr></table></figure>
-<h3 id="启动连接器"><a href="#启动连接器" class="headerlink" title="启动连接器"></a>启动连接器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin source localrun  --sourceConfigFile debezium-mysql-source-config.yaml</span><br></pre></td></tr></table></figure>
-<h3 id="启动消费者，消费消息"><a href="#启动消费者，消费消息" class="headerlink" title="启动消费者，消费消息"></a>启动消费者，消费消息</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-client consume -s &quot;sub-products&quot; public/default/dbserver1.inventory.products -n 0</span><br></pre></td></tr></table></figure>
-<h2 id="结果验证"><a href="#结果验证" class="headerlink" title="结果验证"></a>结果验证</h2><h3 id="操作mysql"><a href="#操作mysql" class="headerlink" title="操作mysql"></a>操作mysql</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use inventory;</span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">mysql&gt; SELECT * FROM  products ;</span><br><span class="line">mysql&gt; UPDATE products SET name=&apos;1111111111&apos; WHERE id=101;</span><br><span class="line">mysql&gt; UPDATE products SET name=&apos;1111111111&apos; WHERE id=107;</span><br></pre></td></tr></table></figure>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>发现有mysql的消息同步过来，证明数据同步成功</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-系统架构和设计理念" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/01/系统架构和设计理念/" class="article-date">
-      <time datetime="2019-04-01T02:34:25.000Z" itemprop="datePublished">2019-04-01</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/01/系统架构和设计理念/">Pulsar系统架构和设计理念</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <h2 id="Pulsar-的分层架构"><a href="#Pulsar-的分层架构" class="headerlink" title="Pulsar 的分层架构"></a>Pulsar 的分层架构</h2><p>Apache Pulsar 和其他消息系统最根本的不同是采用分层架构。<br>Apache Pulsar 集群由两层组成：无状态服务层，由一组接收和传递消息的 Broker 组成；<br>以及一个有状态持久层，由一组名为 bookies 的 Apache BookKeeper 存储节点组成，可持久化地存储消息。<br>下图显示了 Apache Pulsar 的典型部署。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77279003.png" width="800"></div>
-
-<p>在 Pulsar 客户端中提供生产者和消费者（Producer &amp; Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。</p>
-<p>Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。<br>客户端也没有直接的 BookKeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。</p>
-<p>Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。<br>Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。</p>
-<h3 id="Broker-层：无状态服务层"><a href="#Broker-层：无状态服务层" class="headerlink" title="Broker 层：无状态服务层"></a>Broker 层：无状态服务层</h3><p>Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无状态的”，因为 Broker 实际上并不在本地存储任何消息数据。<br>有关 Pulsar 主题的消息，都被存储在分布式日志存储系统（Apache BookKeeper）中。我们将在下一节中更多地讨论 BookKeeper。</p>
-<p>每个主题分区（Topic Partition）由 Pulsar 分配给某个 Broker，该 Broker 称为该主题分区的所有者。<br>Pulsar 生产者和消费者连接到主题分区的所有者 Broker，以向所有者代理发送消息并消费消息。</p>
-<p>如果一个 Broker 失败，Pulsar 会自动将其拥有的主题分区移动到群集中剩余的某一个可用 Broker 中。<br>这里要说的一件事是：由于 Broker 是无状态的，当发生 Topic 的迁移时，Pulsar 只是将所有权从一个 Broker 转移到另一个 Broker，在这个过程中，不会有任何数据复制发生。</p>
-<p>下图显示了一个拥有 4 个 Broker 的 Pulsar 集群，其中 4 个主题分区分布在 4 个 Broker 中。<br>每个 Broker 拥有并为一个主题分区提供消息服务。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7730951f.png" width="800"></div>
-
-<h3 id="BookKeeper-层：持久化存储层"><a href="#BookKeeper-层：持久化存储层" class="headerlink" title="BookKeeper 层：持久化存储层"></a>BookKeeper 层：持久化存储层</h3><p>Apache BookKeeper 是 Apache Pulsar 的持久化存储层。<br>Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。</p>
-<p>每个分布式日志又被分为 Segment 分段。<br>每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。<br>Segment 的创建时机包括以下几种：<br>基于配置的 Segment 大小；<br>基于配置的滚动时间；<br>或者当 Segment 的所有者被切换。<br>通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。<br>这意味着主题分区的大小不仅受一个节点容量的限制；<br>相反，它可以扩展到整个 BookKeeper 集群的总容量。</p>
-<p>下面的图说明了一个分为 x 个 Segment 段的主题分区。<br>每个 Segment 段存储 3 个副本。<br>所有 Segment 都分布并存储在 4 个 Bookie 中。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae772bb849.png" width="800"></div>
-
-<h4 id="Segment-为中心的存储"><a href="#Segment-为中心的存储" class="headerlink" title="Segment 为中心的存储"></a>Segment 为中心的存储</h4><p>存储服务的分层的架构 和 以 Segment 为中心的存储 是 Apache Pulsar（使用 Apache BookKeeper）的两个关键设计理念。<br>这两个基础为 Pulsar 提供了许多重要的好处：</p>
-<ul>
-<li>无限制的主题分区存储</li>
-<li>即时扩展，无需数据迁移<ol>
-<li>无缝 Broker 故障恢复</li>
-<li>无缝集群扩展</li>
-<li>无缝的存储（Bookie）故障恢复</li>
-</ol>
-</li>
-<li>独立的可扩展性</li>
-</ul>
-<p>下面我们分别展开来看这几个好处。</p>
-<h5 id="无限制的主题分区存储"><a href="#无限制的主题分区存储" class="headerlink" title="无限制的主题分区存储"></a>无限制的主题分区存储</h5><p>由于主题分区被分割成 Segment 并在 Apache BookKeeper 中以分布式方式存储，因此主题分区的容量不受任何单一节点容量的限制。<br>相反，主题分区可以扩展到整个 BookKeeper 集群的总容量，只需添加 Bookie 节点即可扩展集群容量。<br>这是 Apache Pulsar 支持存储无限大小的流数据，并能够以高效，分布式方式处理数据的关键。<br>使用 Apache BookKeeper 的分布式日志存储，对于统一消息服务和存储至关重要。</p>
-<h5 id="即时扩展，无需数据迁移"><a href="#即时扩展，无需数据迁移" class="headerlink" title="即时扩展，无需数据迁移"></a>即时扩展，无需数据迁移</h5><p>由于消息服务和消息存储分为两层，因此将主题分区从一个 Broker 移动到另一个 Broker 几乎可以瞬时内完成，而无需任何数据重新平衡（将数据从一个节点重新复制到另一个节点）。<br>这一特性对于高可用的许多方面至关重要，例如集群扩展；对 Broker 和 Bookie 失败的快速应对。 </p>
-<h6 id="无缝-Broker-故障恢复"><a href="#无缝-Broker-故障恢复" class="headerlink" title="无缝 Broker 故障恢复"></a>无缝 Broker 故障恢复</h6><p>下图说明了 Pulsar 如何处理 Broker 失败的示例。<br>在例子中 Broker 2 因某种原因（例如停电）而断开。<br>Pulsar 检测到 Broker 2 已关闭，并立即将 Topic1-Part2 的所有权从 Broker 2 转移到 Broker 3。<br>在 Pulsar 中数据存储和数据服务分离，所以当代理 3 接管 Topic1-Part2 的所有权时，它不需要复制 Partiton 的数据。<br>如果有新数据到来，它立即附加并存储为 Topic1-Part2 中的 Segment x + 1。<br>Segment x + 1 被分发并存储在 Bookie1, 2 和 4 上。因为它不需要重新复制数据，所以所有权转移立即发生而不会牺牲主题分区的可用性。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae77366fe5.png" width="800"></div>
-
-<h6 id="无缝集群容量扩展"><a href="#无缝集群容量扩展" class="headerlink" title="无缝集群容量扩展"></a>无缝集群容量扩展</h6><p>下图说明了 Pulsar 如何处理集群的容量扩展。<br>当 Broker 2 将消息写入 Topic1-Part2 的 Segment X 时，将 Bookie X 和 Bookie Y 添加到集群中。<br>Broker 2 立即发现新加入的 Bookies X 和 Y。然后 Broker 将尝试将 Segment X + 1 和 X + 2 的消息存储到新添加的 Bookie 中。<br>新增加的 Bookie 立刻被使用起来，流量立即增加，而不会重新复制任何数据。<br>除了机架感知和区域感知策略之外，Apache BookKeeper 还提供资源感知的放置策略，以确保流量在群集中的所有存储节点之间保持平衡。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae7747779e.png" width="800"></div>
-
-<h6 id="无缝的存储（Bookie）故障恢复"><a href="#无缝的存储（Bookie）故障恢复" class="headerlink" title="无缝的存储（Bookie）故障恢复"></a>无缝的存储（Bookie）故障恢复</h6><p>下图说明了 Pulsar（通过 Apache BookKeeper）如何处理 bookie 的磁盘故障。<br>这里有一个磁盘故障导致存储在 bookie 2 上的 Segment 4 被破坏。<br>Apache BookKeeper 后台会检测到这个错误并进行复制修复。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae773e0cd5.png" width="800"></div>
-
-<p>Apache BookKeeper 中的副本修复是 Segment（甚至是 Entry）级别的多对多快速修复，这比重新复制整个主题分区要精细，只会复制必须的数据。<br>这意味着 Apache BookKeeper 可以从 bookie 3 和 bookie 4 读取 Segment 4 中的消息，并在 bookie 1 处修复 Segment 4。<br>所有的副本修复都在后台进行，对 Broker 和应用透明。<br>即使有 Bookie 节点出错的情况发生时，通过添加新的可用的 Bookie 来替换失败的 Bookie，所有 Broker 都可以继续接受写入，而不会牺牲主题分区的可用性。</p>
-<h5 id="独立的可扩展性"><a href="#独立的可扩展性" class="headerlink" title="独立的可扩展性"></a>独立的可扩展性</h5><p>由于消息服务层和持久存储层是分开的，因此 Apache Pulsar 可以独立地扩展存储层和服务层。这种独立的扩展，更具成本效益：</p>
-<ul>
-<li><p>当您需要支持更多的消费者或生产者时，您可以简单地添加更多的 Broker。<br>主题分区将立即在 Brokers 中做平衡迁移，一些主题分区的所有权立即转移到新的 Broker。</p>
-</li>
-<li><p>当您需要更多存储空间来将消息保存更长时间时，您只需添加更多 Bookie。<br>通过智能资源感知和数据放置，流量将自动切换到新的 Bookie 中。<br>Apache Pulsar 中不会涉及到不必要的数据搬迁，不会将旧数据从现有存储节点重新复制到新存储节点。</p>
-<h2 id="Pulsar-VS-Kafka"><a href="#Pulsar-VS-Kafka" class="headerlink" title="Pulsar VS. Kafka"></a>Pulsar VS. Kafka</h2><p>Apache Kafka 和 Apache Pulsar 都有类似的消息概念。<br>客户端通过主题与消息系统进行交互。 每个主题都可以分为多个分区。<br>然而，Apache Pulsar 和 Apache Kafka 之间的根本区别在于 Apache Kafka 是以分区为存储中心，而 Apache Pulsar 是以 Segment 为存储中心。</p>
-<div align="center"><img src="/2019/04/01/系统架构和设计理念/5beae774be269.png" width="800"></div>
-
-</li>
-</ul>
-<p>上图显示了以分区为中心和以 Segment 为中心的系统之间的差异。</p>
-<h3 id="Apache-Kafka"><a href="#Apache-Kafka" class="headerlink" title="Apache Kafka"></a>Apache Kafka</h3><p>在 Apache Kafka 中，分区只能存储在单个节点上并复制到其他节点，其容量受最小节点容量的限制。<br>这意味着容量扩展需要对分区重新平衡，这反过来又需要重新复制整个分区，以平衡新添加的代理的数据和流量。</p>
-<p>重新传输数据非常昂贵且容易出错，并且会消耗网络带宽和 I/O。维护人员在执行此操作时必须非常小心，以避免破坏生产系统。</p>
-<p>Kafka 中分区数据的重新拷贝不仅发生在以分区为中心的系统中的群集扩展上。<br>许多其他事情也会触发数据重新拷贝，例如副本故障，磁盘故障或计算机的故障。在数据重新复制期间，分区通常不可用，直到数据重新复制完成。<br>例如，如果您将分区配置为存储为 3 个副本，这时，如果丢失了一个副本，则必须重新复制完整个分区后，分区才可以再次可用。</p>
-<p>Kafka 中分区数据的重新拷贝不仅发生在以分区为中心的系统中的群集扩展上。<br>许多其他事情也会触发数据重新拷贝，例如副本故障，磁盘故障或计算机的故障。在数据重新复制期间，分区通常不可用，直到数据重新复制完成。<br>例如，如果您将分区配置为存储为 3 个副本，这时，如果丢失了一个副本，则必须重新复制完整个分区后，分区才可以再次可用。</p>
-<p>在用户遇到故障之前，通常会忽略这种缺陷，因为许多情况下，在短时间内仅是对内存中缓存数据的读取。<br>当数据被保存到磁盘后，用户将越来越多地不可避免地遇到数据丢失，故障恢复的问题，特别是在需要将数据长时间保存的场合。</p>
-<h3 id="Apache-Pulsar"><a href="#Apache-Pulsar" class="headerlink" title="Apache Pulsar"></a>Apache Pulsar</h3><p>相反，在 Apache Pulsar 中，同样是以分区为逻辑单元，但是以 Segment 为物理存储单元。<br>分区随着时间的推移会进行分段，并在整个集群中均衡分布，旨在有效地迅速地扩展。</p>
-<p>Pulsar 是以 Segment 为中心的，因此在扩展容量时不需要数据重新平衡和拷贝，旧数据不会被重新复制，这要归功于在 Apache BookKeeper 中使用可扩展的以 Segment 为中心的分布式日志存储系统。</p>
-<p>通过利用分布式日志存储，Pulsar 可以最大化 Segment 放置选项，实现高写入和高读取可用性。<br>例如，使用 BookKeeper，副本设置等于 2，只要任何 2 个 Bookie 启动，就可以对主题分区进行写入。<br>对于读取可用性，只要主题分区的副本集中有 1 个处于活动状态，用户就可以读取它，而不会出现任何不一致。</p>
-<p>总之，Apache Pulsar 这种独特的基于分布式日志存储的以 Segment 为中心的发布 / 订阅消息系统可以提供许多优势，例如可靠的流式系统，包括无限制的日志存储，无需分区重新平衡的即时扩展，快速复制修复以及通过最大化数据放置实现高写入和读取可用性选项。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-消息中间件pulsar，选型与评测" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/29/消息中间件pulsar，选型与评测/" class="article-date">
-      <time datetime="2019-03-29T02:34:57.000Z" itemprop="datePublished">2019-03-29</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar选型记录</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>我们在选择中间件的过程，主要从两个方面考虑：</p>
-<ul>
-<li>中间件能否满足我的业务系统的场景，并且随着业务系统的发展，最好能一直满足场景的需要。</li>
-<li>性能指标、稳定性、运维能力附属配套是否完善<br>消息中间件的选型过程我们也从这两个角度考虑。<h2 id="业务场景的支持能力"><a href="#业务场景的支持能力" class="headerlink" title="业务场景的支持能力"></a>业务场景的支持能力</h2>对于消息系统，消息模型是首先考虑的事情。消息模型应涵盖以下 3 个方面：</li>
-<li>消息消费——如何发送和消费消息；</li>
-</ul>
-<ul>
-<li>消息确认（ack）——如何确认消息；</li>
-</ul>
-<ul>
-<li>消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；<h3 id="消息消费模型"><a href="#消息消费模型" class="headerlink" title="消息消费模型"></a>消息消费模型</h3>消息传递可以分为两类：队列（Queue）和流（Stream）。<h4 id="队列（Queue）模型"><a href="#队列（Queue）模型" class="headerlink" title="队列（Queue）模型"></a>队列（Queue）模型</h4>队列模型主要是采用无序或者共享的方式来消费消息。通过队列模型，用户可以创建多个消费者从单个管道中接收消息；<br>当一条消息从队列发送出来后，多个消费者中的只有一个（任何一个都有可能）接收和消费这条消息。<br>消息系统的具体实现决定了最终哪个消费者实际接收到消息。<br>队列模型通常与无状态应用程序一起结合使用。<br>无状态应用程序不关心排序，但它们确实需要能够确认（ack）或删除单条消息，以及尽可能地扩展消费并行性的能力。<br>典型的基于队列模型的消息系统包括 RabbitMQ 和 RocketMQ。<h4 id="流式（Stream）模型"><a href="#流式（Stream）模型" class="headerlink" title="流式（Stream）模型"></a>流式（Stream）模型</h4>相比之下，流模型要求消息的消费严格排序或独占消息消费。<br>对于一个管道，使用流式模型，始终只会有一个消费者使用和消费消息。<br>消费者按照消息写入管道的确切顺序接收从管道发送的消息。<br>流模型通常与有状态应用程序相关联。有状态的应用程序更加关注消息的顺序及其状态。<br>消息的消费顺序决定了有状态应用程序的状态。消息的顺序将影响应用程序处理逻辑的正确性。<br>在面向微服务或事件驱动的体系结构中，队列模型和流模型都是必需的。<h4 id="Pulsar-的消息消费模型"><a href="#Pulsar-的消息消费模型" class="headerlink" title="Pulsar 的消息消费模型"></a>Pulsar 的消息消费模型</h4>Apache Pulsar 通过“订阅”，抽象出了统一的: producer-topic-subscription-consumer 消费模型。<br>Pulsar 的消息模型既支持队列模型，也支持流模型。<br>在 Pulsar 的消息消费模型中，Topic 是用于发送消息的通道。<br>每一个 Topic 对应着 Apache BookKeeper 中的一个分布式日志。<br>发布者发布的每条消息只在 Topic 中存储一次；存储的过程中，BookKeeper 会将消息复制存储在多个存储节点上；<br>Topic 中的每条消息，可以根据消费者的订阅需求（subscription），多次被使用，每个订阅对应一个消费者组（Consumer Group）。<br>主题（Topic）是消费消息的真实来源。尽管消息仅在主题（Topic）上存储一次，但是用户可以有不同的订阅方式（subscription）来消费这些消息：</li>
-<li>消费者被组合在一起消费消息，每个消费组是一个订阅（subscription）。</li>
-<li>每个 Topic 可以有不同的消费组（subscription）。</li>
-<li>每组消费者都是对主题的一个订阅。</li>
-<li>每组消费者可以拥有自己不同的消费方式： 独占（Exclusive），故障切换（Failover）或共享（Share）。<br>Pulsar 通过这种模型，将队列模型和流模型这两种模型结合在了一起，提供了统一的 API 接口。<br>这种模型，既不会影响消息系统的性能，也不会带来额外的开销，同时还为用户提供了更多灵活性，方便用户程序以最匹配模式来使用消息系统。<h5 id="独占订阅（Stream-流模型）"><a href="#独占订阅（Stream-流模型）" class="headerlink" title="独占订阅（Stream 流模型）"></a>独占订阅（Stream 流模型）</h5>独占订阅中，在任何时间，一个消费者组（订阅）中有且只有一个消费者来消费 Topic 中的消息。<br>下图是独占订阅的示例。<br>在这个示例中有一个有订阅 A 的活跃消费者 A-0，消息 m0 到 m4 按顺序传送并由 A-0 消费。<br>如果另一个消费者 A-1 想要附加到订阅 A，则是不被允许的。<br><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae5e79a80e.png" width="800"></div><h5 id="故障切换（Stream-流模型）"><a href="#故障切换（Stream-流模型）" class="headerlink" title="故障切换（Stream 流模型）"></a>故障切换（Stream 流模型）</h5>故障切换订阅，多个消费者（Consumer）可以附加到同一订阅。<br>但是，一个订阅中的所有消费者，只会有一个消费者被选为该订阅的主消费者。 其他消费者将被指定为故障转移消费者。<br>当主消费者断开连接时，分区将被重新分配给其中一个故障转移消费者，而新分配的消费者将成为新的主消费者。<br>发生这种情况时，所有未确认（ack）的消息都将传递给新的主消费者。 这类似于 Apache Kafka 中的 Consumer partition rebalance。<br>下图是故障切换订阅的示例。<br>消费者 B-0 和 B-1 通过订阅 B 订阅消费消息。B-0 是主消费者并接收所有消息。<br>B-1 是故障转移消费者，如果消费者 B-0 出现故障，它将接管消费。</li>
-</ul>
-<p><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6144d6c4.png" width="800"></div></p>
-<h5 id="共享订阅（Queue-队列模型）"><a href="#共享订阅（Queue-队列模型）" class="headerlink" title="共享订阅（Queue 队列模型）"></a>共享订阅（Queue 队列模型）</h5><p>使用共享订阅，在同一个订阅背后，用户按照应用的需求挂载任意多的消费者。<br>订阅中的所有消息以循环分发形式发送给订阅背后的多个消费者，并且一个消息仅传递给一个消费者。<br>当消费者断开连接时，所有传递给它但是未被确认（ack）的消息将被重新分配和组织，以便发送给该订阅上剩余的剩余消费者。<br>下图是共享订阅的示例。 消费者 C-1，C-2 和 C-3 都在同一主题上消费消息。 每个消费者接收大约所有消息的 1/3。<br>如果想提高消费的速度，用户不需要不增加分区数量，只需要在同一个订阅中添加更多的消费者。</p>
-<p><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae63bd47f8.png" width="800"></div><br><strong>三种订阅模式的选择</strong><br>独占和故障切换订阅，仅允许一个消费者来使用和消费每个对主题的订阅。<br>这两种模式都按主题分区顺序使用消息。它们最适用于需要严格消息顺序的流（Stream）用例。</p>
-<p>共享订阅允许每个主题分区有多个消费者。同一订阅中的每个消费者仅接收主题分区的一部分消息。<br>共享订阅最适用于不需要保证消息顺序的队列（Queue）的使用模式，并且可以按照需要任意扩展消费者的数量。</p>
-<p>Pulsar 中的订阅实际上与 Apache Kafka 中的 Consumer Group 的概念类似。<br>创建订阅的操作很轻量化，而且具有高度可扩展性，用户可以根据应用的需要创建任意数量的订阅。<br>对同一主题的不同订阅，也可以采用不同的订阅类型。比如用户可以在同一主题上可以提供一个包含 3 个消费者的故障切换订阅，同时也提供一个包含 20 个消费者的共享订阅，并且可以在不改变分区数量的情况下，向共享订阅添加更多的消费者。<br>下图描绘了一个包含 3 个订阅 A，B 和 C 的主题，并说明了消息如何从生产者流向消费者。</p>
-<p><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6853d2ae.png" width="800"></div><br>除了统一消息 API 之外，由于 Pulsar 主题分区实际上是存储在 Apache BookKeeper 中，它还提供了一个读取 API（Reader），类似于消费者 API（但 Reader 没有游标管理），以便用户完全控制如何使用 Topic 中的消息。</p>
-<h3 id="Pulsar-的消息确认（ACK）"><a href="#Pulsar-的消息确认（ACK）" class="headerlink" title="Pulsar 的消息确认（ACK）"></a>Pulsar 的消息确认（ACK）</h3><p>由于分布式系统的特性，当使用分布式消息系统时，可能会发生故障。<br>比如在消费者从消息系统中的主题消费消息的过程中，消费消息的消费者和服务于主题分区的消息代理（Broker）都可能发生错误。<br>消息确认（ACK）的目的就是保证当发生这样的故障后，消费者能够从上一次停止的地方恢复消费，保证既不会丢失消息，也不会重复处理已经确认（ACK）的消息。</p>
-<p>在 Apache Kafka 中，恢复点通常称为 Offset，更新恢复点的过程称为消息确认或提交 Offset。<br>在 Apache Pulsar 中，每个<strong>订阅中</strong>都使用一个专门的数据结构–游标（Cursor）来跟踪订阅中的每条消息的确认（ACK）状态。<br>每当消费者在主题分区上确认消息时，游标都会更新。更新游标可确保消费者不会再次收到消息。</p>
-<p>Apache Pulsar 提供两种消息确认方法，单条确认（Individual Ack）和累积确认（Cumulative Ack）。<br>通过累积确认，消费者只需要确认它收到的最后一条消息。主题分区中的所有消息（包括）提供消息 ID 将被标记为已确认，并且不会再次传递给消费者。累积确认与 Apache Kafka 中的 Offset 更新类似。</p>
-<p>Apache Pulsar 可以支持消息的单条确认，也就是选择性确认。消费者可以单独确认一条消息。 被确认后的消息将不会被重新传递。</p>
-<p>下图说明了单条确认和累积确认的差异（灰色框中的消息被确认并且不会被重新传递）。在图的上半部分，它显示了累计确认的一个例子，M12 之前的消息被标记为 acked。在图的下半部分，它显示了单独进行 acking 的示例。仅确认消息 M7 和 M12 - 在消费者失败的情况下，除了 M7 和 M12 之外，其他所有消息将被重新传送。</p>
-<p><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6b6e2ac0.png" width="800"></div><br><strong>独占订阅或故障切换订阅</strong>的消费者能够对消息进行单条确认和累积确认；<br>共享订阅的消费者只允许对消息进行单条确认。单条确认消息的能力为处理消费者故障提供了更好的体验。<br>对于某些应用来说，处理一条消息可能需要很长时间或者非常昂贵，防止重新传送已经确认的消息非常重要。</p>
-<p>这个管理 Ack 的专门的数据结构–游标（Cursor），由 Broker 来管理，利用 BookKeeper 的 Ledger 提供存储，在后面的文章中我们会介绍更多的关于游标（Cursor）的细节。</p>
-<p>Apache Pulsar 提供了灵活的消息消费订阅类型和消息确认方法，通过简单的统一的 API，就可以支持各种消息和流的使用场景。</p>
-<h3 id="Pulsar-的消息保留（Retention）"><a href="#Pulsar-的消息保留（Retention）" class="headerlink" title="Pulsar 的消息保留（Retention）"></a>Pulsar 的消息保留（Retention）</h3><p>在消息被确认后，Pulsar 的 Broker 会更新对应的游标。当 Topic 里面中的一条消息，被<strong>所有的订阅都确认 ack </strong>后，才能删除这条消息。<br>Pulsar 还允许通过设置保留时间，将消息保留更长时间，即使所有订阅已经确认消费了它们。</p>
-<p>下图说明了如何在有 2 个订阅的主题中保留消息。<br>订阅 A 在 M6 和订阅 B 已经消耗了 M10 之前的所有消息之前已经消耗了所有消息。这意味着 M6 之前的所有消息（灰色框中）都可以安全删除。<br>订阅 A 仍未使用 M6 和 M9 之间的消息，无法删除它们。如果主题配置了消息保留期，则消息 M0 到 M5 将在配置的时间段内保持不变，即使 A 和 B 已经确认消费了它们。</p>
-<p><div align="center"><img src="/2019/03/29/消息中间件pulsar，选型与评测/5beae6f4a9ee3.png" width="800"></div><br>在消息保留策略中，Pulsar 还支持消息生存时间（TTL）。<br>如果消息未在配置的 TTL 时间段内被任何消费者使用，则消息将自动标记为已确认。<br> 消息保留期消息 TTL 之间的区别在于：<strong>消息保留期作用于标记为已确认并设置为已删除的消息，而 TTL 作用于未 ack 的消息</strong>。<br> 上面的图例中说明了 Pulsar 中的 TTL。 例如，如果订阅 B 没有活动消费者，则在配置的 TTL 时间段过后，消息 M10 将自动标记为已确认，即使没有消费者实际读取该消息。</p>
-<h3 id="Pulsar-VS-Kafka"><a href="#Pulsar-VS-Kafka" class="headerlink" title="Pulsar VS. Kafka"></a>Pulsar VS. Kafka</h3><p>通过以上几个方面，我们对 Pulsar 和 Kafka 在消息模型方面的不同点进行一个总结。</p>
-<p>模型概念<br>Kafka： Producer - topic - consumer group - consumer；</p>
-<p>Pulsar：Producer - topic - subscription - consumer。</p>
-<p>消费模式<br>Kafka： 主要集中在流（Stream）模式，对单个 partition 是独占消费，没有共享（Queue）的消费模式；</p>
-<p>Pulsar：提供了统一的消息模型和 API。流（Stream）模式 – 独占和故障切换订阅方式；队列（Queue）模式 – 共享订阅的方式。</p>
-<p>消息确认（Ack）<br>Kafka： 使用偏移 Offset；</p>
-<p>Pulsar：使用专门的 Cursor 管理。累积确认和 Kafka 效果一样；提供单条或选择性确认。</p>
-<p>消息保留<br>Kafka：根据设置的保留期来删除消息。有可能消息没被消费，过期后被删除。 不支持 TTL。</p>
-<p>Pulsar：消息只有被所有订阅消费后才会删除，不会丢失数据。也允许设置保留期，保留被消费的数据。支持 TTL。</p>
-<p>对比总结<br>Apache Pulsar 将高性能的流（Apache Kafka 所追求的）和灵活的传统队列（RabbitMQ 所追求的）结合到一个统一的消息模型和 API 中。<br>Pulsar 使用统一的 API 为用户提供一个支持流和队列的系统，且具有同样的高性能。程序可以将此统一的 API 用于高性能队列和流式传输，而无需维护两套系统：RabbitMQ 进行队列处理，Kafka 进行流式处理。  </p>
-<h2 id="性能指标、稳定性、运维能力"><a href="#性能指标、稳定性、运维能力" class="headerlink" title="性能指标、稳定性、运维能力"></a>性能指标、稳定性、运维能力</h2><h3 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h3><h4 id="1-Producer只生产，发送速率逐步变大"><a href="#1-Producer只生产，发送速率逐步变大" class="headerlink" title="1.    Producer只生产，发送速率逐步变大"></a>1.    Producer只生产，发送速率逐步变大</h4><ul>
-<li>发送的1000B的消息包，在每秒发送大于100000笔的场景中，由于Broker需要同时持久化两份消息到Bookie中，在吞吐量到达千兆网卡的的上限之前吞吐量逐渐增大。</li>
-<li>在到达千兆网卡的上限之后，随着发送频率增大，时延延长，实际的发送吞吐量也不再增高。<h4 id="2-Producer只生产，分区逐步增多"><a href="#2-Producer只生产，分区逐步增多" class="headerlink" title="2.    Producer只生产，分区逐步增多"></a>2.    Producer只生产，分区逐步增多</h4></li>
-<li>分区能起到负载均衡提高吞吐量的作用。</li>
-<li>在3个Broker和3个分区的情况下，消息的分配比例关系约为2：1：1。为什么不是1：1：1，分配比例的算法需要进一步研究和测试。</li>
-<li>当分区的数目超过100后，发送速率迅速下降，还需进一步测试和研究。<h4 id="3-Producer只生产，主题逐步增多"><a href="#3-Producer只生产，主题逐步增多" class="headerlink" title="3.    Producer只生产，主题逐步增多"></a>3.    Producer只生产，主题逐步增多</h4></li>
-<li>随着topic数目增多，主题均匀的分配到每一个Broker</li>
-<li>主题的分配比例为3个Broker，3个主题的情况下，每个Broker分配到一个主题。</li>
-<li>客户端在主题数目大于10个的时候，直接内存溢出。<h4 id="4-Producer只生产，消息逐渐变大"><a href="#4-Producer只生产，消息逐渐变大" class="headerlink" title="4.    Producer只生产，消息逐渐变大"></a>4.    Producer只生产，消息逐渐变大</h4></li>
-<li>在没有到达硬件资源约束的情况下，系统对各种消息的大小，吞吐量均衡。<h4 id="5-Producer只生产，压缩方式对比"><a href="#5-Producer只生产，压缩方式对比" class="headerlink" title="5.    Producer只生产，压缩方式对比"></a>5.    Producer只生产，压缩方式对比</h4></li>
-<li>采用压缩方式后，可以有效的节省网络带宽。</li>
-<li>压缩率为（39/800000）/（920/100000）=5/1000</li>
-<li>增加客户端的cpu使用率。客户端使用率到达70%的时候，发送速率不在提升，一直保持在800000笔左右。</li>
-<li>LZ4 的压缩方式比ZLIB更节省cpu的运算资源，因此推荐使用LZ4。<h4 id="6-Producer只生产，Bookie-数量、写入数量、确认数量对比"><a href="#6-Producer只生产，Bookie-数量、写入数量、确认数量对比" class="headerlink" title="6.    Producer只生产，Bookie 数量、写入数量、确认数量对比"></a>6.    Producer只生产，Bookie 数量、写入数量、确认数量对比</h4></li>
-<li>EnsembleSize=1; WriteQuorum=1; AckQuorum=1 时延：3.79<br>第一种场景，没有达到网卡的带宽的约束，因此时延比较低。</li>
-<li>EnsembleSize=2; WriteQuorum=2; AckQuorum=1 时延：4.58<br>第二种场景，对比第一种场景，增加了一个写入，因此时延有所增加，但是在合理范围</li>
-<li>EnsembleSize=3; WriteQuorum=2; AckQuorum=1 时延：4.06<br>第三种场景，对比第二种场景，增加了一个的Bookie，时延有所降低。</li>
-<li>EnsembleSize=3; WriteQuorum=2; AckQuorum=2 时延：79<br>第四种场景，对比第三种场景，由于写入确认数目增加，导致时延延长，但是在合理范围。<h4 id="7-Producer只生产，同步刷盘与异步刷盘"><a href="#7-Producer只生产，同步刷盘与异步刷盘" class="headerlink" title="7.    Producer只生产，同步刷盘与异步刷盘"></a>7.    Producer只生产，同步刷盘与异步刷盘</h4></li>
-<li>在没有达到网络带宽上限的情况下，同步刷盘，与异步刷盘，时延差距不大。</li>
-<li>在到达网络带宽的情况下，同步刷屏优于异步刷盘。<h4 id="8-Producer只生产，发送批次时间窗口"><a href="#8-Producer只生产，发送批次时间窗口" class="headerlink" title="8.    Producer只生产，发送批次时间窗口"></a>8.    Producer只生产，发送批次时间窗口</h4></li>
-<li>发送批次时间窗口值扩大，导致发送的不均匀，增加了时延，建议采用默认值。<h4 id="9-Producer只生产，单生产者与多生产者"><a href="#9-Producer只生产，单生产者与多生产者" class="headerlink" title="9.    Producer只生产，单生产者与多生产者"></a>9.    Producer只生产，单生产者与多生产者</h4></li>
-<li>多个生产者，吞吐量变化平稳，时延平稳</li>
-<li>没有采用压缩算法的情况，单个客户端生产者数量增多，会导致客户端直接内存溢出。<h4 id="10-Producer（集成部署、分开部署）"><a href="#10-Producer（集成部署、分开部署）" class="headerlink" title="10.    Producer（集成部署、分开部署）"></a>10.    Producer（集成部署、分开部署）</h4></li>
-<li>集成部署和分开部署，在没有到达资源约束的情况下（网卡带宽约束），时延和吞吐量基本一直。</li>
-<li>在到达资源约束rate=100000的情况下，集成部署往Broker所在的Bookie写一份数据，而分开部署的Broker，需要同时往两个不同的Bookie的机器上，写相同的数据，导致Broker的出口网络带宽，到达上限，因此集成部署比分开部署时延低些。<h4 id="11-Producer生产和Consumer消费同时进行"><a href="#11-Producer生产和Consumer消费同时进行" class="headerlink" title="11.    Producer生产和Consumer消费同时进行"></a>11.    Producer生产和Consumer消费同时进行</h4></li>
-<li>生产与消费同时进行，生产者的时延会延长，但是生产的速率不变</li>
-<li>同时开启生产者和消费者的消费速度，比只开启消费者消费堆积消息速率低</li>
-<li>对于同一主题，生产者和消费者，同时分配到一个Broker上，因此该主机的网卡出现瓶颈，一部分带宽被消费者占用，一部分带宽被Bookie写给另外一个Bookie。因此计划补充设计带宽没有打满的场景<h4 id="13-Consumer消费堆积消息"><a href="#13-Consumer消费堆积消息" class="headerlink" title="13.    Consumer消费堆积消息"></a>13.    Consumer消费堆积消息</h4></li>
-<li>合并部署在消费堆积消息的时候，由于有一部分数据是在本地硬盘上，不用通过网络去其它的主机上取，所以，读取效率会比分开部署快5%左右。<h3 id="破坏性测试"><a href="#破坏性测试" class="headerlink" title="破坏性测试"></a>破坏性测试</h3></li>
-<li>杀死消息的Broker场景中，消息没有丢失、没有重复、没有顺序的问题。</li>
-<li>杀死两个Bookie中的一个Bookie的场景中，消息没有丢失、没有重复、没有顺序的问题。</li>
-<li>隔离Broker与Zookeeper同时没有开启消除重复配置的场景中，Broker发现无法与Zookeeper通信，会重新启动自己，并且会分配新的Broker，此种场景消息没有丢失、没有顺序问题，但是出现消息重复的现象。</li>
-<li>隔离Broker与Zookeeper同时开启消除重复配置的场景中，消息没有丢失、没有顺序问题，没有消息重复的问题。</li>
-<li>隔离Bookie与Zookeeper的场景，消息没有丢失、没有重复、没有顺序的问题。</li>
-<li>杀死3个Bookie中的其中2个Bookie，消息没有丢失、没有重复、没有顺序的问题。</li>
-<li>杀死2个Bookie中的所有的2Bookie，消息没有重复、没有顺序问题，但是出现消息丢失现象，重新启动杀死的2个Bookie中的其中的1个Bookie，消息可以重新读取。<h3 id="指标监控"><a href="#指标监控" class="headerlink" title="指标监控"></a>指标监控</h3></li>
-<li>Pulsar提供了丰富的监控指标输出指标。</li>
-<li>可以容易的与prometheus监控平台对接，采集其监控指标，通过grafana进行图形展现。过程简单有效，因此推荐此种方式进行监控。<h3 id="运维能力"><a href="#运维能力" class="headerlink" title="运维能力"></a>运维能力</h3></li>
-<li>功能测试目的是从运维和管理的角度进行功能测试，Pulsar的管理维度，分成全局集群、区域集群、租户、命名空间、主题、持久化和非持久化等维度进（见下图）。我们针对以上（除了全局集群）维度进行重点功能的测试。Pulsar提供了命令行命令方式、管理客户端方式、管理URL方式，三种方式进行功能管理，管理命令丰富，满足Pulsar集群的日常管理的需要。如果单集群的部署情况下，建议使用默认的命令行管理方式进行管理。<br><img src="/2019/03/29/消息中间件pulsar，选型与评测/jumb744fqq.jpeg" width="800"></li>
-</ul>
-<p><a href="http://localhost:4000/2019/04/01/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5/" title="pulsar系统架构和设计理念" target="_blank" rel="noopener">pulsar系统架构和设计理念</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
+
   
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#环境准备"><span class="toc-number">1.</span> <span class="toc-text">环境准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">1.1.</span> <span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、硬盘写入速度测试"><span class="toc-number">1.1.1.</span> <span class="toc-text">1、硬盘写入速度测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、设置时间同步"><span class="toc-number">1.1.2.</span> <span class="toc-text">2、设置时间同步</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1、磁盘空间"><span class="toc-number">1.2.</span> <span class="toc-text">1、磁盘空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、安装jdk"><span class="toc-number">1.3.</span> <span class="toc-text">2、安装jdk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、安装单节点ZooKeeper"><span class="toc-number">1.4.</span> <span class="toc-text">3、安装单节点ZooKeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、安装Pulsar"><span class="toc-number">1.5.</span> <span class="toc-text">4、安装Pulsar</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#修改broker配置"><span class="toc-number">1.5.1.</span> <span class="toc-text">修改broker配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建数据目录"><span class="toc-number">1.5.2.</span> <span class="toc-text">创建数据目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#修改内存配置"><span class="toc-number">1.5.3.</span> <span class="toc-text">修改内存配置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、安装netdata监控"><span class="toc-number">1.6.</span> <span class="toc-text">5、安装netdata监控</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、初始化pulsar"><span class="toc-number">1.7.</span> <span class="toc-text">6、初始化pulsar</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6、启动"><span class="toc-number">1.8.</span> <span class="toc-text">6、启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#启动zookeeper"><span class="toc-number">1.8.1.</span> <span class="toc-text">启动zookeeper</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动pulsar"><span class="toc-number">1.8.2.</span> <span class="toc-text">启动pulsar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭pulsar"><span class="toc-number">1.8.3.</span> <span class="toc-text">关闭pulsar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启超级用户角色"><span class="toc-number">1.8.4.</span> <span class="toc-text">开启超级用户角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建测试租户"><span class="toc-number">1.8.5.</span> <span class="toc-text">创建测试租户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建测试的命名空间"><span class="toc-number">1.8.6.</span> <span class="toc-text">创建测试的命名空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看堆积策略"><span class="toc-number">1.8.7.</span> <span class="toc-text">查看堆积策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置堆积策略"><span class="toc-number">1.8.8.</span> <span class="toc-text">设置堆积策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动监控"><span class="toc-number">1.8.9.</span> <span class="toc-text">启动监控</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#预测试脚本"><span class="toc-number">1.8.10.</span> <span class="toc-text">预测试脚本</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#一、性能测试"><span class="toc-number">2.</span> <span class="toc-text">一、性能测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Producer只生产，发送速率逐步变大"><span class="toc-number">2.1.</span> <span class="toc-text">1.Producer只生产，发送速率逐步变大</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rate-100000"><span class="toc-number">2.1.1.</span> <span class="toc-text">rate =100000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rate-100000-1"><span class="toc-number">2.1.2.</span> <span class="toc-text">rate =100000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rate-300000"><span class="toc-number">2.1.3.</span> <span class="toc-text">rate =300000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rate-50000"><span class="toc-number">2.1.4.</span> <span class="toc-text">rate =50000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rate-200000"><span class="toc-number">2.1.5.</span> <span class="toc-text">rate =200000</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Producer只生产，分区逐步增多"><span class="toc-number">2.2.</span> <span class="toc-text">2.Producer只生产，分区逐步增多</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#partition-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">partition =1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#partition-3"><span class="toc-number">2.2.2.</span> <span class="toc-text">partition =3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#partition-10"><span class="toc-number">2.2.3.</span> <span class="toc-text">partition =10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#partition-100"><span class="toc-number">2.2.4.</span> <span class="toc-text">partition =100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#partition-1000"><span class="toc-number">2.2.5.</span> <span class="toc-text">partition =1000</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Producer只生产，主题逐步增多"><span class="toc-number">2.3.</span> <span class="toc-text">3.Producer只生产，主题逐步增多</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#topic-1"><span class="toc-number">2.3.1.</span> <span class="toc-text">topic=1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#topic-3"><span class="toc-number">2.3.2.</span> <span class="toc-text">topic=3</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#topic-10"><span class="toc-number">2.3.3.</span> <span class="toc-text">topic=10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#topic-100"><span class="toc-number">2.3.4.</span> <span class="toc-text">topic=100</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Producer只生产，消息逐渐变大"><span class="toc-number">2.4.</span> <span class="toc-text">4.Producer只生产，消息逐渐变大</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#size-100"><span class="toc-number">2.4.1.</span> <span class="toc-text">size=100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#size-500"><span class="toc-number">2.4.2.</span> <span class="toc-text">size=500</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#size-1000"><span class="toc-number">2.4.3.</span> <span class="toc-text">size=1000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#size-2000"><span class="toc-number">2.4.4.</span> <span class="toc-text">size=2000</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Producer只生产，压缩方式对比"><span class="toc-number">2.5.</span> <span class="toc-text">5.Producer只生产，压缩方式对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#compression-NONE"><span class="toc-number">2.5.1.</span> <span class="toc-text">compression= NONE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#compression-LZ4"><span class="toc-number">2.5.2.</span> <span class="toc-text">compression= LZ4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#compression-LZ4-–rate-1000000000"><span class="toc-number">2.5.3.</span> <span class="toc-text">compression= LZ4 –rate 1000000000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#compression-ZLIB"><span class="toc-number">2.5.4.</span> <span class="toc-text">compression= ZLIB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Producer只生产，Bookie-数量、写入数量、确认数量对比"><span class="toc-number">2.6.</span> <span class="toc-text">6.Producer只生产，Bookie 数量、写入数量、确认数量对比</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EnsembleSize-1-WriteQuorum-1-AckQuorum-1"><span class="toc-number">2.6.1.</span> <span class="toc-text">EnsembleSize=1; WriteQuorum=1; AckQuorum=1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EnsembleSize-2-WriteQuorum-2-AckQuorum-1"><span class="toc-number">2.6.2.</span> <span class="toc-text">EnsembleSize=2; WriteQuorum=2; AckQuorum=1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EnsembleSize-3-WriteQuorum-2-AckQuorum-2"><span class="toc-number">2.6.3.</span> <span class="toc-text">EnsembleSize=3; WriteQuorum=2; AckQuorum=2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EnsembleSize-3-WriteQuorum-2-AckQuorum-1"><span class="toc-number">2.6.4.</span> <span class="toc-text">EnsembleSize=3; WriteQuorum=2; AckQuorum=1</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-Producer只生产，同步刷盘与异步刷盘"><span class="toc-number">2.7.</span> <span class="toc-text">7.Producer只生产，同步刷盘与异步刷盘</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#journalSyncData-false"><span class="toc-number">2.7.1.</span> <span class="toc-text">journalSyncData=false</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#journalSyncData-ture"><span class="toc-number">2.7.2.</span> <span class="toc-text">journalSyncData=ture</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Producer只生产，发送批次时间窗口"><span class="toc-number">2.8.</span> <span class="toc-text">8.Producer只生产，发送批次时间窗口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#batch-time-window-1"><span class="toc-number">2.8.1.</span> <span class="toc-text">batch-time-window=1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#batch-time-window-100"><span class="toc-number">2.8.2.</span> <span class="toc-text">batch-time-window=100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#batch-time-window-1000"><span class="toc-number">2.8.3.</span> <span class="toc-text">batch-time-window=1000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#batch-time-window-2000"><span class="toc-number">2.8.4.</span> <span class="toc-text">batch-time-window=2000</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-Producer只生产，单生产者与多生产者"><span class="toc-number">2.9.</span> <span class="toc-text">9.Producer只生产，单生产者与多生产者</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#num-producers-1"><span class="toc-number">2.9.1.</span> <span class="toc-text">num-producers=1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#num-producers-10"><span class="toc-number">2.9.2.</span> <span class="toc-text">num-producers=10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#num-producers-100"><span class="toc-number">2.9.3.</span> <span class="toc-text">num-producers=100</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#num-producers-100-–compression-LZ4"><span class="toc-number">2.9.4.</span> <span class="toc-text">num-producers=100 –compression LZ4</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#num-producers-1000-–compression-LZ4"><span class="toc-number">2.9.5.</span> <span class="toc-text">num-producers=1000 –compression LZ4</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-Producer（集成部署、分开部署）"><span class="toc-number">2.10.</span> <span class="toc-text">10.Producer（集成部署、分开部署）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-集成部署-rate-20000"><span class="toc-number">2.10.1.</span> <span class="toc-text">a)集成部署 rate=20000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-分开部署-rate-20000"><span class="toc-number">2.10.2.</span> <span class="toc-text">b)分开部署 rate=20000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-集成部署rate-50000"><span class="toc-number">2.10.3.</span> <span class="toc-text">c)集成部署rate=50000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-分开部署rate-50000"><span class="toc-number">2.10.4.</span> <span class="toc-text">d)分开部署rate=50000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-集成部署rate-100000"><span class="toc-number">2.10.5.</span> <span class="toc-text">e)集成部署rate=100000</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-分开部署rate-100000"><span class="toc-number">2.10.6.</span> <span class="toc-text">f)分开部署rate=100000</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#11-Producer生产和Consumer消费同时进行的吞吐量1000bytes"><span class="toc-number">2.11.</span> <span class="toc-text">11.Producer生产和Consumer消费同时进行的吞吐量1000bytes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-单生产者，非实时刷盘生产，无消费者消费"><span class="toc-number">2.11.1.</span> <span class="toc-text">a)单生产者，非实时刷盘生产，无消费者消费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-单生产者，非实时刷盘生产，一个消费者消费"><span class="toc-number">2.11.2.</span> <span class="toc-text">b)单生产者，非实时刷盘生产，一个消费者消费</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#12-Producer生产和Consumer消费同时进行的吞吐量200bytes"><span class="toc-number">2.12.</span> <span class="toc-text">12.Producer生产和Consumer消费同时进行的吞吐量200bytes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-单生产者，非实时刷盘生产，无消费者消费-1"><span class="toc-number">2.12.1.</span> <span class="toc-text">a)单生产者，非实时刷盘生产，无消费者消费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-单生产者，非实时刷盘生产，单消费者消费先消费堆积"><span class="toc-number">2.12.2.</span> <span class="toc-text">b)单生产者，非实时刷盘生产，单消费者消费先消费堆积</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#13-Consumer消费堆积消息"><span class="toc-number">2.13.</span> <span class="toc-text">13.Consumer消费堆积消息</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-单消费者，分开部署，一个消费者消费"><span class="toc-number">2.13.1.</span> <span class="toc-text">a)单消费者，分开部署，一个消费者消费</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-单消费者，合并部署，一个消费者消费"><span class="toc-number">2.13.2.</span> <span class="toc-text">b)单消费者，合并部署，一个消费者消费</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、可用性测试"><span class="toc-number">3.</span> <span class="toc-text">二、可用性测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Chaostesting-破坏性测试"><span class="toc-number">3.1.</span> <span class="toc-text">1.Chaostesting 破坏性测试</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景0：-no-fail-test）"><span class="toc-number">3.1.1.</span> <span class="toc-text">测试场景0：(no-fail test）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景1：Kill-the-Topic-Broker-Owner"><span class="toc-number">3.1.2.</span> <span class="toc-text">测试场景1：Kill the Topic Broker Owner</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景2：Kill-a-Bookie-in-the-Current-Ledger-Ensemble-kill-Bookie-test"><span class="toc-number">3.1.3.</span> <span class="toc-text">测试场景2：Kill a Bookie in the Current Ledger Ensemble (kill-Bookie test)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景3：Isolate-the-Topic-Owner-Broker-from-ZooKeeper-isolate-Broker-from-zk-test"><span class="toc-number">3.1.4.</span> <span class="toc-text">测试场景3：Isolate the Topic Owner Broker from ZooKeeper (isolate-Broker-from-zk test)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景4：Isolate-the-Topic-Owner-Broker-from-ZooKeeper-with-Deduplication-Enabled-isolate-Broker-from-zk-test"><span class="toc-number">3.1.5.</span> <span class="toc-text">测试场景4：Isolate the Topic Owner Broker from ZooKeeper with Deduplication Enabled (isolate-Broker-from-zk test)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景5：Isolate-a-Bookie-from-ZooKeeper-isolate-Bookie-from-zk-test"><span class="toc-number">3.1.6.</span> <span class="toc-text">测试场景5：Isolate a Bookie from ZooKeeper (isolate-Bookie-from-zk test)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景6：Kill-Multiple-Bookies-kill-Bookies-n-test"><span class="toc-number">3.1.7.</span> <span class="toc-text">测试场景6：Kill Multiple Bookies (kill-Bookies[n] test)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试场景7：Kill-Qw-Bookies-kill-Bookies-n-test"><span class="toc-number">3.1.8.</span> <span class="toc-text">测试场景7：Kill Qw Bookies (kill-Bookies[n] test)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-老化测试"><span class="toc-number">3.2.</span> <span class="toc-text">2.老化测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、功能性测试"><span class="toc-number">4.</span> <span class="toc-text">三、功能性测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-集群相关："><span class="toc-number">4.1.</span> <span class="toc-text">1.集群相关：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-初始化集群"><span class="toc-number">4.1.1.</span> <span class="toc-text">a)初始化集群</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-列出集群："><span class="toc-number">4.1.2.</span> <span class="toc-text">b)列出集群：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-获取集群配置信息"><span class="toc-number">4.1.3.</span> <span class="toc-text">c)获取集群配置信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-租户管理"><span class="toc-number">4.2.</span> <span class="toc-text">2.租户管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-创建租户"><span class="toc-number">4.2.1.</span> <span class="toc-text">a)创建租户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-列出租户"><span class="toc-number">4.2.2.</span> <span class="toc-text">b)列出租户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-更新租户"><span class="toc-number">4.2.3.</span> <span class="toc-text">c)更新租户</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-命名空间管理"><span class="toc-number">4.3.</span> <span class="toc-text">3.命名空间管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-创建命名空间"><span class="toc-number">4.3.1.</span> <span class="toc-text">a)创建命名空间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-设置持久化策略"><span class="toc-number">4.3.2.</span> <span class="toc-text">b)设置持久化策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-查看持久化策略"><span class="toc-number">4.3.3.</span> <span class="toc-text">c)查看持久化策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-设置积压配合策略"><span class="toc-number">4.3.4.</span> <span class="toc-text">d)设置积压配合策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-查看积压配合策略"><span class="toc-number">4.3.5.</span> <span class="toc-text">e)查看积压配合策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-设置消息存活时间"><span class="toc-number">4.3.6.</span> <span class="toc-text">f)设置消息存活时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#g-清除消息堆积"><span class="toc-number">4.3.7.</span> <span class="toc-text">g)清除消息堆积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h-设置命名空间中每个主题的保留策略"><span class="toc-number">4.3.8.</span> <span class="toc-text">h)设置命名空间中每个主题的保留策略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i-设置消息分发速率"><span class="toc-number">4.3.9.</span> <span class="toc-text">i)设置消息分发速率</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-权限"><span class="toc-number">4.4.</span> <span class="toc-text">4.权限</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-授权"><span class="toc-number">4.4.1.</span> <span class="toc-text">a)授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-查询授权"><span class="toc-number">4.4.2.</span> <span class="toc-text">b)查询授权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-撤销授权"><span class="toc-number">4.4.3.</span> <span class="toc-text">c)撤销授权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Broker"><span class="toc-number">4.5.</span> <span class="toc-text">5.Broker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-列出活跃的Broker"><span class="toc-number">4.5.1.</span> <span class="toc-text">a)列出活跃的Broker</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-列出给定Broker所拥有的命名空间列表"><span class="toc-number">4.5.2.</span> <span class="toc-text">b)列出给定Broker所拥有的命名空间列表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-持久化主题"><span class="toc-number">4.6.</span> <span class="toc-text">6.持久化主题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-列出持久化主题"><span class="toc-number">4.6.1.</span> <span class="toc-text">a)列出持久化主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-授予权限"><span class="toc-number">4.6.2.</span> <span class="toc-text">b)授予权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-得到许可"><span class="toc-number">4.6.3.</span> <span class="toc-text">c)得到许可</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-撤回权限"><span class="toc-number">4.6.4.</span> <span class="toc-text">d)撤回权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-删除主题"><span class="toc-number">4.6.5.</span> <span class="toc-text">e)删除主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f-统计信息"><span class="toc-number">4.6.6.</span> <span class="toc-text">f)统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#g-内部统计信息"><span class="toc-number">4.6.7.</span> <span class="toc-text">g)内部统计信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#h-查询主题"><span class="toc-number">4.6.8.</span> <span class="toc-text">h)查询主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#i-忽略主题"><span class="toc-number">4.6.9.</span> <span class="toc-text">i)忽略主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#j-重新设置游标"><span class="toc-number">4.6.10.</span> <span class="toc-text">j)重新设置游标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#k-查询订阅"><span class="toc-number">4.6.11.</span> <span class="toc-text">k)查询订阅</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#l-解绑订阅"><span class="toc-number">4.6.12.</span> <span class="toc-text">l)解绑订阅</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-主题分区"><span class="toc-number">4.7.</span> <span class="toc-text">7.主题分区</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-创建分区主题"><span class="toc-number">4.7.1.</span> <span class="toc-text">a)创建分区主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-查询分区信息"><span class="toc-number">4.7.2.</span> <span class="toc-text">b)查询分区信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-更新分区主题"><span class="toc-number">4.7.3.</span> <span class="toc-text">c)更新分区主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#d-删除分区"><span class="toc-number">4.7.4.</span> <span class="toc-text">d)删除分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#e-分区主题统计"><span class="toc-number">4.7.5.</span> <span class="toc-text">e)分区主题统计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-Schemas"><span class="toc-number">4.8.</span> <span class="toc-text">8.Schemas</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a-更新主题模板"><span class="toc-number">4.8.1.</span> <span class="toc-text">a)更新主题模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-查询模板"><span class="toc-number">4.8.2.</span> <span class="toc-text">b)查询模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c-删除模板"><span class="toc-number">4.8.3.</span> <span class="toc-text">c)删除模板</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"Pulsar测试脚本　| Fvelement　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/04/18/Pulsar对称算法生成token/" title="上一篇: Pulsar对称算法生成token">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/04/18/Pulsar安装/" title="下一篇: Pulsar安装">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/04/18/Pulsar非对称生成token/">Pulsar非对称生成token</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/18/Pulsar对称算法生成token/">Pulsar对称算法生成token</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/18/Pulsar测试脚本/">Pulsar测试脚本</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/18/Pulsar安装/">Pulsar安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/18/Pulsar生产系统规划建议/">Pulsar生产系统规划建议</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/17/pulsar总结/">Pulsar消息中间件选型总结</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/10/mysql-常用命令及脑图/">mysql 常用命令及脑图</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/10/pulsar-Debezium-CDC-测试/">pulsar Debezium CDC 测试</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/01/系统架构和设计理念/">Pulsar系统架构和设计理念</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/29/消息中间件pulsar，选型与评测/">消息中间件pulsar选型记录</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/centos7同步时间/">centos7同步时间</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/安装logstash/">安装logstash</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/搭建简单的ELK/">搭建简单的ELK</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/从零开始搭建一套日志收集分析系统/">从零开始搭建一套日志收集分析系统</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/docker-compose安装/">docker compose安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/安装kafka/">kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hexo-添加本地图片/">hexo 添加本地图片</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-everyone/">docker 安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/14/hello-world/">Hello World</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">

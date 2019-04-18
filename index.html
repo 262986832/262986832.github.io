@@ -661,7 +661,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/18/Pulsar生产系统规划建议/">Pulsar生产系统规划建议</a>
+      <a class="article-title" href="/2019/04/18/Pulsar生产系统规划建议/">生产系统规划与建设建议</a>
     </h1>
   
 
@@ -671,16 +671,44 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h4 id="堆积策略"><a href="#堆积策略" class="headerlink" title="堆积策略"></a>堆积策略</h4><h5 id="查看堆积策略"><a href="#查看堆积策略" class="headerlink" title="查看堆积策略"></a>查看堆积策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces get-backlog-quotas testTenant/testNamespace</span><br></pre></td></tr></table></figure>
-<h5 id="设置堆积策略"><a href="#设置堆积策略" class="headerlink" title="设置堆积策略"></a>设置堆积策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces set-backlog-quota testTenant/testNamespace \</span><br><span class="line">--limit 1G \</span><br><span class="line">--policy producer_request_hold</span><br></pre></td></tr></table></figure>
-<h5 id="清除堆积策略"><a href="#清除堆积策略" class="headerlink" title="清除堆积策略"></a>清除堆积策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces clear-backlog  testTenant/testNamespace</span><br></pre></td></tr></table></figure>
-<h4 id="消费过的数据保留空间大小"><a href="#消费过的数据保留空间大小" class="headerlink" title="消费过的数据保留空间大小"></a>消费过的数据保留空间大小</h4><h5 id="查询保留策略"><a href="#查询保留策略" class="headerlink" title="查询保留策略"></a>查询保留策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces get-retention testTenant/testNamespace</span><br></pre></td></tr></table></figure>
-<h5 id="设置保留策略"><a href="#设置保留策略" class="headerlink" title="设置保留策略"></a>设置保留策略</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-admin namespaces set-retention testTenant/testNamespace  --size 2G  --time 5m</span><br></pre></td></tr></table></figure>
-<h4 id="预测试脚本"><a href="#预测试脚本" class="headerlink" title="预测试脚本"></a>预测试脚本</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bin/pulsar-perf produce --num-messages 20000000 --rate 280000 --service-url pulsar://10.5.74.31:6650 --size 1000 --max-outstanding 100000 --num-topic 1 --max-connections 1 persistent://testTenant/testNamespace/smoketest-topic-1-partition</span><br></pre></td></tr></table></figure>
-<h4 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h4><p>密钥–》用户–》命名空间–》策略<br>密钥分为对称密钥、非对称密钥</p>
-<h4 id="吞吐量规划"><a href="#吞吐量规划" class="headerlink" title="吞吐量规划"></a>吞吐量规划</h4><p>单机测试最大吞吐量、冗余数据规划、集群整体吞吐量规划<br>跨机房吞吐量规划</p>
-<h4 id="主机配置规划"><a href="#主机配置规划" class="headerlink" title="主机配置规划"></a>主机配置规划</h4><p>单节点内存准备、硬盘规划、网络带宽规划</p>
-<h4 id="schema规划"><a href="#schema规划" class="headerlink" title="schema规划"></a>schema规划</h4><h4 id="灾备集群规划"><a href="#灾备集群规划" class="headerlink" title="灾备集群规划"></a>灾备集群规划</h4><h4 id="线性扩展"><a href="#线性扩展" class="headerlink" title="线性扩展"></a>线性扩展</h4><h4 id="多租户管理"><a href="#多租户管理" class="headerlink" title="多租户管理"></a>多租户管理</h4><h4 id="租户限流"><a href="#租户限流" class="headerlink" title="租户限流"></a>租户限流</h4><h4 id="管理桌面"><a href="#管理桌面" class="headerlink" title="管理桌面"></a>管理桌面</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">SERVICE_URL=http://10.5.74.31:8080/</span><br><span class="line">docker run -p 8080:80 \</span><br><span class="line">  -e SERVICE_URL=$SERVICE_URL \</span><br><span class="line">  apachepulsar/pulsar-dashboard</span><br></pre></td></tr></table></figure>
+        <h3 id="集群规划"><a href="#集群规划" class="headerlink" title="集群规划"></a>集群规划</h3><blockquote>
+<p><a href="https://www.infoq.cn/article/apache-pulsar-geo-replication-part01" target="_blank" rel="noopener">Apache Pulsar 中的地域复制，第 1 篇：概念和功能</a><br><a href="https://www.infoq.cn/article/apache-pulsar-geo-replication-part02" target="_blank" rel="noopener">Apache Pulsar 中的地域复制，第 2 篇：模式和实践</a></p>
+</blockquote>
+<h3 id="租户规划"><a href="#租户规划" class="headerlink" title="租户规划"></a>租户规划</h3><blockquote>
+<p><a href="https://pulsar.apache.org/docs/zh-CN/next/concepts-multi-tenancy/" target="_blank" rel="noopener">多租户</a></p>
+</blockquote>
+<h3 id="命名空间规划"><a href="#命名空间规划" class="headerlink" title="命名空间规划"></a>命名空间规划</h3><blockquote>
+<p><a href="https://pulsar.apache.org/docs/zh-CN/admin-api-namespaces/" target="_blank" rel="noopener">Pulsar的命名空间是主题的逻辑分组</a></p>
+</blockquote>
+<h3 id="安全策略"><a href="#安全策略" class="headerlink" title="安全策略"></a>安全策略</h3><blockquote>
+<p><a href="https://pulsar.apache.org/docs/zh-CN/next/security-overview/" target="_blank" rel="noopener">Pulsar安全</a></p>
+</blockquote>
+<h3 id="积压策略"><a href="#积压策略" class="headerlink" title="积压策略"></a>积压策略</h3><blockquote>
+<p>积压配额可帮助代理在达到特定阈值限制之前限制命名空间的带宽/存储。管理员可以在达到限制后设置此限制并执行以下操作之一。</p>
+<ul>
+<li>阻塞生产者请求：代理会阻塞并不持久生产者请求</li>
+<li>生产者异常：代理会抛出异常并和客户端断开连接</li>
+<li>消费者积压抛弃：代理会开始抛弃积压的消息<br><a href="https://pulsar.apache.org/docs/zh-CN/next/admin-api-namespaces/" target="_blank" rel="noopener">请参考</a></li>
+</ul>
+</blockquote>
+<h3 id="持久化策略"><a href="#持久化策略" class="headerlink" title="持久化策略"></a>持久化策略</h3><blockquote>
+<p><a href="http://pulsar.apache.org/docs/zh-CN/next/cookbooks-retention-expiry/" target="_blank" rel="noopener">持久化策略</a></p>
+</blockquote>
+<h3 id="schema规划"><a href="#schema规划" class="headerlink" title="schema规划"></a>schema规划</h3><blockquote>
+<p><a href="http://pulsar.apache.org/docs/zh-CN/next/concepts-schema-registry/" target="_blank" rel="noopener">Schema管理服务</a></p>
+</blockquote>
+<h3 id="集群吞吐量量规划"><a href="#集群吞吐量量规划" class="headerlink" title="集群吞吐量量规划"></a>集群吞吐量量规划</h3><blockquote>
+<p> 1、单机吞吐量测试</p>
+<ul>
+<li>单机内存：堆6G+堆外6G</li>
+<li>单机cpu：&gt;2核</li>
+<li>单机硬盘：ssd&gt;100G+传统盘&gt;1T<br>2、副本规划</li>
+<li>总副本：&gt;3个副本</li>
+<li>写：&gt;2个副本</li>
+<li>写确认：&gt;1个副本</li>
+</ul>
+</blockquote>
+
       
     </div>
     
@@ -735,11 +763,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Pulsar消息中间件选型细节"><a href="#Pulsar消息中间件选型细节" class="headerlink" title="Pulsar消息中间件选型细节"></a><a href="https://262986832.github.io/2019/03/29/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6pulsar%EF%BC%8C%E9%80%89%E5%9E%8B%E4%B8%8E%E8%AF%84%E6%B5%8B/" target="_blank" rel="noopener">Pulsar消息中间件选型细节</a></h3><h3 id="Pulsar系统架构和设计理念"><a href="#Pulsar系统架构和设计理念" class="headerlink" title="Pulsar系统架构和设计理念"></a><a href="https://262986832.github.io/2019/04/01/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5/" target="_blank" rel="noopener">Pulsar系统架构和设计理念</a></h3><h3 id="Pulsar生产系统规划建议"><a href="#Pulsar生产系统规划建议" class="headerlink" title="Pulsar生产系统规划建议"></a><a href>Pulsar生产系统规划建议</a></h3><h3 id="测试过程产生的其它文章"><a href="#测试过程产生的其它文章" class="headerlink" title="测试过程产生的其它文章"></a>测试过程产生的其它文章</h3><blockquote>
-<p><a href>Pulsar安装脚本</a><br><a href>Pulsar测试脚本</a><br>Pulsar安全认证</p>
+        <h3 id="Pulsar消息中间件选型细节"><a href="#Pulsar消息中间件选型细节" class="headerlink" title="Pulsar消息中间件选型细节"></a><a href="https://262986832.github.io/2019/03/29/%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6pulsar%EF%BC%8C%E9%80%89%E5%9E%8B%E4%B8%8E%E8%AF%84%E6%B5%8B/" target="_blank" rel="noopener">Pulsar消息中间件选型细节</a></h3><h3 id="Pulsar系统架构和设计理念"><a href="#Pulsar系统架构和设计理念" class="headerlink" title="Pulsar系统架构和设计理念"></a><a href="https://262986832.github.io/2019/04/01/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%92%8C%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5/" target="_blank" rel="noopener">Pulsar系统架构和设计理念</a></h3><h3 id="Pulsar生产系统规划与建设建议"><a href="#Pulsar生产系统规划与建设建议" class="headerlink" title="Pulsar生产系统规划与建设建议"></a><a href="https://262986832.github.io/2019/04/18/Pulsar%E7%94%9F%E4%BA%A7%E7%B3%BB%E7%BB%9F%E8%A7%84%E5%88%92%E5%BB%BA%E8%AE%AE/" target="_blank" rel="noopener">Pulsar生产系统规划与建设建议</a></h3><h3 id="测试过程产生的其它文章"><a href="#测试过程产生的其它文章" class="headerlink" title="测试过程产生的其它文章"></a>测试过程产生的其它文章</h3><blockquote>
+<p><a href="https://262986832.github.io/2019/04/18/Pulsar%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">Pulsar安装脚本</a><br><a href="https://262986832.github.io/2019/04/18/Pulsar%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC/" target="_blank" rel="noopener">Pulsar测试脚本</a><br>Pulsar安全认证</p>
 <ul>
-<li><a href>Pulsar对称算法生成token</a></li>
-<li><a href>Pulsar非对称生成token</a><br><a href>pulsar-Debezium-CDC-测试脚本</a></li>
+<li><a href="https://262986832.github.io/2019/04/18/Pulsar%E5%AF%B9%E7%A7%B0%E7%AE%97%E6%B3%95%E7%94%9F%E6%88%90token/" target="_blank" rel="noopener">Pulsar对称算法生成token</a></li>
+<li><a href="https://262986832.github.io/2019/04/18/Pulsar%E9%9D%9E%E5%AF%B9%E7%A7%B0%E7%94%9F%E6%88%90token/" target="_blank" rel="noopener">Pulsar非对称生成token</a><br><a href="https://262986832.github.io/2019/04/10/pulsar-Debezium-CDC-%E6%B5%8B%E8%AF%95/" target="_blank" rel="noopener">pulsar-Debezium-CDC-测试脚本</a></li>
 </ul>
 </blockquote>
 
